@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "target": "ES6",
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["src/components/*"],  // src/components papkasi uchun alias
+      "@hooks/*": ["src/hooks/*"],            // src/hooks papkasi uchun alias
+      "@lib/*": ["src/lib/*"],                // src/lib papkasi uchun alias
+      "@types/*": ["src/types/*"]             // src/types papkasi uchun alias
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "lib/store.js",
+    "src/**/*"  // src papkasidagi barcha fayllarni qo'shish
+  ],
+  "exclude": ["node_modules"]
+}

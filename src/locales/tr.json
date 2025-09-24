@@ -1,0 +1,891 @@
+{
+  "HomePage": {
+    "title": "Merhaba, nasılsınız!",
+    "about": "Ana sayfaya dön"
+  },
+  "Navigation": {
+    "dashboard": "Kontrol Paneli",
+    "materials": "Malzemeler",
+    "inventory": "Envanter",
+    "workshops": "Atölyeler",
+    "transfers": "Transferler",
+    "notifications": "Bildirimler",
+    "history": "Geçmiş",
+    "users": "Kullanıcılar",
+    "processes": "Süreçler",
+    "settings": "Ayarlar"
+  },
+  "Auth": {
+    "logout": "Çıkış",
+    "profile": "Profil",
+    "loginTitle": "Takı Admin Paneli",
+    "loginSubtitle": "Sisteme giriş için bilgilerinizi girin",
+    "username": "Kullanıcı adı",
+    "password": "Şifre",
+    "login": "Giriş Yap",
+    "loggingIn": "Giriş yapılıyor...",
+    "loginFailed": "Giriş başarısız. Tekrar deneyin.",
+    "wrongCredentials": "Yanlış kullanıcı adı veya şifre",
+    "loginError": "Sisteme girişte hata oluştu"
+  },
+  "Common": {
+    "loading": "Yükleniyor...",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "search": "Ara"
+  },
+  "dashboard": {
+    "title": "Ana Sayfa",
+    "subtitle": "Takı işletmesi kontrol paneli",
+    "report": "Rapor",
+    "newTransfer": "Yeni transfer",
+    "stats": {
+      "totalMaterials": "Toplam malzemeler",
+      "fromLastMonth": "geçen aya göre",
+      "activeWorkshops": "Aktif atölyeler",
+      "ofTotalWorkshops": "13 atölyeden",
+      "todayTransfers": "Bugünkü transferler",
+      "fromYesterday": "düne göre",
+      "pending": "Bekleyen",
+      "awaitingConfirmation": "onay bekleniyor"
+    },
+    "charts": {
+      "materialsInventory": "Malzeme envanteri",
+      "materialsInventoryDesc": "Mevcut malzeme miktarları",
+      "weeklyTransfers": "Haftalık transferler",
+      "weeklyTransfersDesc": "Son 7 gün içindeki faaliyet",
+      "workshopStatus": "Atölye durumu",
+      "workshopStatusDesc": "Mevcut atölye faaliyetleri"
+    },
+    "activities": {
+      "recent": "Son aktiviteler",
+      "recentDesc": "Sistemde gerçekleşen son olaylar",
+      "statuses": {
+        "completed": "Tamamlandı",
+        "pending": "Bekliyor",
+        "alert": "Dikkat"
+      },
+      "examples": {
+        "transfer": "Atölye-1’den Atölye-2’ye 250gr altın gönderildi",
+        "completion": "Atölye-3’te temizlik işlemi tamamlandı",
+        "alert": "Atölye-5’te çalışma süresi bitti, malzemeler iade ediliyor"
+      },
+      "times": {
+        "5minAgo": "5 dakika önce",
+        "15minAgo": "15 dakika önce",
+        "1hAgo": "1 saat önce"
+      }
+    },
+    "materials": {
+      "gold": "Altın",
+      "silver": "Gümüş",
+      "diamond": "Elmas",
+      "pearl": "İnci"
+    },
+    "weekdays": {
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt",
+      "sun": "Paz"
+    },
+    "workshopStates": {
+      "active": "Aktif",
+      "busy": "Meşgul",
+      "stopped": "Durduruldu"
+    }
+  },
+  "history": {
+    "title": "Geçmiş",
+    "subtitle": "Önceki işlemler geçmişi",
+    "filters": {
+      "all": "Tümü",
+      "transfers": "Transferler",
+      "materials": "Malzemeler",
+      "workshops": "Atölyeler",
+      "title": "Filtreler",
+      "description": "Geçmiş verileri filtrele ve ara",
+      "search": "Ara",
+      "searchPlaceholder": "Olay veya kullanıcı...",
+      "eventType": "Olay türü",
+      "selectType": "Türünü seç",
+      "user": "Kullanıcı",
+      "selectUser": "Kullanıcıyı seç",
+      "startDate": "Başlangıç tarihi",
+      "endDate": "Bitiş tarihi",
+      "selectDate": "Tarihi seç"
+    },
+    "empty": "Hiçbir olay bulunamadı",
+    "emptyDescription": "Arama kriterlerine uyan hiçbir olay yok.",
+    "table": {
+      "title": "Olaylar geçmişi",
+      "description": "{count} olay bulundu",
+      "date": "Tarih",
+      "user": "Kullanıcı",
+      "action": "Eylem",
+      "details": "Ayrıntılar",
+      "status": "Durum"
+    },
+    "actions": {
+      "view": "Görüntüle",
+      "delete": "Sil",
+      "clearFilters": "Filtreleri temizle",
+      "export": "Dışa aktar"
+    },
+    "stats": {
+      "totalEvents": "Toplam olaylar",
+      "todayEvents": "Bugünkü olaylar",
+      "transfers": "Transferler",
+      "workshopEvents": "Atölye olayları"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Bekliyor",
+      "failed": "Başarısız",
+      "unknown": "Bilinmiyor"
+    },
+    "eventTypes": {
+      "transferCreated": "Transfer oluşturuldu",
+      "transferSent": "Transfer gönderildi",
+      "transferReceived": "Transfer alındı",
+      "workshopTimeout": "Atölye zaman aşımı",
+      "workshopStatusChanged": "Atölye durumu değişti",
+      "materialProcessed": "Malzeme işlendi"
+    }
+  },
+  "inventory": {
+    "title": "Envanter",
+    "subtitle": "Malzeme envanterini yönet",
+    "actions": {
+      "create": "Yeni envanter",
+      "edit": "Düzenle",
+      "delete": "Sil"
+    },
+    "search": {
+      "placeholder": "Envanteri ara..."
+    },
+    "filters": {
+      "all": "Tümü",
+      "byOrganization": "Atölyeye göre filtrele"
+    },
+    "table": {
+      "title": "Envanter listesi",
+      "description": "Toplam {count} envanter kaydı",
+      "columns": {
+        "id": "ID",
+        "material": "Malzeme",
+        "quantity": "Miktar",
+        "organization": "Atölye",
+        "createdAt": "Oluşturulma tarihi",
+        "actions": "Eylemler"
+      }
+    },
+    "form": {
+      "material": "Malzeme",
+      "selectMaterial": "Malzeme seç",
+      "noMaterials": "Malzeme bulunamadı",
+      "organization": "Atölye",
+      "selectOrganization": "Atölye seç",
+      "noOrganizations": "Atölye bulunamadı",
+      "quantity": "Miktar",
+      "example": "Örnek"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yeni envanter yarat",
+        "description": "Sisteme yeni envanter ekle"
+      },
+      "edit": {
+        "title": "Envanteri düzenle",
+        "description": "Envanter bilgilerini güncelle"
+      },
+      "delete": {
+        "title": "Envanteri sil",
+        "description": "Bu envanter kaydını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+        "confirm": "Evet, sil"
+      }
+    },
+    "validation": {
+      "allFieldsRequired": "Lütfen tüm zorunlu alanları doldurun"
+    },
+    "messages": {
+      "created": "Yeni envanter oluşturuldu",
+      "updated": "Envanter bilgileri güncellendi",
+      "deleted": "Envanter silindi",
+      "createError": "Yeni envanter oluşturulurken hata oluştu",
+      "updateError": "Envanter güncellenirken hata oluştu",
+      "deleteError": "Envanter silinirken hata oluştu"
+    },
+    "errors": {
+      "loadError": "Envanter yüklenirken hata oluştu"
+    },
+    "empty": {
+      "title": "Envanter bulunamadı",
+      "noResults": "Arama için sonuç bulunamadı",
+      "noData": "Henüz envanter kaydı yok",
+      "clearSearch": "Arama temizle"
+    },
+    "common": {
+      "loading": "Yükleniyor...",
+      "cancel": "İptal",
+      "create": "Yaratish",
+      "update": "Yenileme",
+      "success": "Başarılı",
+      "error": "Hata",
+      "retry": "Tekrar dene",
+      "no": "Hayır"
+    }
+  },
+  "materials": {
+    "title": "Malzemeler",
+    "subtitle": "Sistem malzemelerini yönetin",
+    "loading": "Veriler yükleniyor...",
+    "errors": {
+      "title": "Hata",
+      "fillRequired": "Lütfen tüm zorunlu alanları doldurun",
+      "nameExists": "Bu malzeme adı zaten mevcut",
+      "createFailed": "Malzeme oluşturulurken hata oluştu",
+      "updateFailed": "Malzeme güncellenirken hata oluştu",
+      "deleteFailed": "Malzeme silinirken hata oluştu",
+      "loadFailed": "Malzemeler yüklenirken hata oluştu"
+    },
+    "success": {
+      "title": "Başarılı",
+      "created": "Yeni malzeme oluşturuldu",
+      "updated": "Malzeme bilgileri güncellendi",
+      "deleted": "Malzeme silindi"
+    },
+    "actions": {
+      "create": "Yeni malzeme",
+      "update": "Güncelleme",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "cancel": "İptal",
+      "retry": "Tekrar dene"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yeni malzeme oluştur",
+        "description": "Sisteme yeni malzeme ekleyin"
+      },
+      "edit": {
+        "title": "Malzemeyi düzenle",
+        "description": "Malzeme bilgilerini güncelleyin"
+      },
+      "delete": {
+        "title": "Malzemeyi sil",
+        "description": "Haqiqatan ham {name} malzemesini silmek istiyor musunuz? Bu işlem geri alınamaz.",
+        "confirm": "Evet, sil",
+        "cancel": "Hayır"
+      }
+    },
+    "form": {
+      "name": "Malzeme adı",
+      "unit": "Ölçü birimi",
+      "namePlaceholder": "Örneğin: Altın (24K)",
+      "unitPlaceholder": "Ölçü birimini seçin"
+    },
+    "units": {
+      "gram": "Gram (g)",
+      "pieces": "Dona (pcs)",
+      "carat": "Karat (ct)"
+    },
+    "search": {
+      "placeholder": "Malzemeleri arayın..."
+    },
+    "table": {
+      "title": "Malzemeler listesi",
+      "description": "Toplam {count} malzeme",
+      "columns": {
+        "name": "Adı",
+        "unit": "Ölçü birimi",
+        "createdAt": "Oluşturulma tarihi",
+        "actions": "Eylemler"
+      }
+    }
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "subtitle": "Sistem mesajları ve önemli olaylar",
+    "unreadCount": "({count} okunmamış)",
+    "actions": {
+      "markAllRead": "Hepsini okundu olarak işaretle",
+      "markAsRead": "Okundu olarak işaretle",
+      "goToRelated": "İlgili sayfaya git"
+    },
+    "stats": {
+      "total": "Toplam bildirimler",
+      "unread": "Okunmamış",
+      "highPriority": "Yüksek öncelik",
+      "today": "Bugünün mesajları"
+    },
+    "priority": {
+      "high": "Yüksek",
+      "medium": "Orta",
+      "low": "Düşük",
+      "unknown": "Bilinmeyen"
+    },
+    "filters": {
+      "type": "Türüne göre",
+      "status": "Duruma göre",
+      "all": "Hepsi",
+      "unread": "Okunmamış",
+      "read": "Okundu"
+    },
+    "types": {
+      "transferPending": "Transfer bekliyor",
+      "transferConfirmed": "Transfer onaylandı",
+      "workshopTimeout": "Atölye süresi doldu",
+      "materialLoss": "Malzeme kaybı",
+      "workshopStatus": "Atölye durumu"
+    },
+    "list": {
+      "title": "Bildirimler listesi",
+      "description": "Tüm sistem mesajları ve olaylar"
+    },
+    "search": {
+      "placeholder": "Mesaj içeriğine göre ara..."
+    },
+    "empty": {
+      "title": "Bildirim bulunamadı",
+      "description": "Arama kriterlerine uygun bildirim yok."
+    }
+  },
+  "processes": {
+    "title": "Süreçler",
+    "subtitle": "Ürün üretim süreçlerini yönetme",
+    "loading": "Süreçler yükleniyor...",
+    "unknown": "Bilinmeyen",
+    "noData": "Veri yok",
+    "actions": {
+      "create": "Yeni süreç",
+      "retry": "Tekrar dene",
+      "view": "Görüntüle"
+    },
+    "errors": {
+      "loadFailed": "Veriler yüklenirken hata oluştu"
+    },
+    "status": {
+      "completed": "Tamamlandı",
+      "inProgress": "Devam ediyor",
+      "pending": "Bekliyor",
+      "cancelled": "İptal edildi",
+      "unknown": "Bilinmeyen"
+    },
+    "filters": {
+      "status": "Duruma göre",
+      "all": "Hepsi"
+    },
+    "search": {
+      "placeholder": "ID veya organizasyon adına göre ara..."
+    },
+    "table": {
+      "title": "Süreçler listesi",
+      "description": "Toplam {count} süreç",
+      "columns": {
+        "id": "ID",
+        "organization": "Organizasyon",
+        "inputs": "Giriş malzemeleri",
+        "outputs": "Çıkış ürünleri",
+        "status": "Durum",
+        "date": "Tarih",
+        "actions": "İşlemler"
+      }
+    },
+    "empty": {
+      "filtered": "Arama sonucuna uygun süreç bulunamadı",
+      "noProcesses": "Şu anda süreç yok"
+    }
+  },
+  "createProcess": {
+    "title": "Yeni süreç oluştur",
+    "subtitle": "Ürün üretim sürecini oluşturun",
+    "validation": {
+      "fillAllFields": "Lütfen tüm alanları doldurun"
+    },
+    "success": {
+      "created": "Süreç başarıyla oluşturuldu!"
+    },
+    "errors": {
+      "createFailed": "Süreç oluşturulurken hata oluştu"
+    },
+    "actions": {
+      "back": "Geri",
+      "cancel": "İptal"
+    },
+    "inputs": {
+      "title": "Girdi malzemeleri",
+      "description": "Süreç için gereken malzemeler",
+      "material": "Malzeme",
+      "selectMaterial": "Malzeme seçin",
+      "available": "Mevcut",
+      "quantity": "Miktar",
+      "quantityPlaceholder": "Miktarı girin",
+      "addInput": "Girdi malzemesi ekle"
+    },
+    "outputs": {
+      "title": "Çıktı ürünleri",
+      "description": "Süreç sonucunda elde edilen ürünler",
+      "product": "Ürün",
+      "selectProduct": "Ürün seçin",
+      "quantity": "Miktar",
+      "quantityPlaceholder": "Miktarı girin",
+      "addOutput": "Çıktı ürünü ekle"
+    },
+    "submit": {
+      "note": "Süreç oluşturulduktan sonra yönetilebilir",
+      "creating": "Oluşturuluyor...",
+      "create": "Süreç oluştur"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "subtitle": "Sistem ayarlarını yönetin",
+    "appearance": {
+      "title": "Görünüm",
+      "description": "Sistem görünümünü ayarlayın",
+      "theme": "Tema",
+      "themes": {
+        "light": "Açık",
+        "dark": "Koyu",
+        "system": "Sistem"
+      },
+      "language": "Dil",
+      "languageDescription": "Sistem dilini seçin"
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "description": "Hangi bildirimleri alacağınızı ayarlayın",
+      "transfer": "Transfer bildirimi",
+      "workshop": "Atölye durumu",
+      "system": "Sistem mesajları",
+      "email": "E-posta bildirimleri"
+    },
+    "security": {
+      "title": "Güvenlik",
+      "description": "Hesabınızın güvenliğini ayarlayın",
+      "autoLogout": "Otomatik çıkış",
+      "autoLogoutDesc": "Etkin olmama durumunda otomatik çıkış süresi",
+      "password": "Parolayı değiştir",
+      "current": "Mevcut parola",
+      "new": "Yeni parola",
+      "confirm": "Yeni parolayı onayla",
+      "updateBtn": "Parolayı güncelle"
+    },
+    "systemInfo": {
+      "title": "Sistem bilgileri",
+      "description": "Sistem sürümü ve genel bilgiler",
+      "version": "Sürüm",
+      "lastUpdate": "Son güncelleme",
+      "users": "Kullanıcı sayısı",
+      "workshops": "Aktif atölyeler"
+    },
+    "saveBtn": "Ayarları kaydet",
+    "success": "Ayarlar kaydedildi"
+  },
+  "transfers": {
+    "title": "Transferler",
+    "subtitle": "Malzeme değişimi ve transferleri yönetme",
+    "new": "Yeni transfer",
+    "loading": "Transferler yükleniyor...",
+    "error": "Veriler yüklenirken hata oluştu",
+    "retry": "Tekrar dene",
+    "list": {
+      "title": "Transferler listesi",
+      "total": "Toplam {count} transfer"
+    },
+    "search": "ID, gönderen veya alıcıya göre ara...",
+    "filters": {
+      "status": "Duruma göre",
+      "organization": "Kuruma göre",
+      "all": "Hepsi",
+      "pending": "Bekleyen",
+      "accepted": "Onaylandı"
+    },
+    "table": {
+      "from": "Kimden",
+      "to": "Kime",
+      "materials": "Malzemeler",
+      "status": "Durum",
+      "date": "Tarih",
+      "actions": "İşlemler",
+      "noData": "Veri yok"
+    },
+    "empty": {
+      "search": "Arama sonucuna uygun transfer bulunamadı",
+      "default": "Şu anda transfer yok"
+    },
+    "status": {
+      "accepted": "Onaylandı",
+      "pending": "Onay bekliyor",
+      "pendingReceiver": "Alıcı bekliyor",
+      "returned": "İade edildi",
+      "cancelled": "İptal edildi",
+      "unknown": "Bilinmeyen"
+    }
+  },
+  "createTransfer": {
+    "pageTitle": "Yeni Transfer",
+    "receiverLabel": "Alıcı",
+    "receiverPlaceholder": "Atölye seçin",
+    "inventoryLabel": "Envanter",
+    "inventoryPlaceholder": "Seçin",
+    "quantityLabel": "Miktar",
+    "quantityPlaceholder": "Giriniz",
+    "addButton": "Ekle",
+    "createButton": "Oluştur",
+    "creatingButton": "Oluşturuluyor...",
+    "loading": "Yükleniyor...",
+    "noReceivers": "Alıcı atölye mevcut değil.",
+    "noInventoriesTitle": "Mevcut Envanter Yok",
+    "noInventoriesMessage": "Şu anda transfer için mevcut envanter yok.",
+    "errors": {
+      "invalidInventoryOrQuantity": "Envanter ve miktarı doğru girin (miktar > 0).",
+      "inventoryNotFound": "Seçilen envanter bulunamadı.",
+      "quantityExceedsAvailable": "\"{name}\" için mevcut miktar: {available} {unit}. Transfer miktarı aşıldı.",
+      "receiverOrItemsRequired": "Alıcı ve en az bir envanter gereklidir.",
+      "transactionFailed": "Transfer oluşturulurken hata oluştu."
+    },
+    "success": {
+      "title": "Başarılı!",
+      "description": "Transfer oluşturuldu."
+    },
+    "debug": {
+      "title": "Debug",
+      "availableInventories": "Mevcut: {count}",
+      "selectedItems": "Seçilen: {count}"
+    },
+    "table": {
+      "headers": {
+        "inventory": "Envanter",
+        "quantity": "Miktar",
+        "unit": "Birim",
+        "available": "Mevcut",
+        "remaining": "Kalan",
+        "actions": ""
+      },
+      "empty": "Envanter ekleyin."
+    },
+    "maxQuantityText": "Maks: {quantity} {unit}"
+  },
+  "TransferDetail": {
+    "status": {
+      "confirmed": "Onaylandı",
+      "pending": "Onay bekliyor",
+      "rejected": "Reddedildi",
+      "unknown": "Bilinmeyen"
+    },
+    "header": {
+      "title": "Transfer #{id}"
+    },
+    "sections": {
+      "transferDirection": "Transfer yönü",
+      "sentMaterials": "Gönderilen malzemeler",
+      "information": "Bilgiler"
+    },
+    "labels": {
+      "id": "ID",
+      "created": "Oluşturulma",
+      "updated": "Güncellenme",
+      "status": "Durum",
+      "total": "Toplam",
+      "sender": "Gönderen",
+      "available": "Mevcut"
+    },
+    "actions": {
+      "back": "Geri",
+      "confirm": "Onayla",
+      "reject": "Reddet",
+      "cancel": "İptal",
+      "retry": "Tekrar dene"
+    },
+    "loading": {
+      "title": "Yükleniyor",
+      "description": "Transfer bilgileri yükleniyor..."
+    },
+    "errors": {
+      "title": "Hata!",
+      "errorOccurred": "Bir hata oluştu",
+      "transferLoadError": "Transfer verileri yüklenirken sorun oluştu.",
+      "transferNotFound": "Transfer bulunamadı",
+      "transferNotFoundDesc": "Bu ID ile bir transfer mevcut değil.",
+      "transferConfirmError": "Transfer onaylanırken hata oluştu.",
+      "rejectReasonRequired": "Reddetme sebebini belirtin"
+    },
+    "success": {
+      "title": "Başarılı!",
+      "transferConfirmed": "Transfer başarıyla onaylandı."
+    },
+    "dialogs": {
+      "confirmTransfer": {
+        "title": "Transferi onayla",
+        "description": "Bu transferi onaylamak istiyor musunuz?"
+      },
+      "confirming": {
+        "title": "Onaylanıyor...",
+        "description": "Transfer onay sürecinde"
+      },
+      "rejectTransfer": {
+        "title": "Transferi reddet",
+        "description": "Reddetme sebebini belirtin",
+        "placeholder": "Neden reddediliyor?"
+      }
+    }
+  },
+  "UsersPage": {
+    "header": {
+      "title": "Kullanıcılar",
+      "description": "Sistem kullanıcılarını yönetin"
+    },
+    "buttons": {
+      "newUser": "Yeni kullanıcı",
+      "cancel": "İptal",
+      "create": "Oluştur",
+      "update": "Güncelle",
+      "no": "Hayır",
+      "yesDelete": "Evet, sil"
+    },
+    "search": {
+      "placeholder": "Kullanıcıları ara..."
+    },
+    "table": {
+      "title": "Kullanıcılar listesi",
+      "description": "Toplam {count} kullanıcı",
+      "headers": {
+        "user": "Kullanıcı",
+        "email": "Email",
+        "organization": "Kuruluş",
+        "status": "Durum",
+        "actions": "İşlemler"
+      }
+    },
+    "form": {
+      "firstName": "İsim",
+      "firstNamePlaceholder": "İsim",
+      "lastName": "Soyisim",
+      "lastNamePlaceholder": "Soyisim (opsiyonel)",
+      "organization": "Kuruluş",
+      "organizationPlaceholder": "Kuruluşu seçin",
+      "organizationPrefix": "Kuruluş",
+      "username": "Kullanıcı adı",
+      "usernamePlaceholder": "kullanici_adi",
+      "email": "Email",
+      "emailPlaceholder": "user@example.com",
+      "password": "Parola",
+      "passwordPlaceholder": "Parolayı girin",
+      "confirmPassword": "Parolayı doğrula",
+      "confirmPasswordPlaceholder": "Parolayı tekrar girin",
+      "newPassword": "Yeni parola (opsiyonel)",
+      "newPasswordPlaceholder": "Yeni parolayı girin"
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Pasif",
+      "staff": "Personel"
+    },
+    "actions": {
+      "edit": "Düzenle",
+      "activate": "Aktifleştir",
+      "deactivate": "Pasifleştir",
+      "delete": "Sil"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yeni kullanıcı oluştur",
+        "description": "Sisteme yeni kullanıcı ekleyin ve rol atayın"
+      },
+      "edit": {
+        "title": "Kullanıcıyı düzenle",
+        "description": "Kullanıcı bilgilerini güncelleyin"
+      },
+      "delete": {
+        "title": "Kullanıcıyı sil",
+        "description": "{name} kullanıcısını gerçekten silmek istiyor musunuz? Bu işlem geri alınamaz."
+      }
+    },
+    "loading": {
+      "text": "Veriler yükleniyor..."
+    },
+    "errors": {
+      "title": "Hata",
+      "fillAllFields": "Tüm zorunlu alanları doldurun",
+      "passwordMismatch": "Parolalar eşleşmiyor",
+      "usernameExists": "Bu kullanıcı adı zaten mevcut",
+      "createUserFailed": "Kullanıcı oluşturulurken hata oluştu",
+      "updateUserFailed": "Kullanıcı güncellenirken hata oluştu",
+      "deleteUserFailed": "Kullanıcı silinirken hata oluştu",
+      "statusChangeFailed": "Kullanıcı durumu değiştirilirken hata oluştu",
+      "loadUsersFailed": "Kullanıcılar yüklenirken hata oluştu"
+    },
+    "success": {
+      "title": "Başarılı",
+      "userCreated": "Yeni kullanıcı oluşturuldu",
+      "userUpdated": "Kullanıcı bilgileri güncellendi",
+      "userDeleted": "Kullanıcı silindi",
+      "statusChanged": "Kullanıcı durumu değiştirildi"
+    }
+  },
+  "WorkshopsPage": {
+    "header": {
+      "title": "Atölyeler",
+      "description": "Tüm atölyeleri yönetin ve takip edin"
+    },
+    "buttons": {
+      "newWorkshop": "Yeni atölye",
+      "cancel": "İptal",
+      "create": "Oluştur",
+      "update": "Güncelle",
+      "delete": "Sil"
+    },
+    "search": {
+      "placeholder": "Atölye veya sahibi ile ara..."
+    },
+    "filters": {
+      "statusPlaceholder": "Duruma göre",
+      "all": "Hepsi"
+    },
+    "stats": {
+      "totalWorkshops": "Toplam atölye",
+      "active": "Aktif",
+      "busy": "Meşgul",
+      "stopped": "Durduruldu"
+    },
+    "table": {
+      "title": "Atölye listesi",
+      "description": "Tüm atölyeler ve mevcut durumları",
+      "headers": {
+        "id": "ID",
+        "workshop": "Atölye",
+        "owner": "Sahibi",
+        "status": "Durum",
+        "currentMaterial": "Mevcut malzeme",
+        "workTime": "Çalışma süresi",
+        "process": "Süreç",
+        "actions": "İşlemler"
+      }
+    },
+    "form": {
+      "workshopName": "Atölye adı",
+      "workshopNamePlaceholder": "Atölye-5",
+      "workshopType": "Atölye türü",
+      "selectWorkshopType": "Atölye türünü seçin"
+    },
+    "types": {
+      "goldProcessing": "Altın işleme",
+      "silverProcessing": "Gümüş işleme",
+      "jewelryMaking": "Mücevher yapımı",
+      "cleaning": "Temizlik",
+      "repair": "Tamir",
+      "bank": "Banka"
+    },
+    "status": {
+      "active": "Aktif",
+      "busy": "Meşgul",
+      "stopped": "Durduruldu",
+      "unknown": "Bilinmeyen"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yeni atölye oluştur",
+        "description": "Yeni atölye için temel bilgileri girin."
+      },
+      "edit": {
+        "title": "Atölyeyi düzenle",
+        "description": "Atölye bilgilerini güncelleyin."
+      },
+      "delete": {
+        "title": "Atölyeyi sil",
+        "description": "\"{name}\" atölyesini gerçekten silmek istiyor musunuz? Bu işlem geri alınamaz."
+      }
+    },
+    "loading": {
+      "text": "Veriler yükleniyor..."
+    },
+    "errors": {
+      "title": "Hata",
+      "fillAllFields": "Tüm zorunlu alanları doldurun",
+      "createWorkshopFailed": "Atölye oluşturulurken hata oluştu",
+      "updateWorkshopFailed": "Atölye bilgilerini güncellerken hata oluştu",
+      "deleteWorkshopFailed": "Atölye silinirken hata oluştu",
+      "loadDataFailed": "Veriler yüklenirken hata oluştu. Lütfen tekrar deneyin."
+    },
+    "success": {
+      "title": "Başarılı",
+      "workshopCreated": "Yeni atölye oluşturuldu",
+      "workshopUpdated": "Atölye bilgileri güncellendi",
+      "workshopDeleted": "Atölye silindi"
+    }
+  },
+  "WorkshopDetailPage": {
+    "header": {
+      "description": "Atölye detayları ve aktivite geçmişi"
+    },
+    "buttons": {
+      "back": "Geri",
+      "goBack": "Geri dön",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "tryAgain": "Tekrar dene"
+    },
+    "status": {
+      "active": "Aktif",
+      "busy": "Meşgul", 
+      "stopped": "Durduruldu",
+      "unknown": "Bilinmeyen"
+    },
+    "actions": {
+      "received": "Alındı",
+      "sent": "Gönderildi",
+      "processed": "İşlendi"
+    },
+    "materials": {
+      "gold": "Altın",
+      "silver": "Gümüş"
+    },
+    "filters": {
+      "today": "Bugün",
+      "7days": "7 Gün",
+      "30days": "30 Gün",
+      "all": "Tümü"
+    },
+    "charts": {
+      "generalTitle": "Genel İstatistikler",
+      "generalDescription": "Gönderilen ve alınan malzeme miktarları",
+      "materialTitle": "Malzeme Dağılımı",
+      "materialDescription": "İşlenen malzeme türleri",
+      "received": "Alınan",
+      "sent": "Gönderilen"
+    },
+    "sections": {
+      "materialHistory": {
+        "title": "Malzeme Geçmişi",
+        "description": "Son malzeme hareketleri ve işleme geçmişi",
+        "processNote": "20gr kayıp temizleme işleminde",
+        "headers": {
+          "date": "Tarih",
+          "action": "Hareket",
+          "material": "Malzeme", 
+          "note": "Not"
+        }
+      }
+    },
+    "dialogs": {
+      "delete": {
+        "title": "Atölyeyi Sil",
+        "description": "Gerçekten {name} atölyesini silmek istiyor musunuz? Bu işlem geri alınamaz."
+      }
+    },
+    "loading": {
+      "text": "Veriler yükleniyor..."
+    },
+    "errors": {
+      "title": "Hata",
+      "loadWorkshopFailed": "Atölye verileri yüklenirken hata oluştu."
+    }
+}
+}

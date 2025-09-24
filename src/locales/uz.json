@@ -1,0 +1,892 @@
+{
+  "HomePage": {
+    "title": "Salom, qalay!",
+    "about": "Bosh sahifaga qaytish"
+  },
+  "Navigation": {
+    "dashboard": "Boshqaruv paneli",
+    "materials": "Materiallar",
+    "inventory": "Ombor",
+    "workshops": "Ustaxonalar",
+    "transfers": "Ko‘chirishlar",
+    "notifications": "Bildirishnomalar",
+    "history": "Tarix",
+    "users": "Foydalanuvchilar",
+    "processes": "Jarayonlar",
+    "settings": "Sozlamalar"
+  },
+  "Auth": {
+    "logout": "Chiqish",
+    "profile": "Profil",
+    "loginTitle": "Zargarlik Admin Panel",
+    "loginSubtitle": "Tizimga kirish uchun ma'lumotlaringizni kiriting",
+    "username": "Foydalanuvchi nomi",
+    "password": "Parol",
+    "login": "Tizimga kirish",
+    "loggingIn": "Kirish...",
+    "loginFailed": "Kirish amalga oshmadi. Qaytadan urinib ko‘ring.",
+    "wrongCredentials": "Noto‘g‘ri foydalanuvchi nomi yoki parol",
+    "loginError": "Tizimga kirishda xatolik yuz berdi"
+  },
+  "Common": {
+    "loading": "Yuklanmoqda...",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "delete": "O‘chirish",
+    "edit": "Tahrirlash",
+    "add": "Qo‘shish",
+    "search": "Qidirish"
+  },
+  "dashboard": {
+    "title": "Bosh sahifa",
+    "subtitle": "Zargarlik korxonasi boshqaruv paneli",
+    "report": "Hisobot",
+    "newTransfer": "Yangi transfer",
+    "stats": {
+      "totalMaterials": "Jami materiallar",
+      "fromLastMonth": "o‘tgan oyga nisbatan",
+      "activeWorkshops": "Faol atolyeler",
+      "ofTotalWorkshops": "13 ta atolyedan",
+      "todayTransfers": "Bugungi transferlar",
+      "fromYesterday": "kechaga nisbatan",
+      "pending": "Kutilayotgan",
+      "awaitingConfirmation": "tasdiqlash kutilmoqda"
+    },
+    "charts": {
+      "materialsInventory": "Material inventari",
+      "materialsInventoryDesc": "Hozirgi material miqdorlari",
+      "weeklyTransfers": "Haftalik transferlar",
+      "weeklyTransfersDesc": "So‘nggi 7 kun davomidagi faollik",
+      "workshopStatus": "Atolye holati",
+      "workshopStatusDesc": "Hozirgi atolyeler faolligi"
+    },
+    "activities": {
+      "recent": "So‘nggi faollik",
+      "recentDesc": "Tizimda sodir bo‘lgan so‘nggi hodisalar",
+      "statuses": {
+        "completed": "Bajarildi",
+        "pending": "Kutilmoqda",
+        "alert": "Diqqat"
+      },
+      "examples": {
+        "transfer": "Atolye-1 dan Atolye-2 ga 250gr oltin yuborildi",
+        "completion": "Atolye-3 da tozalash jarayoni yakunlandi",
+        "alert": "Atolye-5 da ish vaqti tugadi, materiallar qaytarilmoqda"
+      },
+      "times": {
+        "5minAgo": "5 daqiqa oldin",
+        "15minAgo": "15 daqiqa oldin",
+        "1hAgo": "1 soat oldin"
+      }
+    },
+    "materials": {
+      "gold": "Oltin",
+      "silver": "Kumush",
+      "diamond": "Olmos",
+      "pearl": "Marvarid"
+    },
+    "weekdays": {
+      "mon": "Dush",
+      "tue": "Sesh",
+      "wed": "Chor",
+      "thu": "Pay",
+      "fri": "Jum",
+      "sat": "Shan",
+      "sun": "Yak"
+    },
+    "workshopStates": {
+      "active": "Faol",
+      "busy": "Band",
+      "stopped": "To‘xtatilgan"
+    }
+  },
+  "history": {
+    "title": "Tarix",
+    "subtitle": "Oldingi amallar tarixi",
+    "filters": {
+      "all": "Hammasi",
+      "transfers": "O‘tkazmalar",
+      "materials": "Materiallar",
+      "workshops": "Ustaxonalar",
+      "title": "Filtrlar",
+      "description": "Tarix ma’lumotlarini filtrlash va qidirish",
+      "search": "Qidirish",
+      "searchPlaceholder": "Voqea yoki foydalanuvchi...",
+      "eventType": "Voqea turi",
+      "selectType": "Turini tanlash",
+      "user": "Foydalanuvchi",
+      "selectUser": "Foydalanuvchini tanlash",
+      "startDate": "Boshlanish sanasi",
+      "endDate": "Tugash sanasi",
+      "selectDate": "Sanani tanlash"
+    },
+    "empty": "Hech qanday voqea topilmadi",
+    "emptyDescription": "Qidiruv mezonlariga mos keladigan voqea yo‘q.",
+    "table": {
+      "title": "Voqealar tarixi",
+      "description": "{count} ta voqea topildi",
+      "date": "Sana",
+      "user": "Foydalanuvchi",
+      "action": "Amal",
+      "details": "Tafsilotlar",
+      "status": "Holati"
+    },
+    "actions": {
+      "view": "Ko‘rish",
+      "delete": "O‘chirish",
+      "clearFilters": "Filtrlarni tozalash",
+      "export": "Eksport qilish"
+    },
+    "stats": {
+      "totalEvents": "Jami voqealar",
+      "todayEvents": "Bugungi voqealar",
+      "transfers": "O‘tkazmalar",
+      "workshopEvents": "Ustaxona voqealari"
+    },
+    "status": {
+      "completed": "Bajarildi",
+      "pending": "Kutilmoqda",
+      "failed": "Muvaffaqiyatsiz",
+      "unknown": "Noma’lum"
+    },
+    "eventTypes": {
+      "transferCreated": "O‘tkazma yaratildi",
+      "transferSent": "O‘tkazma yuborildi",
+      "transferReceived": "O‘tkazma qabul qilindi",
+      "workshopTimeout": "Ustaxona vaqti tugadi",
+      "workshopStatusChanged": "Ustaxona holati o‘zgartirildi",
+      "materialProcessed": "Material qayta ishlangan"
+    }
+  },
+  "inventory": {
+    "title": "Inventar",
+    "subtitle": "Material inventarini boshqarish",
+    "actions": {
+      "create": "Yangi inventar",
+      "edit": "Tahrirlash",
+      "delete": "O‘chirish"
+    },
+    "search": {
+      "placeholder": "Inventarni qidirish..."
+    },
+    "filters": {
+      "all": "Hammasi",
+      "byOrganization": "Ustaxona bo‘yicha filtrlash"
+    },
+    "table": {
+      "title": "Inventar ro‘yxati",
+      "description": "Jami {count} ta inventar yozuvi",
+      "columns": {
+        "id": "ID",
+        "material": "Material",
+        "quantity": "Miqdor",
+        "organization": "Tashkilot",
+        "createdAt": "Yaratilgan sana",
+        "actions": "Amallar"
+      }
+    },
+    "form": {
+      "material": "Material",
+      "selectMaterial": "Materialni tanlash",
+      "noMaterials": "Hech qanday material topilmadi",
+      "organization": "Tashkilot",
+      "selectOrganization": "Tashkilotni tanlash",
+      "noOrganizations": "Hech qanday tashkilot topilmadi",
+      "quantity": "Miqdor",
+      "example": "Namuna"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yangi inventar yaratish",
+        "description": "Tizimga yangi inventar qo‘shish"
+      },
+      "edit": {
+        "title": "Inventarni tahrirlash",
+        "description": "Inventar ma’lumotlarini yangilash"
+      },
+      "delete": {
+        "title": "Inventarni o‘chirish",
+        "description": "Ushbu inventar yozuvini o‘chirishni xohlaysizmi? Bu amal bekor qilinmaydi.",
+        "confirm": "Ha, o‘chirish"
+      }
+    },
+    "validation": {
+      "allFieldsRequired": "Iltimos, barcha majburiy maydonlarni to‘ldiring"
+    },
+    "messages": {
+      "created": "Yangi inventar yaratildi",
+      "updated": "Inventar ma’lumotlari yangilandi",
+      "deleted": "Inventar o‘chirildi",
+      "createError": "Inventar yaratishda xatolik yuz berdi",
+      "updateError": "Inventar yangilashda xatolik yuz berdi",
+      "deleteError": "Inventar o‘chirishda xatolik yuz berdi"
+    },
+    "errors": {
+      "loadError": "Inventarni yuklashda xatolik yuz berdi"
+    },
+    "empty": {
+      "title": "Inventar topilmadi",
+      "noResults": "Qidiruv uchun hech qanday natija topilmadi",
+      "noData": "Hozircha inventar yozuvlari yo‘q",
+      "clearSearch": "Qidiruvni tozalash"
+    },
+    "common": {
+      "loading": "Yuklanmoqda...",
+      "cancel": "Bekor qilish",
+      "create": "Yaratish",
+      "update": "Yangilash",
+      "success": "Muvaffaqiyatli",
+      "error": "Xatolik",
+      "retry": "Qayta urinib ko‘rish",
+      "no": "Yo‘q"
+    }
+  },
+  "materials": {
+    "title": "Materiallar",
+    "subtitle": "Tizim materiallarini boshqaring",
+    "loading": "Ma'lumotlar yuklanmoqda...",
+    "errors": {
+      "title": "Xatolik",
+      "fillRequired": "Barcha majburiy maydonlarni to'ldiring",
+      "nameExists": "Bu material nomi allaqachon mavjud",
+      "createFailed": "Material yaratishda xatolik yuz berdi",
+      "updateFailed": "Material yangilashda xatolik yuz berdi",
+      "deleteFailed": "Material o'chirishda xatolik yuz berdi",
+      "loadFailed": "Materiallarni yuklashda xatolik yuz berdi"
+    },
+    "success": {
+      "title": "Muvaffaqiyat",
+      "created": "Yangi material yaratildi",
+      "updated": "Material ma'lumotlari yangilandi",
+      "deleted": "Material o'chirildi"
+    },
+    "actions": {
+      "create": "Yangi material",
+      "update": "Yangilash",
+      "edit": "Tahrirlash",
+      "delete": "O‘chirish",
+      "cancel": "Bekor qilish",
+      "retry": "Qayta urinish"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yangi material yaratish",
+        "description": "Tizimga yangi material qo'shing"
+      },
+      "edit": {
+        "title": "Materialni tahrirlash",
+        "description": "Material ma'lumotlarini yangilang"
+      },
+      "delete": {
+        "title": "Materialni o'chirish",
+        "description": "Haqiqatan ham {name} materialini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi.",
+        "confirm": "Ha, o‘chirish",
+        "cancel": "Yo‘q"
+      }
+    },
+    "form": {
+      "name": "Material nomi",
+      "unit": "O'lchov birligi",
+      "namePlaceholder": "Masalan: Oltin (24K)",
+      "unitPlaceholder": "O'lchov birligini tanlang"
+    },
+    "units": {
+      "gram": "Gram (g)",
+      "pieces": "Dona (pcs)",
+      "carat": "Karat (ct)"
+    },
+    "search": {
+      "placeholder": "Materiallarni qidirish..."
+    },
+    "table": {
+      "title": "Materiallar ro'yxati",
+      "description": "Jami {count} ta material",
+      "columns": {
+        "name": "Nomi",
+        "unit": "O‘lchov birligi",
+        "createdAt": "Yaratilgan sana",
+        "actions": "Amallar"
+      }
+    }
+  },
+  "notifications": {
+    "title": "Bildirishnomalar",
+    "subtitle": "Tizim xabarlari va muhim hodisalar",
+    "unreadCount": "({count} ta o‘qilmagan)",
+    "actions": {
+      "markAllRead": "Barchasini o‘qilgan deb belgilash",
+      "markAsRead": "O‘qilgan deb belgilash",
+      "goToRelated": "Bog‘liq sahifaga o‘tish"
+    },
+    "stats": {
+      "total": "Jami bildirishnomalar",
+      "unread": "O‘qilmagan",
+      "highPriority": "Yuqori muhimlik",
+      "today": "Bugungi xabarlar"
+    },
+    "priority": {
+      "high": "Yuqori",
+      "medium": "O‘rta",
+      "low": "Past",
+      "unknown": "Noma’lum"
+    },
+    "filters": {
+      "type": "Tur bo‘yicha",
+      "status": "Holat bo‘yicha",
+      "all": "Barchasi",
+      "unread": "O‘qilmagan",
+      "read": "O‘qilgan"
+    },
+    "types": {
+      "transferPending": "Transfer kutilmoqda",
+      "transferConfirmed": "Transfer tasdiqlandi",
+      "workshopTimeout": "Atolye vaqti tugadi",
+      "materialLoss": "Material yo‘qotish",
+      "workshopStatus": "Atolye holati"
+    },
+    "list": {
+      "title": "Bildirishnomalar ro‘yxati",
+      "description": "Barcha tizim xabarlari va hodisalar"
+    },
+    "search": {
+      "placeholder": "Xabar mazmuni bo‘yicha qidirish..."
+    },
+    "empty": {
+      "title": "Bildirishnomalar topilmadi",
+      "description": "Qidiruv shartlariga mos bildirishnomalar mavjud emas."
+    }
+  },
+  "processes": {
+    "title": "Jarayonlar",
+    "subtitle": "Mahsulot ishlab chiqarish jarayonlarini boshqarish",
+    "loading": "Jarayonlar yuklanmoqda...",
+    "unknown": "Noma'lum",
+    "noData": "Ma'lumot yo‘q",
+    "actions": {
+      "create": "Yangi jarayon",
+      "retry": "Qayta urinish",
+      "view": "Ko‘rish"
+    },
+    "errors": {
+      "loadFailed": "Ma'lumotlarni yuklashda xatolik yuz berdi"
+    },
+    "status": {
+      "completed": "Tugallangan",
+      "inProgress": "Jarayonda",
+      "pending": "Kutilmoqda",
+      "cancelled": "Bekor qilingan",
+      "unknown": "Noma'lum"
+    },
+    "filters": {
+      "status": "Holat bo‘yicha",
+      "all": "Barchasi"
+    },
+    "search": {
+      "placeholder": "ID yoki tashkilot nomi bo‘yicha qidirish..."
+    },
+    "table": {
+      "title": "Jarayonlar ro‘yxati",
+      "description": "Jami {count} ta jarayon",
+      "columns": {
+        "id": "ID",
+        "organization": "Tashkilot",
+        "inputs": "Kirish materiallari",
+        "outputs": "Chiqish mahsulotlari",
+        "status": "Holat",
+        "date": "Sana",
+        "actions": "Amallar"
+      }
+    },
+    "empty": {
+      "filtered": "Qidiruv bo‘yicha natija topilmadi",
+      "noProcesses": "Hozircha jarayonlar yo‘q"
+    }
+  },
+  "createProcess": {
+    "title": "Yangi jarayon yaratish",
+    "subtitle": "Mahsulot ishlab chiqarish jarayonini yarating",
+    "validation": {
+      "fillAllFields": "Iltimos, barcha maydonlarni to‘ldiring"
+    },
+    "success": {
+      "created": "Jarayon muvaffaqiyatli yaratildi!"
+    },
+    "errors": {
+      "createFailed": "Jarayon yaratishda xatolik yuz berdi"
+    },
+    "actions": {
+      "back": "Orqaga",
+      "cancel": "Bekor qilish"
+    },
+    "inputs": {
+      "title": "Kirish materiallari",
+      "description": "Jarayon uchun kerak bo‘ladigan materiallar",
+      "material": "Material",
+      "selectMaterial": "Material tanlang",
+      "available": "Mavjud",
+      "quantity": "Miqdor",
+      "quantityPlaceholder": "Miqdorni kiriting",
+      "addInput": "Kirish materiali qo‘shish"
+    },
+    "outputs": {
+      "title": "Chiqish mahsulotlari",
+      "description": "Jarayon natijasida hosil bo‘ladigan mahsulotlar",
+      "product": "Mahsulot",
+      "selectProduct": "Mahsulot tanlang",
+      "quantity": "Miqdor",
+      "quantityPlaceholder": "Miqdorni kiriting",
+      "addOutput": "Chiqish mahsuloti qo‘shish"
+    },
+    "submit": {
+      "note": "Jarayon yaratilgandan so‘ng uni boshqarish mumkin bo‘ladi",
+      "creating": "Yaratilmoqda...",
+      "create": "Jarayon yaratish"
+    }
+  },
+  "settings": {
+    "title": "Sozlamalar",
+    "subtitle": "Tizim sozlamalarini boshqaring",
+    "appearance": {
+      "title": "Ko‘rinish",
+      "description": "Tizim ko‘rinishini sozlang",
+      "theme": "Mavzu",
+      "themes": {
+        "light": "Yorug‘",
+        "dark": "Qorong‘u",
+        "system": "Tizim"
+      },
+      "language": "Til",
+      "languageDescription": "Tizim tilini tanlang"
+    },
+    "notifications": {
+      "title": "Bildirishnomalar",
+      "description": "Qaysi bildirishnomalarni olishni sozlang",
+      "transfer": "Transfer bildirish",
+      "workshop": "Atolye holati",
+      "system": "Tizim xabarlari",
+      "email": "Email bildirishnomalar"
+    },
+    "security": {
+      "title": "Xavfsizlik",
+      "description": "Hisobingiz xavfsizligini sozlang",
+      "autoLogout": "Avtomatik chiqish",
+      "autoLogoutDesc": "Faolsizlikdan keyin avtomatik chiqish vaqti",
+      "password": "Parolni o‘zgartirish",
+      "current": "Joriy parol",
+      "new": "Yangi parol",
+      "confirm": "Yangi parolni tasdiqlang",
+      "updateBtn": "Parolni yangilash"
+    },
+    "systemInfo": {
+      "title": "Tizim ma’lumotlari",
+      "description": "Tizim versiyasi va umumiy ma’lumotlar",
+      "version": "Versiya",
+      "lastUpdate": "Oxirgi yangilanish",
+      "users": "Foydalanuvchilar soni",
+      "workshops": "Faol atolyelar"
+    },
+    "saveBtn": "Sozlamalarni saqlash",
+    "success": "Sozlamalar saqlandi"
+  },
+  "transfers": {
+    "title": "Transferlar",
+    "subtitle": "Material almashinuvi va transferlarni boshqarish",
+    "new": "Yangi transfer",
+    "loading": "Transferlar yuklanmoqda...",
+    "error": "Maʼlumotlarni yuklashda xatolik yuz berdi",
+    "retry": "Qayta urinish",
+    "list": {
+      "title": "Transferlar roʻyxati",
+      "total": "Jami {count} ta transfer"
+    },
+    "search": "ID, yuboruvchi yoki qabul qiluvchi boʻyicha qidirish...",
+    "filters": {
+      "status": "Holat bo‘yicha",
+      "organization": "Tashkilot bo‘yicha",
+      "all": "Barchasi",
+      "pending": "Kutilmoqda",
+      "accepted": "Tasdiqlangan"
+    },
+    "table": {
+      "from": "Kimdan",
+      "to": "Kimga",
+      "materials": "Materiallar",
+      "status": "Holat",
+      "date": "Sana",
+      "actions": "Amallar",
+      "noData": "Maʼlumot yo‘q"
+    },
+    "empty": {
+      "search": "Qidiruv bo‘yicha natija topilmadi",
+      "default": "Hozircha transferlar yo‘q"
+    },
+    "status": {
+      "accepted": "Tasdiqlangan",
+      "pending": "Tasdiqlash kutilmoqda",
+      "pendingReceiver": "Qabul qiluvchi kutilmoqda",
+      "returned": "Qaytarilgan",
+      "cancelled": "Bekor qilingan",
+      "unknown": "Nomaʼlum"
+    }
+  },
+  "createTransfer": {
+    "pageTitle": "Yangi Transfer",
+    "receiverLabel": "Qabul Qiluvchi",
+    "receiverPlaceholder": "Atolye tanlang",
+    "inventoryLabel": "Inventar",
+    "inventoryPlaceholder": "Tanlang",
+    "quantityLabel": "Miqdor",
+    "quantityPlaceholder": "Kiriting",
+    "addButton": "Qo'shish",
+    "createButton": "Yaratish",
+    "creatingButton": "Yaratilmoqda...",
+    "loading": "Yuklanmoqda...",
+    "noReceivers": "Qabul qiluvchi atolyelar mavjud emas.",
+    "noInventoriesTitle": "Mavjud Inventar Yo'q",
+    "noInventoriesMessage": "Hozirda transfer uchun mavjud inventar yo'q.",
+    "errors": {
+      "invalidInventoryOrQuantity": "Inventar va miqdor to'g'ri kiriting (miqdor > 0).",
+      "inventoryNotFound": "Tanlangan inventar topilmadi.",
+      "quantityExceedsAvailable": "\"{name}\" uchun mavjud miqdor: {available} {unit}. Transfer miqdori oshib ketdi.",
+      "receiverOrItemsRequired": "Qabul qiluvchi va kamida bitta inventar kerak.",
+      "transactionFailed": "Transfer yaratishda xatolik."
+    },
+    "success": {
+      "title": "Muvaffaqiyat!",
+      "description": "Transfer yaratildi."
+    },
+    "debug": {
+      "title": "Debug",
+      "availableInventories": "Mavjud: {count}",
+      "selectedItems": "Tanlangan: {count}"
+    },
+    "table": {
+      "headers": {
+        "inventory": "Inventar",
+        "quantity": "Miqdor",
+        "unit": "Birlik",
+        "available": "Mavjud",
+        "remaining": "Qolgan",
+        "actions": ""
+      },
+      "empty": "Inventar qo'shing."
+    },
+    "maxQuantityText": "Maks: {quantity} {unit}"
+  },
+  "TransferDetail": {
+    "status": {
+      "confirmed": "Tasdiqlangan",
+      "pending": "Tasdiqlash kutilmoqda",
+      "rejected": "Rad etilgan",
+      "unknown": "Noma'lum"
+    },
+    "header": {
+      "title": "Transfer #{id}"
+    },
+    "sections": {
+      "transferDirection": "Transfer yo'nalishi",
+      "sentMaterials": "Yuborilgan materiallar",
+      "information": "Ma'lumotlar"
+    },
+    "labels": {
+      "id": "ID",
+      "created": "Yaratilgan",
+      "updated": "Yangilangan",
+      "status": "Holat",
+      "total": "Jami",
+      "sender": "Yuboruvchi",
+      "available": "Mavjud"
+    },
+    "actions": {
+      "back": "Orqaga",
+      "confirm": "Tasdiqlash",
+      "reject": "Rad etish",
+      "cancel": "Bekor qilish",
+      "retry": "Qayta urinish"
+    },
+    "loading": {
+      "title": "Yuklanmoqda",
+      "description": "Transfer ma'lumotlari yuklanmoqda..."
+    },
+    "errors": {
+      "title": "Xatolik!",
+      "errorOccurred": "Xatolik yuz berdi",
+      "transferLoadError": "Transfer ma'lumotlarini yuklashda muammo yuz berdi.",
+      "transferNotFound": "Transfer topilmadi",
+      "transferNotFoundDesc": "Bunday ID bilan transfer mavjud emas.",
+      "transferConfirmError": "Transfer tasdiqlashda xatolik yuz berdi.",
+      "rejectReasonRequired": "Rad etish sababini ko'rsating"
+    },
+    "success": {
+      "title": "Muvaffaqiyat!",
+      "transferConfirmed": "Transfer muvaffaqiyatli tasdiqlandi."
+    },
+    "dialogs": {
+      "confirmTransfer": {
+        "title": "Transferni tasdiqlash",
+        "description": "Bu transferni tasdiqlashni xohlaysizmi?"
+      },
+      "confirming": {
+        "title": "Tasdiqlashda...",
+        "description": "Transfer tasdiqlash jarayonida"
+      },
+      "rejectTransfer": {
+        "title": "Transferni rad etish",
+        "description": "Rad etish sababini ko'rsating",
+        "placeholder": "Nima sababdan rad etilayapti?"
+      }
+    }
+  },
+  "UsersPage": {
+    "header": {
+      "title": "Foydalanuvchilar",
+      "description": "Tizim foydalanuvchilarini boshqaring"
+    },
+    "buttons": {
+      "newUser": "Yangi foydalanuvchi",
+      "cancel": "Bekor qilish",
+      "create": "Yaratish",
+      "update": "Yangilash",
+      "no": "Yo'q",
+      "yesDelete": "Ha, o'chirish"
+    },
+    "search": {
+      "placeholder": "Foydalanuvchilarni qidirish..."
+    },
+    "table": {
+      "title": "Foydalanuvchilar ro'yxati",
+      "description": "Jami {count} ta foydalanuvchi",
+      "headers": {
+        "user": "Foydalanuvchi",
+        "email": "Email",
+        "organization": "Tashkilot",
+        "status": "Status",
+        "actions": "Amallar"
+      }
+    },
+    "form": {
+      "firstName": "Ism",
+      "firstNamePlaceholder": "Ism",
+      "lastName": "Familiya",
+      "lastNamePlaceholder": "Familiya (ixtiyoriy)",
+      "organization": "Tashkilot",
+      "organizationPlaceholder": "Tashkilotni tanlang",
+      "organizationPrefix": "Tashkilot",
+      "username": "Foydalanuvchi nomi",
+      "usernamePlaceholder": "foydalanuvchi_nomi",
+      "email": "Email",
+      "emailPlaceholder": "user@example.com",
+      "password": "Parol",
+      "passwordPlaceholder": "Parolni kiriting",
+      "confirmPassword": "Parolni tasdiqlang",
+      "confirmPasswordPlaceholder": "Parolni qayta kiriting",
+      "newPassword": "Yangi parol (ixtiyoriy)",
+      "newPasswordPlaceholder": "Yangi parolni kiriting"
+    },
+    "status": {
+      "active": "Faol",
+      "inactive": "Nofaol",
+      "staff": "Xodim"
+    },
+    "actions": {
+      "edit": "Tahrirlash",
+      "activate": "Faollashtirish",
+      "deactivate": "Nofaol qilish",
+      "delete": "O'chirish"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yangi foydalanuvchi yaratish",
+        "description": "Tizimga yangi foydalanuvchi qo'shing va unga rol bering"
+      },
+      "edit": {
+        "title": "Foydalanuvchini tahrirlash",
+        "description": "Foydalanuvchi ma'lumotlarini yangilang"
+      },
+      "delete": {
+        "title": "Foydalanuvchini o'chirish",
+        "description": "Haqiqatan ham {name} foydalanuvchisini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi."
+      }
+    },
+    "loading": {
+      "text": "Ma'lumotlar yuklanmoqda..."
+    },
+    "errors": {
+      "title": "Xatolik",
+      "fillAllFields": "Barcha majburiy maydonlarni to'ldiring",
+      "passwordMismatch": "Parollar mos kelmaydi",
+      "usernameExists": "Bu foydalanuvchi nomi allaqachon mavjud",
+      "createUserFailed": "Foydalanuvchi yaratishda xatolik yuz berdi",
+      "updateUserFailed": "Foydalanuvchi yangilashda xatolik yuz berdi",
+      "deleteUserFailed": "Foydalanuvchi o'chirishda xatolik yuz berdi",
+      "statusChangeFailed": "Foydalanuvchi holatini o'zgartirishda xatolik yuz berdi",
+      "loadUsersFailed": "Foydalanuvchilarni yuklashda xatolik yuz berdi"
+    },
+    "success": {
+      "title": "Muvaffaqiyat",
+      "userCreated": "Yangi foydalanuvchi yaratildi",
+      "userUpdated": "Foydalanuvchi ma'lumotlari yangilandi",
+      "userDeleted": "Foydalanuvchi o'chirildi",
+      "statusChanged": "Foydalanuvchi holati o'zgartirildi"
+    }
+  },
+  "WorkshopsPage": {
+    "header": {
+      "title": "Atolyeler",
+      "description": "Barcha atolyelerni boshqarish va kuzatish"
+    },
+    "buttons": {
+      "newWorkshop": "Yangi atolye",
+      "cancel": "Bekor qilish",
+      "create": "Yaratish",
+      "update": "Yangilash",
+      "delete": "O'chirish"
+    },
+    "search": {
+      "placeholder": "Atolye yoki egasi bo'yicha qidirish..."
+    },
+    "filters": {
+      "statusPlaceholder": "Holat bo'yicha",
+      "all": "Barchasi"
+    },
+    "stats": {
+      "totalWorkshops": "Jami atolyeler",
+      "active": "Faol",
+      "busy": "Band",
+      "stopped": "To'xtatilgan"
+    },
+    "table": {
+      "title": "Atolyeler ro'yxati",
+      "description": "Barcha atolyeler va ularning hozirgi holati",
+      "headers": {
+        "id": "ID",
+        "workshop": "Atolye",
+        "owner": "Egasi",
+        "status": "Holat",
+        "currentMaterial": "Hozirgi material",
+        "workTime": "Ish vaqti",
+        "process": "Jarayon",
+        "actions": "Amallar"
+      }
+    },
+    "form": {
+      "workshopName": "Atolye nomi",
+      "workshopNamePlaceholder": "Atolye-5",
+      "workshopType": "Atolye turi",
+      "selectWorkshopType": "Atolye turini tanlang"
+    },
+    "types": {
+      "goldProcessing": "Oltin qayta ishlash",
+      "silverProcessing": "Kumush qayta ishlash",
+      "jewelryMaking": "Zargarlik buyumlari yaratish",
+      "cleaning": "Tozalash",
+      "repair": "Ta'mirlash",
+      "bank": "Bank"
+    },
+    "status": {
+      "active": "Faol",
+      "busy": "Band",
+      "stopped": "To'xtatilgan",
+      "unknown": "Noma'lum"
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yangi atolye yaratish",
+        "description": "Yangi atolye uchun asosiy ma'lumotlarni kiriting."
+      },
+      "edit": {
+        "title": "Atolyeni tahrirlash",
+        "description": "Atolye ma'lumotlarini yangilang."
+      },
+      "delete": {
+        "title": "Atolyeni o'chirish",
+        "description": "Haqiqatan ham \"{name}\" atolyesini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi."
+      }
+    },
+    "loading": {
+      "text": "Ma'lumotlar yuklanmoqda..."
+    },
+    "errors": {
+      "title": "Xatolik",
+      "fillAllFields": "Barcha majburiy maydonlarni to'ldiring",
+      "createWorkshopFailed": "Atolye yaratishda xatolik yuz berdi",
+      "updateWorkshopFailed": "Atolye ma'lumotlarini yangilashda xatolik yuz berdi",
+      "deleteWorkshopFailed": "Atolye o'chirishda xatolik yuz berdi",
+      "loadDataFailed": "Ma'lumotlarni yuklashda xatolik yuz berdi. Iltimos, qayta urinib ko'ring."
+    },
+    "success": {
+      "title": "Muvaffaqiyat",
+      "workshopCreated": "Yangi atolye yaratildi",
+      "workshopUpdated": "Atolye ma'lumotlari yangilandi",
+      "workshopDeleted": "Atolye o'chirildi"
+    }
+  },
+  "WorkshopDetailPage": {
+  "header": {
+    "description": "Ustaxona tafsilotlari va faoliyat tarixi"
+  },
+  "buttons": {
+    "back": "Orqaga",
+    "goBack": "Orqaga qaytish",
+    "cancel": "Bekor qilish",
+    "delete": "O‘chirish",
+    "tryAgain": "Qayta urinib ko‘rish"
+  },
+  "status": {
+    "active": "Faol",
+    "busy": "Band",
+    "stopped": "To‘xtatilgan",
+    "unknown": "Noma’lum"
+  },
+  "actions": {
+    "received": "Qabul qilindi",
+    "sent": "Yuborildi",
+    "processed": "Qayta ishlangan"
+  },
+  "materials": {
+    "gold": "Oltin",
+    "silver": "Kumush"
+  },
+  "filters": {
+    "today": "Bugun",
+    "7days": "7 kun",
+    "30days": "30 kun",
+    "all": "Barchasi"
+  },
+  "charts": {
+    "generalTitle": "Umumiy statistika",
+    "generalDescription": "Yuborilgan va qabul qilingan material miqdorlari",
+    "materialTitle": "Materiallar taqsimoti",
+    "materialDescription": "Qayta ishlangan material turlari",
+    "received": "Qabul qilindi",
+    "sent": "Yuborildi"
+  },
+  "sections": {
+    "materialHistory": {
+      "title": "Materiallar tarixi",
+      "description": "So‘nggi material harakatlari va qayta ishlash tarixi",
+      "processNote": "Tozalash jarayonida 20 g yo‘qotish",
+      "headers": {
+        "date": "Sana",
+        "action": "Harakat",
+        "material": "Material",
+        "note": "Izoh"
+      }
+    }
+  },
+  "dialogs": {
+    "delete": {
+      "title": "Ustaxonani o‘chirish",
+      "description": "Haqiqatan ham {name} ustaxonasini o‘chirmoqchimisiz? Bu amalni qaytarib bo‘lmaydi."
+    }
+  },
+  "loading": {
+    "text": "Ma’lumotlar yuklanmoqda..."
+  },
+  "errors": {
+    "title": "Xatolik",
+    "loadWorkshopFailed": "Ustaxona ma’lumotlarini yuklashda xatolik yuz berdi."
+  }
+}
+
+}
