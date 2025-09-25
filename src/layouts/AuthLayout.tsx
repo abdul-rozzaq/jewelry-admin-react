@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useTokenVerifyMutation } from "../lib/service/authApi";
+import LoadingComponent from "../components/LoadingComponent";
 
 const AuthLayout = () => {
   const [verifyToken, { isLoading }] = useTokenVerifyMutation();
@@ -25,7 +26,7 @@ const AuthLayout = () => {
     })();
   }, [verifyToken]);
 
-  if (isLoading || hasAccess === null) return <h1>Loading....</h1>;
+  if (isLoading || hasAccess === null) return <LoadingComponent />;
 
   return hasAccess ? <Outlet /> : <Navigate to="/login" />;
 };
