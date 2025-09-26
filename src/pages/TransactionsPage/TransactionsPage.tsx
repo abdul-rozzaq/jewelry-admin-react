@@ -7,7 +7,7 @@ import { Badge } from "@/src/components/ui/badge";
 import { Input } from "@/src/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Search, Eye, CheckCircle, Clock, XCircle, ArrowLeftRight, Loader2 } from "lucide-react";
+import { Search, Eye, CheckCircle, Clock, XCircle, ArrowLeftRight, Loader2, Plus } from "lucide-react";
 import { useGetTransactionsQuery } from "@/src/lib/service/transactionsApi";
 import { getCurrentUser } from "@/src/lib/auth";
 import type Organization from "@/src/types/organization";
@@ -107,7 +107,7 @@ export default function TransactionsPage() {
             <p className="text-muted-foreground">{t("transfers.subtitle")}</p>
           </div>
           <Button asChild>
-            <Link to="/transfers/create">+ {t("transfers.new")}</Link>
+            <Link to="/transactions/create">+ {t("transfers.new")}</Link>
           </Button>
         </div>
         <Card>
@@ -131,8 +131,41 @@ export default function TransactionsPage() {
           <p className="text-muted-foreground">{t("transfers.subtitle")}</p>
         </div>
         <Button asChild>
-          <Link to="/transfers/create">+ {t("transfers.new")}</Link>
+          <Link to="/transactions/create">
+            <Plus className="h-4 w-4" /> {t("transfers.new")}
+          </Link>
         </Button>
+      </div>
+
+      <div className="flex items-center gap-4 mb-6">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <Input placeholder={t("transfers.search")} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
+        </div>
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder={t("transfers.filters.status")} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">{t("transfers.filters.all")}</SelectItem>
+            <SelectItem value="pending">{t("transfers.filters.pending")}</SelectItem>
+            <SelectItem value="accepted">{t("transfers.filters.accepted")}</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select value={organizationFilter} onValueChange={setOrganizationFilter}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder={t("transfers.filters.organization")} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">{t("transfers.filters.all")}</SelectItem>
+            {organizations.map((organization: Organization) => (
+              <SelectItem key={organization.id} value={organization.id.toString()}>
+                {organization.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Search & Filters */}
@@ -142,37 +175,6 @@ export default function TransactionsPage() {
           <CardDescription>{isLoading ? t("transfers.loading") : t("transfers.list.total", { count: transfers.length })}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 mb-6">
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input placeholder={t("transfers.search")} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
-            </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder={t("transfers.filters.status")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("transfers.filters.all")}</SelectItem>
-                <SelectItem value="pending">{t("transfers.filters.pending")}</SelectItem>
-                <SelectItem value="accepted">{t("transfers.filters.accepted")}</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={organizationFilter} onValueChange={setOrganizationFilter}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder={t("transfers.filters.organization")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("transfers.filters.all")}</SelectItem>
-                {organizations.map((organization: Organization) => (
-                  <SelectItem key={organization.id} value={organization.id.toString()}>
-                    {organization.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
           {isLoading ? (
             <div className="flex items-center justify-center p-8">
               <Loader2 className="h-6 w-6 animate-spin mr-2" />
@@ -219,7 +221,7 @@ export default function TransactionsPage() {
                       <TableCell>
                         <div className="flex gap-2">
                           <Button variant="ghost" size="sm" asChild>
-                            <Link to={`/transfers/${tr.id}`}>
+                            <Link to={`/transactions/${tr.id}`}>
                               <Eye className="h-4 w-4" />
                             </Link>
                           </Button>

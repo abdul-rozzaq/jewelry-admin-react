@@ -175,7 +175,7 @@
     },
     "table": {
       "title": "Inventar ro‘yxati",
-      "description": "Jami {count} ta inventar yozuvi",
+      "description": "Jami {{count}} ta inventar yozuvi",
       "columns": {
         "id": "ID",
         "material": "Material",
@@ -279,7 +279,7 @@
       },
       "delete": {
         "title": "Materialni o'chirish",
-        "description": "Haqiqatan ham {name} materialini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi.",
+        "description": "Haqiqatan ham {{name}} materialini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi.",
         "confirm": "Ha, o‘chirish",
         "cancel": "Yo‘q"
       }
@@ -300,7 +300,7 @@
     },
     "table": {
       "title": "Materiallar ro'yxati",
-      "description": "Jami {count} ta material",
+      "description": "Jami {{count}} ta material",
       "columns": {
         "name": "Nomi",
         "unit": "O‘lchov birligi",
@@ -386,7 +386,7 @@
     },
     "table": {
       "title": "Jarayonlar ro‘yxati",
-      "description": "Jami {count} ta jarayon",
+      "description": "Jami {{count}} ta jarayon",
       "columns": {
         "id": "ID",
         "organization": "Tashkilot",
@@ -497,7 +497,7 @@
     "retry": "Qayta urinish",
     "list": {
       "title": "Transferlar roʻyxati",
-      "total": "Jami {count} ta transfer"
+      "total": "Jami {{count}} ta transfer"
     },
     "search": "ID, yuboruvchi yoki qabul qiluvchi boʻyicha qidirish...",
     "filters": {
@@ -547,7 +547,7 @@
     "errors": {
       "invalidInventoryOrQuantity": "Inventar va miqdor to'g'ri kiriting (miqdor > 0).",
       "inventoryNotFound": "Tanlangan inventar topilmadi.",
-      "quantityExceedsAvailable": "\"{name}\" uchun mavjud miqdor: {available} {unit}. Transfer miqdori oshib ketdi.",
+      "quantityExceedsAvailable": "{{name}} uchun mavjud miqdor: {{available}} {{unit}}. Transfer miqdori oshib ketdi.",
       "receiverOrItemsRequired": "Qabul qiluvchi va kamida bitta inventar kerak.",
       "transactionFailed": "Transfer yaratishda xatolik."
     },
@@ -557,8 +557,8 @@
     },
     "debug": {
       "title": "Debug",
-      "availableInventories": "Mavjud: {count}",
-      "selectedItems": "Tanlangan: {count}"
+      "availableInventories": "Mavjud:{{count}}",
+      "selectedItems": "Tanlangan:{{count}}"
     },
     "table": {
       "headers": {
@@ -571,7 +571,7 @@
       },
       "empty": "Inventar qo'shing."
     },
-    "maxQuantityText": "Maks: {quantity} {unit}"
+    "maxQuantityText": "Maks: {{quantity}} {{unit}}"
   },
   "TransferDetail": {
     "status": {
@@ -581,7 +581,7 @@
       "unknown": "Noma'lum"
     },
     "header": {
-      "title": "Transfer #{id}"
+      "title": "Transfer #{{id}}"
     },
     "sections": {
       "transferDirection": "Transfer yo'nalishi",
@@ -655,7 +655,7 @@
     },
     "table": {
       "title": "Foydalanuvchilar ro'yxati",
-      "description": "Jami {count} ta foydalanuvchi",
+      "description": "Jami {{count}} ta foydalanuvchi",
       "headers": {
         "user": "Foydalanuvchi",
         "email": "Email",
@@ -705,7 +705,7 @@
       },
       "delete": {
         "title": "Foydalanuvchini o'chirish",
-        "description": "Haqiqatan ham {name} foydalanuvchisini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi."
+        "description": "Haqiqatan ham {{name}} foydalanuvchisini o'chirmoqchimisiz? Bu amalni bekor qilib bo'lmaydi."
       }
     },
     "loading": {
@@ -822,71 +822,70 @@
     }
   },
   "WorkshopDetailPage": {
-  "header": {
-    "description": "Ustaxona tafsilotlari va faoliyat tarixi"
-  },
-  "buttons": {
-    "back": "Orqaga",
-    "goBack": "Orqaga qaytish",
-    "cancel": "Bekor qilish",
-    "delete": "O‘chirish",
-    "tryAgain": "Qayta urinib ko‘rish"
-  },
-  "status": {
-    "active": "Faol",
-    "busy": "Band",
-    "stopped": "To‘xtatilgan",
-    "unknown": "Noma’lum"
-  },
-  "actions": {
-    "received": "Qabul qilindi",
-    "sent": "Yuborildi",
-    "processed": "Qayta ishlangan"
-  },
-  "materials": {
-    "gold": "Oltin",
-    "silver": "Kumush"
-  },
-  "filters": {
-    "today": "Bugun",
-    "7days": "7 kun",
-    "30days": "30 kun",
-    "all": "Barchasi"
-  },
-  "charts": {
-    "generalTitle": "Umumiy statistika",
-    "generalDescription": "Yuborilgan va qabul qilingan material miqdorlari",
-    "materialTitle": "Materiallar taqsimoti",
-    "materialDescription": "Qayta ishlangan material turlari",
-    "received": "Qabul qilindi",
-    "sent": "Yuborildi"
-  },
-  "sections": {
-    "materialHistory": {
-      "title": "Materiallar tarixi",
-      "description": "So‘nggi material harakatlari va qayta ishlash tarixi",
-      "processNote": "Tozalash jarayonida 20 g yo‘qotish",
-      "headers": {
-        "date": "Sana",
-        "action": "Harakat",
-        "material": "Material",
-        "note": "Izoh"
+    "header": {
+      "description": "Ustaxona tafsilotlari va faoliyat tarixi"
+    },
+    "buttons": {
+      "back": "Orqaga",
+      "goBack": "Orqaga qaytish",
+      "cancel": "Bekor qilish",
+      "delete": "O‘chirish",
+      "tryAgain": "Qayta urinib ko‘rish"
+    },
+    "status": {
+      "active": "Faol",
+      "busy": "Band",
+      "stopped": "To‘xtatilgan",
+      "unknown": "Noma’lum"
+    },
+    "actions": {
+      "received": "Qabul qilindi",
+      "sent": "Yuborildi",
+      "processed": "Qayta ishlangan"
+    },
+    "materials": {
+      "gold": "Oltin",
+      "silver": "Kumush"
+    },
+    "filters": {
+      "today": "Bugun",
+      "7days": "7 kun",
+      "30days": "30 kun",
+      "all": "Barchasi"
+    },
+    "charts": {
+      "generalTitle": "Umumiy statistika",
+      "generalDescription": "Yuborilgan va qabul qilingan material miqdorlari",
+      "materialTitle": "Materiallar taqsimoti",
+      "materialDescription": "Qayta ishlangan material turlari",
+      "received": "Qabul qilindi",
+      "sent": "Yuborildi"
+    },
+    "sections": {
+      "materialHistory": {
+        "title": "Materiallar tarixi",
+        "description": "So‘nggi material harakatlari va qayta ishlash tarixi",
+        "processNote": "Tozalash jarayonida 20 g yo‘qotish",
+        "headers": {
+          "date": "Sana",
+          "action": "Harakat",
+          "material": "Material",
+          "note": "Izoh"
+        }
       }
+    },
+    "dialogs": {
+      "delete": {
+        "title": "Ustaxonani o‘chirish",
+        "description": "Haqiqatan ham {{name}} ustaxonasini o‘chirmoqchimisiz? Bu amalni qaytarib bo‘lmaydi."
+      }
+    },
+    "loading": {
+      "text": "Ma’lumotlar yuklanmoqda..."
+    },
+    "errors": {
+      "title": "Xatolik",
+      "loadWorkshopFailed": "Ustaxona ma’lumotlarini yuklashda xatolik yuz berdi."
     }
-  },
-  "dialogs": {
-    "delete": {
-      "title": "Ustaxonani o‘chirish",
-      "description": "Haqiqatan ham {name} ustaxonasini o‘chirmoqchimisiz? Bu amalni qaytarib bo‘lmaydi."
-    }
-  },
-  "loading": {
-    "text": "Ma’lumotlar yuklanmoqda..."
-  },
-  "errors": {
-    "title": "Xatolik",
-    "loadWorkshopFailed": "Ustaxona ma’lumotlarini yuklashda xatolik yuz berdi."
   }
-}
-
 }

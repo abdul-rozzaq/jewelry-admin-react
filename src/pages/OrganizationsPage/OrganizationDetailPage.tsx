@@ -152,7 +152,7 @@ export default function WorkshopDetailPage() {
               </Button>
               <Link to="/organizations">
                 <Button variant="outline">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  <ArrowLeft className="h-4 w-4 mr-0.5" />
                   {t("WorkshopDetailPage.buttons.goBack")}
                 </Button>
               </Link>
@@ -169,7 +169,7 @@ export default function WorkshopDetailPage() {
       <div className="flex items-center gap-4">
         <Link to="/organizations">
           <Button variant="ghost" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="h-4 w-4 mr-0.5" />
             {t("WorkshopDetailPage.buttons.back")}
           </Button>
         </Link>

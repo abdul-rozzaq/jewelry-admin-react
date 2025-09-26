@@ -222,7 +222,7 @@ export default function MaterialsPage() {
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-0.5" />
               {t("materials.actions.create")}
             </Button>
           </DialogTrigger>

@@ -151,7 +151,7 @@ export default function OrganizationsPage() {
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-0.5" />
               {t("WorkshopsPage.buttons.newWorkshop")}
             </Button>
           </DialogTrigger>
@@ -198,7 +198,7 @@ export default function OrganizationsPage() {
                 {t("WorkshopsPage.buttons.cancel")}
               </Button>
               <Button type="submit" onClick={handleCreateWorkshop} disabled={isCreating}>
-                {isCreating && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                {isCreating && <Loader2 className="h-4 w-4 mr-0.5 animate-spin" />}
                 {t("WorkshopsPage.buttons.create")}
               </Button>
             </DialogFooter>
@@ -252,7 +252,7 @@ export default function OrganizationsPage() {
               {t("WorkshopsPage.buttons.cancel")}
             </Button>
             <Button type="submit" onClick={handleEditWorkshop} disabled={isUpdating}>
-              {isUpdating && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              {isUpdating && <Loader2 className="h-4 w-4 mr-0.5 animate-spin" />}
               {t("WorkshopsPage.buttons.update")}
             </Button>
           </DialogFooter>
@@ -318,17 +318,6 @@ export default function OrganizationsPage() {
             className="pl-10"
           />
         </div>
-        {/* <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t("WorkshopsPage.filters.statusPlaceholder")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">{t("WorkshopsPage.filters.all")}</SelectItem>
-            <SelectItem value="active">{t("WorkshopsPage.status.active")}</SelectItem>
-            <SelectItem value="busy">{t("WorkshopsPage.status.busy")}</SelectItem>
-            <SelectItem value="stopped">{t("WorkshopsPage.status.stopped")}</SelectItem>
-          </SelectContent>
-        </Select> */}
       </div>
 
       {/* Search and Filters */}

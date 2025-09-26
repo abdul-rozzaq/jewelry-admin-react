@@ -13,12 +13,16 @@ import InventoriesPage from "./pages/InventoriesPage/InventoriesPage";
 import OrganizationsPage from "./pages/OrganizationsPage/OrganizationsPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import OrganizationDetailPage from "./pages/OrganizationsPage/OrganizationDetailPage";
+import CreateTransactionPage from "./pages/TransactionsPage/CreateTransactionPage";
+import CreateProcessPage from "./pages/ProcessesPage/CreateProcessPage";
+import { ThemeProvider } from "./context/ThemeContext";
+import TransactionDetailPage from "./pages/TransactionsPage/TransactionDetailPage";
 
 function App() {
   const { t, i18n } = useTranslation();
 
   return (
-    <>
+    <ThemeProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -35,18 +39,25 @@ function App() {
                 <Route path=":id" element={<OrganizationDetailPage />} />
               </Route>
 
-              <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/transactions">
+                <Route index element={<TransactionsPage />} />
+                <Route path="create" element={<CreateTransactionPage />} />
+                <Route path=":id" element={<TransactionDetailPage />} />
+              </Route>
 
               <Route path="/users" element={<UsersPage />} />
 
-              <Route path="/processes" element={<ProcessesPage />} />
+              <Route path="/processes">
+                <Route index element={<ProcessesPage />} />
+                <Route path="create" element={<CreateProcessPage />} />
+              </Route>
 
               <Route path="/*" element={<NotFoundPage />} />
             </Route>
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   );
 }
 

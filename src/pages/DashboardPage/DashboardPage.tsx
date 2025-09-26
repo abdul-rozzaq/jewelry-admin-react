@@ -76,12 +76,12 @@ export default function DashboardPage() {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm">
-            <Eye className="h-4 w-4 mr-2" />
+            <Eye className="h-4 w-4 mr-0.5" />
             {t("dashboard.report")}
           </Button>
           <Link to="/transfers/create">
             <Button size="sm">
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-0.5" />
               {t("dashboard.newTransfer")}
             </Button>
           </Link>

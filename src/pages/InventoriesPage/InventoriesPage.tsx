@@ -250,7 +250,7 @@ export default function InventoryPage() {
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button>
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="h-4 w-4 mr-0.5" />
                 {t("inventory.actions.create")}
               </Button>
             </DialogTrigger>
@@ -416,24 +416,13 @@ export default function InventoryPage() {
                       </div>
                     </TableCell>
                     <TableCell>{new Date(item.created_at).toLocaleDateString("uz-UZ")}</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleEditInventory(item)}>
-                            <Edit className="h-4 w-4 mr-2" />
-                            {t("inventory.actions.edit")}
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-600" onClick={() => confirmDelete(item)}>
-                            <Trash2 className="h-4 w-4 mr-2" />
-                            {t("inventory.actions.delete")}
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                    <TableCell className="flex justify-end space-x-2">
+                      <Button variant="outline" size="sm" onClick={() => handleEditInventory(item)}>
+                        <Edit className="h-4 w-4 mr-1" /> {t("materials.actions.edit")}
+                      </Button>
+                      <Button variant="destructive" size="sm" onClick={() => confirmDelete(item)}>
+                        <Trash2 className="h-4 w-4 mr-1" /> {t("materials.actions.delete")}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

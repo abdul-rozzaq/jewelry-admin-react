@@ -175,7 +175,7 @@
     },
     "table": {
       "title": "Envanter listesi",
-      "description": "Toplam {count} envanter kaydı",
+      "description": "Toplam {{count}} envanter kaydı",
       "columns": {
         "id": "ID",
         "material": "Malzeme",
@@ -279,7 +279,7 @@
       },
       "delete": {
         "title": "Malzemeyi sil",
-        "description": "Haqiqatan ham {name} malzemesini silmek istiyor musunuz? Bu işlem geri alınamaz.",
+        "description": "Haqiqatan ham {{name}} malzemesini silmek istiyor musunuz? Bu işlem geri alınamaz.",
         "confirm": "Evet, sil",
         "cancel": "Hayır"
       }
@@ -300,7 +300,7 @@
     },
     "table": {
       "title": "Malzemeler listesi",
-      "description": "Toplam {count} malzeme",
+      "description": "Toplam {{count}} malzeme",
       "columns": {
         "name": "Adı",
         "unit": "Ölçü birimi",
@@ -386,7 +386,7 @@
     },
     "table": {
       "title": "Süreçler listesi",
-      "description": "Toplam {count} süreç",
+      "description": "Toplam {{count}} süreç",
       "columns": {
         "id": "ID",
         "organization": "Organizasyon",
@@ -497,7 +497,7 @@
     "retry": "Tekrar dene",
     "list": {
       "title": "Transferler listesi",
-      "total": "Toplam {count} transfer"
+      "total": "Toplam {{count}} transfer"
     },
     "search": "ID, gönderen veya alıcıya göre ara...",
     "filters": {
@@ -547,7 +547,7 @@
     "errors": {
       "invalidInventoryOrQuantity": "Envanter ve miktarı doğru girin (miktar > 0).",
       "inventoryNotFound": "Seçilen envanter bulunamadı.",
-      "quantityExceedsAvailable": "\"{name}\" için mevcut miktar: {available} {unit}. Transfer miktarı aşıldı.",
+      "quantityExceedsAvailable": "\"{{name}}\" için mevcut miktar: {{available}} {{unit}}. Transfer miktarı aşıldı.",
       "receiverOrItemsRequired": "Alıcı ve en az bir envanter gereklidir.",
       "transactionFailed": "Transfer oluşturulurken hata oluştu."
     },
@@ -557,8 +557,8 @@
     },
     "debug": {
       "title": "Debug",
-      "availableInventories": "Mevcut: {count}",
-      "selectedItems": "Seçilen: {count}"
+      "availableInventories": "Mevcut:{{count}}",
+      "selectedItems": "Seçilen:{{count}}"
     },
     "table": {
       "headers": {
@@ -571,7 +571,7 @@
       },
       "empty": "Envanter ekleyin."
     },
-    "maxQuantityText": "Maks: {quantity} {unit}"
+    "maxQuantityText": "Maks: {{quantity}} {{unit}}"
   },
   "TransferDetail": {
     "status": {
@@ -581,7 +581,7 @@
       "unknown": "Bilinmeyen"
     },
     "header": {
-      "title": "Transfer #{id}"
+      "title": "Transfer #{{id}}"
     },
     "sections": {
       "transferDirection": "Transfer yönü",
@@ -655,7 +655,7 @@
     },
     "table": {
       "title": "Kullanıcılar listesi",
-      "description": "Toplam {count} kullanıcı",
+      "description": "Toplam {{count}} kullanıcı",
       "headers": {
         "user": "Kullanıcı",
         "email": "Email",
@@ -834,7 +834,7 @@
     },
     "status": {
       "active": "Aktif",
-      "busy": "Meşgul", 
+      "busy": "Meşgul",
       "stopped": "Durduruldu",
       "unknown": "Bilinmeyen"
     },
@@ -869,7 +869,7 @@
         "headers": {
           "date": "Tarih",
           "action": "Hareket",
-          "material": "Malzeme", 
+          "material": "Malzeme",
           "note": "Not"
         }
       }
@@ -877,7 +877,7 @@
     "dialogs": {
       "delete": {
         "title": "Atölyeyi Sil",
-        "description": "Gerçekten {name} atölyesini silmek istiyor musunuz? Bu işlem geri alınamaz."
+        "description": "Gerçekten {{name}} atölyesini silmek istiyor musunuz? Bu işlem geri alınamaz."
       }
     },
     "loading": {
@@ -887,5 +887,5 @@
       "title": "Hata",
       "loadWorkshopFailed": "Atölye verileri yüklenirken hata oluştu."
     }
-}
+  }
 }

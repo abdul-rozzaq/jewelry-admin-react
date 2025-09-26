@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet";
-import { Home, Factory, ArrowLeftRight, Bell, Settings, Users, Menu, LogOut, ShoppingBag, Package } from "lucide-react";
+import { Home, Factory, ArrowLeftRight, Bell, Settings, Users, Menu, LogOut, ShoppingBag, Package, Moon, Sun } from "lucide-react";
 import { Toaster } from "@/src/components/ui/toaster";
 import { cn } from "@/src/lib/utils";
 import { LanguageSwitcher } from "@/src/components/language-switcher";
@@ -20,10 +20,13 @@ import { getCurrentUser } from "@/src/lib/auth";
 import type { User } from "@/src/types/user";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { darkMode, toggleTheme } = useTheme();
 
   const { t } = useTranslation();
 
@@ -143,6 +146,10 @@ export default function DashboardLayout() {
             </div>
 
             <div className="flex items-center gap-4">
+              <Button className="cursor-pointer" variant="outline" size="icon" onClick={toggleTheme}>
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+
               <LanguageSwitcher />
 
               {/* Notifications */}
