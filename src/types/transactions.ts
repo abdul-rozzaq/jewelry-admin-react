@@ -1,5 +1,5 @@
-import Inventory from "./inventory";
-import Organization from "./organization"
+import  Inventory from "./inventory";
+import  Organization from "./organization"
 
 
 type TransactionStatus = 'pending' | 'accepted';

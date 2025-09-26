@@ -10,8 +10,8 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
@@ -27,10 +27,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["src/components/*"],  // src/components papkasi uchun alias
-      "@hooks/*": ["src/hooks/*"],            // src/hooks papkasi uchun alias
-      "@lib/*": ["src/lib/*"],                // src/lib papkasi uchun alias
-      "@types/*": ["src/types/*"]             // src/types papkasi uchun alias
+      "@components/*": ["src/components/*"], // src/components papkasi uchun alias
+      "@hooks/*": ["src/hooks/*"], // src/hooks papkasi uchun alias
+      "@lib/*": ["src/lib/*"], // src/lib papkasi uchun alias
+      "@types/*": ["src/types/*"] // src/types papkasi uchun alias
     }
   },
   "include": ["src"]
