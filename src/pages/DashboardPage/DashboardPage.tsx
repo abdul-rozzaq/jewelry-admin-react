@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Gem, Factory, TrendingUp, Clock, AlertTriangle, Plus, Eye, ArrowUpRight } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";

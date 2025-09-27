@@ -1,18 +1,10 @@
-"use client";
-
 import type React from "react";
 
 import { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Alert, AlertDescription } from "@/src/components/ui/alert";
 import { Lock, User } from "lucide-react";
 import authApi, { useLoginMutation } from "@/src/lib/service/authApi";
