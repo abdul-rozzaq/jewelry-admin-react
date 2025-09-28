@@ -185,8 +185,8 @@ export default function DashboardLayout() {
                   {/* <DropdownMenuItem>
                     <Settings className="mr-2 h-4 w-4" />
                     <span>{t('settings')}</span>
-                  </DropdownMenuItem> */}
-                  <DropdownMenuSeparator />
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator /> */}
                   <DropdownMenuItem className="text-red-600 hover:text-red-600" onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4 text-red-600" />
                     <span className="">{t("Auth.logout")}</span>

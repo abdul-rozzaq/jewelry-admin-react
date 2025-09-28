@@ -142,7 +142,7 @@ export default function DashboardPage() {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="amount" fill="hsl(var(--primary))" />
+                <Bar dataKey="amount" fill="var(--primary)" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -161,7 +161,7 @@ export default function DashboardPage() {
                 <XAxis dataKey="day" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="transfers" stroke="hsl(var(--primary))" strokeWidth={2} />
+                <Line type="monotone" dataKey="transfers" stroke="var(--primary)" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
