@@ -33,18 +33,17 @@ import type Material from "@/src/types/material";
 import { unitColors, unitLabels } from "@/src/constants/units";
 import { useTranslation } from "react-i18next";
 
+type FormDataType = Omit<Material, "id" | "created_at" | "updated_at">;
+
 export default function MaterialsPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState("");
-  const {
-    data: materials = [],
-    isLoading: materialsLoading,
-    error: materialsError,
-  } = useGetMaterialsQuery({
-    search: searchTerm,
-  });
+  const { data: materials = [], isLoading: materialsLoading, error: materialsError } = useGetMaterialsQuery({ search: searchTerm });
+
+  const hashedMaterials: Record<number, Material> = materials.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {});
+
   const [addMaterial] = useAddMaterialMutation();
   const [updateMaterial] = useUpdateMaterialMutation();
   const [deleteMaterial] = useDeleteMaterialMutation();
@@ -53,13 +52,18 @@ export default function MaterialsPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
-  const [formData, setFormData] = useState({
+
+  const formInitialData: FormDataType = {
     name: "",
     unit: "" as "g" | "pcs" | "ct" | "",
-  });
+    purity: "",
+    parent: null,
+  };
+
+  const [formData, setFormData] = useState<FormDataType>(formInitialData);
 
   const resetForm = () => {
-    setFormData({ name: "", unit: "" });
+    setFormData(formInitialData);
   };
 
   const handleCreateMaterial = async () => {
@@ -81,13 +85,8 @@ export default function MaterialsPage() {
       return;
     }
 
-    const apiData = {
-      name: formData.name,
-      unit: formData.unit,
-    };
-
     try {
-      await addMaterial(apiData).unwrap();
+      await addMaterial(formData).unwrap();
       resetForm();
       setIsCreateDialogOpen(false);
 
@@ -107,10 +106,14 @@ export default function MaterialsPage() {
 
   const handleEditMaterial = (material: Material) => {
     setSelectedMaterial(material);
+
     setFormData({
       name: material.name,
       unit: material.unit as "g" | "pcs" | "ct" | "",
+      parent: material.parent,
+      purity: material.purity,
     });
+
     setIsEditDialogOpen(true);
   };
 
@@ -135,13 +138,9 @@ export default function MaterialsPage() {
       return;
     }
 
-    const apiData = {
-      name: formData.name,
-      unit: formData.unit,
-    };
-
     try {
-      await updateMaterial({ id: selectedMaterial.id, ...apiData }).unwrap();
+      await updateMaterial({ id: selectedMaterial.id, ...formData }).unwrap();
+
       resetForm();
       setIsEditDialogOpen(false);
       setSelectedMaterial(null);
@@ -242,6 +241,30 @@ export default function MaterialsPage() {
               </div>
 
               <div className="grid gap-2">
+                <Label htmlFor="purity">{t("materials.form.purity")}</Label>
+                <Input
+                  id="purity"
+                  value={formData.purity}
+                  onChange={(e) => setFormData({ ...formData, purity: e.target.value })}
+                  placeholder={t("materials.form.purityPlaceholder")}
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="parent">{t("materials.form.parent")} *</Label>
+                <Select value={formData.parent?.toString() ?? ""} onValueChange={(value: string) => setFormData({ ...formData, parent: +value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t("materials.form.parentPlaceholder")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {materials.map((material: Material) => (
+                      <SelectItem value={material.id.toString()}>{material.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid gap-2">
                 <Label htmlFor="unit">{t("materials.form.unit")} *</Label>
                 <Select value={formData.unit} onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}>
                   <SelectTrigger>
@@ -297,12 +320,14 @@ export default function MaterialsPage() {
                 <TableHead>#</TableHead>
                 <TableHead>{t("materials.table.columns.name")}</TableHead>
                 <TableHead>{t("materials.table.columns.unit")}</TableHead>
+                <TableHead>{t("materials.table.columns.parent")}</TableHead>
+                <TableHead>{t("materials.table.columns.purity")}</TableHead>
                 <TableHead>{t("materials.table.columns.createdAt")}</TableHead>
                 <TableHead className="text-right">{t("materials.table.columns.actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {materials.map((material, index) => (
+              {materials.map((material: Material, index: number) => (
                 <TableRow key={material.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell className="font-medium">{material.name}</TableCell>
@@ -311,6 +336,8 @@ export default function MaterialsPage() {
                       {unitLabels[material.unit]} ({material.unit})
                     </Badge>
                   </TableCell>
+                  <TableCell>{material.parent ? hashedMaterials[material.parent].name : ""}</TableCell>
+                  <TableCell>{material.purity} c</TableCell>
                   <TableCell>{new Date(material.created_at).toLocaleDateString("uz-UZ")}</TableCell>
                   <TableCell className="flex justify-end space-x-2">
                     <Button variant="outline" size="sm" onClick={() => handleEditMaterial(material)}>
@@ -344,6 +371,30 @@ export default function MaterialsPage() {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder={t("materials.form.namePlaceholder")}
               />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="purity">{t("materials.form.purity")}</Label>
+              <Input
+                id="purity"
+                value={formData.purity}
+                onChange={(e) => setFormData({ ...formData, purity: e.target.value })}
+                placeholder={t("materials.form.purityPlaceholder")}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="parent">{t("materials.form.parent")} *</Label>
+              <Select value={formData.parent?.toString() ?? ""} onValueChange={(value: string) => setFormData({ ...formData, parent: +value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder={t("materials.form.parentPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {materials.map((material: Material) => (
+                    <SelectItem value={material.id.toString()}>{material.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="grid gap-2">

@@ -4,7 +4,7 @@ import { baseQuery } from "./api";
 export const ProcessesApi = createApi({
   reducerPath: "ProcessesApi",
   baseQuery,
-  tagTypes: ["Processes", "Inventory"],
+  tagTypes: ["Processes", "Products"],
   endpoints: (builder) => ({
     GetProcesses: builder.query({
       query: () => "/processes/list/",
@@ -16,7 +16,7 @@ export const ProcessesApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Processes", "Inventory"],
+      invalidatesTags: ["Processes", "Products"],
     }),
     CompleteProcess: builder.mutation({
       query: (id: number) => ({
@@ -35,9 +35,4 @@ export const ProcessesApi = createApi({
   }),
 });
 
-export const {
-  useGetProcessesQuery,
-  useCreateProcessMutation,
-  useCompleteProcessMutation,
-  useDeleteProcessMutation,
-} = ProcessesApi;
+export const { useGetProcessesQuery, useCreateProcessMutation, useCompleteProcessMutation, useDeleteProcessMutation } = ProcessesApi;

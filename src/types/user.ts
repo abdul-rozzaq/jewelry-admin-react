@@ -8,5 +8,5 @@ export interface User {
   last_name?: string;
   is_active: boolean;
   is_staff: boolean;
-  organization: Organization;
+  organization?: Organization;
 }

@@ -1,22 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "./slices/authlice";
 import AuthApi from "./service/authApi";
-import { AtolyeApi } from "./service/atolyeApi";
+import { OrganizationsApi } from "./service/organizationsApi";
 import { UsersApi } from "./service/usersApi";
 import { MaterialsApi } from "./service/materialsApi";
-import { InventoryApi } from "./service/inventoryApi";
+import { ProductsApi } from "./service/productsApi";
 import { TransactionsApi } from "./service/transactionsApi";
-import { ProcessesApi } from "./service/processApi";
-import { DashboardApi } from "./service/dashboard";
+import { ProcessesApi } from "./service/processesApi";
+import { DashboardApi } from "./service/dashboardApi";
 
 const store = configureStore({
   reducer: {
-    auth: authSlice,
     [AuthApi.reducerPath]: AuthApi.reducer,
-    [AtolyeApi.reducerPath]: AtolyeApi.reducer,
+    [OrganizationsApi.reducerPath]: OrganizationsApi.reducer,
     [UsersApi.reducerPath]: UsersApi.reducer,
     [MaterialsApi.reducerPath]: MaterialsApi.reducer,
-    [InventoryApi.reducerPath]: InventoryApi.reducer,
+    [ProductsApi.reducerPath]: ProductsApi.reducer,
     [TransactionsApi.reducerPath]: TransactionsApi.reducer,
     [ProcessesApi.reducerPath]: ProcessesApi.reducer,
     [DashboardApi.reducerPath]: DashboardApi.reducer,
@@ -24,10 +22,10 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       AuthApi.middleware,
-      AtolyeApi.middleware,
+      OrganizationsApi.middleware,
       UsersApi.middleware,
       MaterialsApi.middleware,
-      InventoryApi.middleware,
+      ProductsApi.middleware,
       TransactionsApi.middleware,
       ProcessesApi.middleware,
       DashboardApi.middleware

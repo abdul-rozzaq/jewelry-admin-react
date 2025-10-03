@@ -9,6 +9,7 @@ import { useGetTransactionByIdQuery, useAcceptTransactionMutation } from "@/src/
 import { toast } from "@/src/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { TransactionItem } from "@/src/types/transactions";
 
 const StatusBadge = ({ status, t }: { status: string; t: any }) => {
   const baseClasses = "inline-flex items-center px-2 py-1 rounded-full text-xs font-medium";
@@ -69,7 +70,7 @@ export default function TransactionDetailPage() {
 
   const transactionId = params.id as string;
 
-  const { data: transferDetail, isLoading, error, refetch } = useGetTransactionByIdQuery(transactionId);
+  const { data: transactionDetail, isLoading, error, refetch } = useGetTransactionByIdQuery(transactionId);
 
   const [acceptTransaction, { isLoading: isAccepting }] = useAcceptTransactionMutation();
 
@@ -82,7 +83,7 @@ export default function TransactionDetailPage() {
       const payload = {
         id: transactionId,
         note: "",
-        items: transferDetail.items.map((item: any) => ({
+        items: transactionDetail.items.map((item: any) => ({
           inventory_id: item.inventory.id,
           received_quantity: item.quantity,
         })),
@@ -121,8 +122,8 @@ export default function TransactionDetailPage() {
 
   const user = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user") || "{}") : null;
 
-  const isSender = user?.organization?.id === transferDetail?.sender?.id;
-  const canConfirm = transferDetail?.status === "pending" && !isSender;
+  const isSender = user?.organization?.id === transactionDetail?.sender?.id;
+  const canConfirm = transactionDetail?.status === "pending" && !isSender;
 
   if (isLoading) {
     return (
@@ -160,7 +161,7 @@ export default function TransactionDetailPage() {
     );
   }
 
-  if (!transferDetail) {
+  if (!transactionDetail) {
     return (
       <div className="min-h-screen  flex items-center justify-center">
         <Card className="p-6 max-w-md">
@@ -174,7 +175,7 @@ export default function TransactionDetailPage() {
     );
   }
 
-  const totalOriginalAmount = transferDetail.items?.reduce((sum: number, item: any) => sum + Number.parseFloat(item.quantity), 0) || 0;
+  const totalOriginalAmount = transactionDetail.items?.reduce((sum: number, item: any) => sum + Number.parseFloat(item.quantity), 0) || 0;
 
   return (
     <div className="min-h-screen bg-muted">
@@ -188,8 +189,8 @@ export default function TransactionDetailPage() {
               </Button>
 
               <div className="flex items-center gap-1 mb-1 flex-wrap">
-                <h1 className="text-2xl font-semibold ">{t("TransferDetail.header.title", { id: transferDetail.id })}</h1>
-                <StatusBadge status={transferDetail.status} t={t} />
+                <h1 className="text-2xl font-semibold ">{t("TransferDetail.header.title", { id: transactionDetail.id })}</h1>
+                <StatusBadge status={transactionDetail.status} t={t} />
               </div>
             </div>
 
@@ -234,20 +235,20 @@ export default function TransactionDetailPage() {
               <h2 className="text-lg font-medium mb-4">{t("TransferDetail.sections.sentMaterials")}</h2>
 
               <div className="space-y-3">
-                {transferDetail.items.map((item: any) => (
+                {transactionDetail.items.map((item: TransactionItem) => (
                   <div key={item.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
                     <div>
-                      <h4 className="font-medium ">{item.inventory.material.name}</h4>
+                      <h4 className="font-medium ">{item.product.material.name}</h4>
                       <p className="text-sm text-muted-foreground">
-                        {t("TransferDetail.labels.sender")}: {item.inventory.organization.name}
+                        {t("TransferDetail.labels.sender")}: {item.product.organization.name}
                       </p>
                     </div>
                     <div className="text-right">
                       <span className="font-medium">
-                        {item.quantity} {item.inventory.material.unit}
+                        {item.quantity} {item.product.material.unit}
                       </span>
                       <p className="text-sm text-muted-foreground">
-                        {t("TransferDetail.labels.available")}: {item.inventory.quantity} {item.inventory.material.unit}
+                        {t("TransferDetail.labels.available")}: {item.product.quantity} {item.product.material.unit}
                       </p>
                     </div>
                   </div>
@@ -269,19 +270,19 @@ export default function TransactionDetailPage() {
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-muted-foreground">{t("TransferDetail.labels.id")}</p>
-                  <p className="font-mono">#{transferDetail.id}</p>
+                  <p className="font-mono">#{transactionDetail.id}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t("TransferDetail.labels.created")}</p>
-                  <p className="text-sm">{formatDate(transferDetail.created_at)}</p>
+                  <p className="text-sm">{formatDate(transactionDetail.created_at)}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t("TransferDetail.labels.updated")}</p>
-                  <p className="text-sm">{formatDate(transferDetail.updated_at)}</p>
+                  <p className="text-sm">{formatDate(transactionDetail.updated_at)}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">{t("TransferDetail.labels.status")}</p>
-                  <StatusBadge status={transferDetail.status} t={t} />
+                  <StatusBadge status={transactionDetail.status} t={t} />
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ import type { User } from "@/src/types/user";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
@@ -40,14 +41,11 @@ export default function DashboardLayout() {
   const navigation = [
     { name: t("Navigation.dashboard"), href: "/", icon: Home },
     { name: t("Navigation.materials"), href: "/materials", icon: Package, types: ["bank"] },
-    { name: t("Navigation.inventory"), href: "/inventories", icon: ShoppingBag },
+    { name: t("Navigation.inventory"), href: "/products", icon: ShoppingBag },
     { name: t("Navigation.workshops"), href: "/organizations", icon: Factory, types: ["bank"] },
     { name: t("Navigation.transfers"), href: "/transactions", icon: ArrowLeftRight },
     { name: t("Navigation.users"), href: "/users", icon: Users, types: ["bank"] },
     { name: t("Navigation.processes"), href: "/processes", icon: Settings },
-    // { name: t('notifications'), href: "/notifications", icon: Bell, types: ["bank"] },
-    // { name: t('history'), href: "/history", icon: History, types: ["bank"] },
-    // { name: t('settings'), href: "/settings", icon: Settings, types: ["bank"] },
   ];
 
   useEffect(() => {
@@ -74,7 +72,9 @@ export default function DashboardLayout() {
         </div>
         <div>
           <h2 className="font-bold text-lg">FergaGold</h2>
-          <p className="text-xs text-muted-foreground">{user ? `${user.organization.name}(${user.organization.type})` : t("Common.loading")} </p>
+          <p className="text-xs text-muted-foreground">
+            {user && user.organization ? `${user.organization.name}(${user.organization.type})` : t("Common.loading")}{" "}
+          </p>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ interface StatsItem {
 
 
 export interface DashboardStats {
-    inventory: StatsItem
+    products: StatsItem
     organization: StatsItem
     transaction: StatsItem
 }

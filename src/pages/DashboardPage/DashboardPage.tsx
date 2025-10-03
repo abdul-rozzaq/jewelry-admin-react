@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 
-import { useGetStatsQuery } from "@/src/lib/service/dashboard";
+import { useGetStatsQuery } from "@/src/lib/service/dashboardApi";
 import { Skeleton } from "@/src/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -94,7 +94,7 @@ export default function DashboardPage() {
             <Gem className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-24" /> : <div className="text-2xl font-bold">{data?.inventory.total} g</div>}
+            {isLoading ? <Skeleton className="h-6 w-24" /> : <div className="text-2xl font-bold">{data?.products.total} g</div>}
           </CardContent>
         </Card>
 

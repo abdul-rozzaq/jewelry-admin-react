@@ -2,7 +2,7 @@ export interface ProcessInput {
   id: number;
   quantity: string;
   process: number;
-  inventory: number;
+  product: number;
 }
 
 export interface ProcessOutput {

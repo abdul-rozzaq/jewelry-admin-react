@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/src/components/ui/alert-dialog";
 import { Loader2, ArrowLeft, Trash2 } from "lucide-react";
-import { useGetOrganizationByIdQuery, useGetOrganizationTransactionsQuery } from "@/src/lib/service/atolyeApi";
+import { useGetOrganizationByIdQuery, useGetOrganizationTransactionsQuery } from "@/src/lib/service/organizationsApi";
 
 import GeneralBarChart from "./charts/GeneralBarChart";
 import MaterialsPieChart from "./charts/MaterialsPieChart";
@@ -112,7 +112,7 @@ export default function WorkshopDetailPage() {
 
   const materialStats = transactions.reduce((acc, tx: Transaction) => {
     tx.items.forEach((item: TransactionItem) => {
-      const name = item.inventory.material.name;
+      const name = item.product.material.name;
       const qty = parseFloat(item.quantity);
       acc[name] = (acc[name] || 0) + qty;
     });
@@ -207,7 +207,7 @@ export default function WorkshopDetailPage() {
       <div className="flex gap-2">
         {timeLines.map((range) => (
           <Button key={range} size="sm" variant={timeline === range ? "default" : "outline"} onClick={() => setTimeline(range)}>
-            {t(`filters.${range}`)}
+            {t(`WorkshopDetailPage.filters.${range}`)}
           </Button>
         ))}
       </div>

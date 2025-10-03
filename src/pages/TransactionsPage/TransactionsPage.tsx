@@ -9,7 +9,7 @@ import { Search, Eye, CheckCircle, Clock, XCircle, ArrowLeftRight, Loader2, Plus
 import { useGetTransactionsQuery } from "@/src/lib/service/transactionsApi";
 import { getCurrentUser } from "@/src/lib/auth";
 import type Organization from "@/src/types/organization";
-import { useGetOrganizationsQuery } from "@/src/lib/service/atolyeApi";
+import { useGetOrganizationsQuery } from "@/src/lib/service/organizationsApi";
 import type { Transaction } from "@/src/types/transactions";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";

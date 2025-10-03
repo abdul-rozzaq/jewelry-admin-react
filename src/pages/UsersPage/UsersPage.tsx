@@ -20,7 +20,7 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { Search, Plus, MoreHorizontal, Edit, Trash2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useGetUsersQuery, useAddUsersMutation, useUpdateUserMutation, useDeleteUserMutation, UsersApi } from "@/src/lib/service/usersApi";
-import { useGetOrganizationsQuery } from "@/src/lib/service/atolyeApi";
+import { useGetOrganizationsQuery } from "@/src/lib/service/organizationsApi";
 
 import { useDispatch } from "react-redux";
 import { TableBody, TableCell, TableHead, TableHeader, TableRow, Table } from "@/src/components/ui/table";

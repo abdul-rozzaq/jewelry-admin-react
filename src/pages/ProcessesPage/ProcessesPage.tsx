@@ -6,8 +6,8 @@ import { Input } from "@/src/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
 import { Search, CheckCircle, Settings, Loader2, SquareCheckBig, Trash2, Plus } from "lucide-react";
-import { useCompleteProcessMutation, useDeleteProcessMutation, useGetProcessesQuery } from "@/src/lib/service/processApi";
-import { useGetInventoryQuery } from "@/src/lib/service/inventoryApi";
+import { useCompleteProcessMutation, useDeleteProcessMutation, useGetProcessesQuery } from "@/src/lib/service/processesApi";
+import { useGetProductsQuery } from "@/src/lib/service/productsApi";
 import { useGetMaterialsQuery } from "@/src/lib/service/materialsApi";
 import type { Process } from "@/src/types/process";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/src/components/ui/dialog";
@@ -48,7 +48,7 @@ export default function ProcessesPage() {
     status: statusFilter !== "all" ? statusFilter : undefined,
   });
 
-  const { data: inventory = [] } = useGetInventoryQuery({});
+  const { data: inventory = [] } = useGetProductsQuery({});
   const { data: materials = [] } = useGetMaterialsQuery({});
 
   const handleComplete = async () => {
@@ -262,7 +262,7 @@ export default function ProcessesPage() {
                         {process.inputs && process.inputs.length > 0 ? (
                           <ul className="space-y-1">
                             {process.inputs.map((input, index) => {
-                              const inventoryItem = getInventoryById(input.inventory);
+                              const inventoryItem = getInventoryById(input.product);
                               return (
                                 <li key={index} className="text-sm flex justify-between">
                                   <span>{inventoryItem?.material.name || t("processes.unknown")}</span>

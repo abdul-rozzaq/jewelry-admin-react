@@ -5,12 +5,12 @@ import { Label } from "@/src/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Plus, Trash2, Loader2, Magnet } from "lucide-react";
-import { useGetOrganizationsQuery } from "@/src/lib/service/atolyeApi";
-import { useGetInventoryQuery } from "@/src/lib/service/inventoryApi";
+import { useGetOrganizationsQuery } from "@/src/lib/service/organizationsApi";
+import { useGetProductsQuery } from "@/src/lib/service/productsApi";
 import { useAddTransactionMutation } from "@/src/lib/service/transactionsApi";
 import { toast } from "@/src/hooks/use-toast";
 import type Organization from "@/src/types/organization";
-import type Inventory from "@/src/types/inventory";
+import type Product from "@/src/types/inventory";
 import { getCurrentUser } from "@/src/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -36,7 +36,7 @@ export default function CreateTransactionPage() {
   const currentUser = getCurrentUser();
 
   const { data: receivers = [] as Organization[], isLoading: receiversLoading } = useGetOrganizationsQuery({});
-  const { data: inventories = [] as Inventory[], isLoading: inventoriesLoading } = useGetInventoryQuery({
+  const { data: inventories = [] as Product[], isLoading: inventoriesLoading } = useGetProductsQuery({
     organization: currentUser?.organization?.id,
   });
 
@@ -47,7 +47,7 @@ export default function CreateTransactionPage() {
   const [currentItem, setCurrentItem] = useState({ inventory: "", quantity: "" });
   const [error, setError] = useState("");
 
-  const availableInventories = inventories.filter((inv: Inventory) => parseQuantity(inv.quantity) > 0);
+  const availableInventories = inventories.filter((inv: Product) => parseQuantity(inv.quantity) > 0);
 
   const handleAddItem = () => {
     if (!currentItem.inventory || !isValidQuantity(currentItem.quantity)) {
@@ -55,7 +55,7 @@ export default function CreateTransactionPage() {
       return;
     }
 
-    const selectedInv: Inventory = inventories.find((inv: Inventory) => String(inv.id) === currentItem.inventory);
+    const selectedInv: Product = inventories.find((inv: Product) => String(inv.id) === currentItem.inventory);
 
     if (!selectedInv) {
       setError(t("createTransfer.errors.inventoryNotFound"));
@@ -111,7 +111,7 @@ export default function CreateTransactionPage() {
     setItems(items.filter((_, i) => i !== index));
   };
 
-  const handleAddAllItems = () => setItems(inventories.map((e: Inventory) => ({ inventory: e.id.toString(), quantity: e.quantity.toString() })));
+  const handleAddAllItems = () => setItems(inventories.map((e: Product) => ({ inventory: e.id.toString(), quantity: e.quantity.toString() })));
 
   const handleSubmit = async () => {
     if (!receiver || items.length === 0) {
@@ -250,8 +250,8 @@ export default function CreateTransactionPage() {
                 </SelectTrigger>
                 <SelectContent>
                   {availableInventories
-                    .filter((inv: Inventory) => items.every((e) => e.inventory !== inv.id.toString()))
-                    .map((inv: Inventory) => {
+                    .filter((inv: Product) => items.every((e) => e.inventory !== inv.id.toString()))
+                    .map((inv: Product) => {
                       const availableQty = parseQuantity(inv.quantity);
                       const materialName = inv.material.name;
                       const unit = inv.material?.unit || "g";

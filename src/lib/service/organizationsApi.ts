@@ -2,8 +2,8 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 import { baseQuery } from "@/src/lib/service/api";
 
-export const AtolyeApi = createApi({
-  reducerPath: "AtolyeApi",
+export const OrganizationsApi = createApi({
+  reducerPath: "OrganizationsApi",
   baseQuery: baseQuery,
   tagTypes: ["Organization"],
   endpoints: (builder) => ({
@@ -69,4 +69,4 @@ export const {
   useUpdateOrganizationMutation,
   useDeleteOrganizationMutation,
   useGetOrganizationTransactionsQuery,
-} = AtolyeApi;
+} = OrganizationsApi;

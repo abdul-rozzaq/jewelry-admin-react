@@ -100,82 +100,24 @@
       "stopped": "To‘xtatilgan"
     }
   },
-  "history": {
-    "title": "Tarix",
-    "subtitle": "Oldingi amallar tarixi",
-    "filters": {
-      "all": "Hammasi",
-      "transfers": "O‘tkazmalar",
-      "materials": "Materiallar",
-      "workshops": "Ustaxonalar",
-      "title": "Filtrlar",
-      "description": "Tarix ma’lumotlarini filtrlash va qidirish",
-      "search": "Qidirish",
-      "searchPlaceholder": "Voqea yoki foydalanuvchi...",
-      "eventType": "Voqea turi",
-      "selectType": "Turini tanlash",
-      "user": "Foydalanuvchi",
-      "selectUser": "Foydalanuvchini tanlash",
-      "startDate": "Boshlanish sanasi",
-      "endDate": "Tugash sanasi",
-      "selectDate": "Sanani tanlash"
-    },
-    "empty": "Hech qanday voqea topilmadi",
-    "emptyDescription": "Qidiruv mezonlariga mos keladigan voqea yo‘q.",
-    "table": {
-      "title": "Voqealar tarixi",
-      "description": "{count} ta voqea topildi",
-      "date": "Sana",
-      "user": "Foydalanuvchi",
-      "action": "Amal",
-      "details": "Tafsilotlar",
-      "status": "Holati"
-    },
+  "products": {
+    "title": "Mahsulotlar",
+    "subtitle": "Mahsulotlarni boshqarish",
     "actions": {
-      "view": "Ko‘rish",
-      "delete": "O‘chirish",
-      "clearFilters": "Filtrlarni tozalash",
-      "export": "Eksport qilish"
-    },
-    "stats": {
-      "totalEvents": "Jami voqealar",
-      "todayEvents": "Bugungi voqealar",
-      "transfers": "O‘tkazmalar",
-      "workshopEvents": "Ustaxona voqealari"
-    },
-    "status": {
-      "completed": "Bajarildi",
-      "pending": "Kutilmoqda",
-      "failed": "Muvaffaqiyatsiz",
-      "unknown": "Noma’lum"
-    },
-    "eventTypes": {
-      "transferCreated": "O‘tkazma yaratildi",
-      "transferSent": "O‘tkazma yuborildi",
-      "transferReceived": "O‘tkazma qabul qilindi",
-      "workshopTimeout": "Ustaxona vaqti tugadi",
-      "workshopStatusChanged": "Ustaxona holati o‘zgartirildi",
-      "materialProcessed": "Material qayta ishlangan"
-    }
-  },
-  "inventory": {
-    "title": "Inventar",
-    "subtitle": "Material inventarini boshqarish",
-    "actions": {
-      "create": "Yangi inventar",
+      "create": "Yangi mahsulot",
       "edit": "Tahrirlash",
       "delete": "O‘chirish"
     },
     "search": {
-      "placeholder": "Inventarni qidirish..."
+      "placeholder": "Mahsulotni qidirish..."
     },
     "filters": {
       "all": "Hammasi",
       "byOrganization": "Ustaxona bo‘yicha filtrlash"
     },
     "table": {
-      "title": "Inventar ro‘yxati",
-      "description": "Jami {{count}} ta inventar yozuvi",
+      "title": "Mahsulotlar ro‘yxati",
+      "description": "Jami {{count}} ta mahsulotlar yozuvi",
       "columns": {
         "id": "ID",
         "material": "Material",
@@ -197,16 +139,16 @@
     },
     "dialogs": {
       "create": {
-        "title": "Yangi inventar yaratish",
-        "description": "Tizimga yangi inventar qo‘shish"
+        "title": "Yangi mahsulot yaratish",
+        "description": "Tizimga yangi mahsulot qo‘shish"
       },
       "edit": {
-        "title": "Inventarni tahrirlash",
-        "description": "Inventar ma’lumotlarini yangilash"
+        "title": "Mahsulotni tahrirlash",
+        "description": "Mahsulot ma’lumotlarini yangilash"
       },
       "delete": {
-        "title": "Inventarni o‘chirish",
-        "description": "Ushbu inventar yozuvini o‘chirishni xohlaysizmi? Bu amal bekor qilinmaydi.",
+        "title": "Mahsulotni o‘chirish",
+        "description": "Ushbu mahsulot yozuvini o‘chirishni xohlaysizmi? Bu amal bekor qilinmaydi.",
         "confirm": "Ha, o‘chirish"
       }
     },
@@ -214,20 +156,20 @@
       "allFieldsRequired": "Iltimos, barcha majburiy maydonlarni to‘ldiring"
     },
     "messages": {
-      "created": "Yangi inventar yaratildi",
-      "updated": "Inventar ma’lumotlari yangilandi",
-      "deleted": "Inventar o‘chirildi",
-      "createError": "Inventar yaratishda xatolik yuz berdi",
-      "updateError": "Inventar yangilashda xatolik yuz berdi",
-      "deleteError": "Inventar o‘chirishda xatolik yuz berdi"
+      "created": "Yangi mahsulot yaratildi",
+      "updated": "Mahsulot ma’lumotlari yangilandi",
+      "deleted": "Mahsulot o‘chirildi",
+      "createError": "Mahsulot yaratishda xatolik yuz berdi",
+      "updateError": "Mahsulot yangilashda xatolik yuz berdi",
+      "deleteError": "Mahsulot o‘chirishda xatolik yuz berdi"
     },
     "errors": {
-      "loadError": "Inventarni yuklashda xatolik yuz berdi"
+      "loadError": "Mahsulotni yuklashda xatolik yuz berdi"
     },
     "empty": {
-      "title": "Inventar topilmadi",
+      "title": "Mahsulot topilmadi",
       "noResults": "Qidiruv uchun hech qanday natija topilmadi",
-      "noData": "Hozircha inventar yozuvlari yo‘q",
+      "noData": "Hozircha mahsulot yozuvlari yo‘q",
       "clearSearch": "Qidiruvni tozalash"
     },
     "common": {
@@ -288,7 +230,11 @@
       "name": "Material nomi",
       "unit": "O'lchov birligi",
       "namePlaceholder": "Masalan: Oltin (24K)",
-      "unitPlaceholder": "O'lchov birligini tanlang"
+      "unitPlaceholder": "O'lchov birligini tanlang",
+      "parent": "Asosiy material",
+      "parentPlaceholder": "Asosiy materialni tanlang",
+      "purity": "Soflik",
+      "purityPlaceholder": "Material sofligi kiriting"
     },
     "units": {
       "gram": "Gram (g)",
@@ -304,56 +250,11 @@
       "columns": {
         "name": "Nomi",
         "unit": "O‘lchov birligi",
+        "purity": "Soflik",
+        "parent": "Asosiy material",
         "createdAt": "Yaratilgan sana",
         "actions": "Amallar"
       }
-    }
-  },
-  "notifications": {
-    "title": "Bildirishnomalar",
-    "subtitle": "Tizim xabarlari va muhim hodisalar",
-    "unreadCount": "({count} ta o‘qilmagan)",
-    "actions": {
-      "markAllRead": "Barchasini o‘qilgan deb belgilash",
-      "markAsRead": "O‘qilgan deb belgilash",
-      "goToRelated": "Bog‘liq sahifaga o‘tish"
-    },
-    "stats": {
-      "total": "Jami bildirishnomalar",
-      "unread": "O‘qilmagan",
-      "highPriority": "Yuqori muhimlik",
-      "today": "Bugungi xabarlar"
-    },
-    "priority": {
-      "high": "Yuqori",
-      "medium": "O‘rta",
-      "low": "Past",
-      "unknown": "Noma’lum"
-    },
-    "filters": {
-      "type": "Tur bo‘yicha",
-      "status": "Holat bo‘yicha",
-      "all": "Barchasi",
-      "unread": "O‘qilmagan",
-      "read": "O‘qilgan"
-    },
-    "types": {
-      "transferPending": "Transfer kutilmoqda",
-      "transferConfirmed": "Transfer tasdiqlandi",
-      "workshopTimeout": "Atolye vaqti tugadi",
-      "materialLoss": "Material yo‘qotish",
-      "workshopStatus": "Atolye holati"
-    },
-    "list": {
-      "title": "Bildirishnomalar ro‘yxati",
-      "description": "Barcha tizim xabarlari va hodisalar"
-    },
-    "search": {
-      "placeholder": "Xabar mazmuni bo‘yicha qidirish..."
-    },
-    "empty": {
-      "title": "Bildirishnomalar topilmadi",
-      "description": "Qidiruv shartlariga mos bildirishnomalar mavjud emas."
     }
   },
   "processes": {
@@ -442,51 +343,6 @@
       "creating": "Yaratilmoqda...",
       "create": "Jarayon yaratish"
     }
-  },
-  "settings": {
-    "title": "Sozlamalar",
-    "subtitle": "Tizim sozlamalarini boshqaring",
-    "appearance": {
-      "title": "Ko‘rinish",
-      "description": "Tizim ko‘rinishini sozlang",
-      "theme": "Mavzu",
-      "themes": {
-        "light": "Yorug‘",
-        "dark": "Qorong‘u",
-        "system": "Tizim"
-      },
-      "language": "Til",
-      "languageDescription": "Tizim tilini tanlang"
-    },
-    "notifications": {
-      "title": "Bildirishnomalar",
-      "description": "Qaysi bildirishnomalarni olishni sozlang",
-      "transfer": "Transfer bildirish",
-      "workshop": "Atolye holati",
-      "system": "Tizim xabarlari",
-      "email": "Email bildirishnomalar"
-    },
-    "security": {
-      "title": "Xavfsizlik",
-      "description": "Hisobingiz xavfsizligini sozlang",
-      "autoLogout": "Avtomatik chiqish",
-      "autoLogoutDesc": "Faolsizlikdan keyin avtomatik chiqish vaqti",
-      "password": "Parolni o‘zgartirish",
-      "current": "Joriy parol",
-      "new": "Yangi parol",
-      "confirm": "Yangi parolni tasdiqlang",
-      "updateBtn": "Parolni yangilash"
-    },
-    "systemInfo": {
-      "title": "Tizim ma’lumotlari",
-      "description": "Tizim versiyasi va umumiy ma’lumotlar",
-      "version": "Versiya",
-      "lastUpdate": "Oxirgi yangilanish",
-      "users": "Foydalanuvchilar soni",
-      "workshops": "Faol atolyelar"
-    },
-    "saveBtn": "Sozlamalarni saqlash",
-    "success": "Sozlamalar saqlandi"
   },
   "transfers": {
     "title": "Transferlar",

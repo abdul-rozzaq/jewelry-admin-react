@@ -9,7 +9,7 @@ import ProcessesPage from "./pages/ProcessesPage/ProcessesPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import MaterialsPage from "./pages/MaterialsPage/MaterialsPage";
-import InventoriesPage from "./pages/InventoriesPage/InventoriesPage";
+import InventoriesPage from "./pages/ProductsPage/ProductsPage";
 import OrganizationsPage from "./pages/OrganizationsPage/OrganizationsPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import OrganizationDetailPage from "./pages/OrganizationsPage/OrganizationDetailPage";
@@ -32,7 +32,7 @@ function App() {
 
               <Route path="/materials" element={<MaterialsPage />} />
 
-              <Route path="/inventories" element={<InventoriesPage />} />
+              <Route path="/products" element={<InventoriesPage />} />
 
               <Route path="/organizations">
                 <Route index element={<OrganizationsPage />} />

@@ -14,7 +14,7 @@ import {
   useAddOrganizationMutation,
   useDeleteOrganizationMutation,
   useUpdateOrganizationMutation,
-} from "@/src/lib/service/atolyeApi";
+} from "@/src/lib/service/organizationsApi";
 import type Organization from "@/src/types/organization";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -66,53 +66,6 @@ export default function OrganizationsPage() {
       });
     }
   };
-
-  // const handleEditWorkshop = async () => {
-  //   if (!editWorkshop.name || !editWorkshop.type) {
-  //     toast({
-  //       title: t("WorkshopsPage.errors.title"),
-  //       description: t("WorkshopsPage.errors.fillAllFields"),
-  //       variant: "destructive",
-  //     });
-  //     return;
-  //   }
-
-  //   try {
-  //     await updateOrganization({
-  //       id: selectedWorkshop.id,
-  //       ...editWorkshop,
-  //     }).unwrap();
-  //     toast({
-  //       title: t("WorkshopsPage.success.title"),
-  //       description: t("WorkshopsPage.success.workshopUpdated"),
-  //     });
-  //     setIsEditDialogOpen(false);
-  //     setSelectedWorkshop(null);
-  //     setEditWorkshop({ name: "", type: "" });
-  //   } catch (error) {
-  //     toast({
-  //       title: t("WorkshopsPage.errors.title"),
-  //       description: t("WorkshopsPage.errors.updateWorkshopFailed"),
-  //       variant: "destructive",
-  //     });
-  //   }
-  // };
-
-  // const handleDeleteWorkshop = async (id: number) => {
-  //   try {
-  //     await deleteOrganization(id).unwrap();
-  //     toast({
-  //       title: t("WorkshopsPage.success.title"),
-  //       description: t("WorkshopsPage.success.workshopDeleted"),
-  //     });
-  //   } catch (error) {
-  //     toast({
-  //       title: t("WorkshopsPage.errors.title"),
-  //       description: t("WorkshopsPage.errors.deleteWorkshopFailed"),
-  //       variant: "destructive",
-  //     });
-  //   }
-  // };
 
   const openEditDialog = (workshop: any) => {
     setSelectedWorkshop(workshop);
