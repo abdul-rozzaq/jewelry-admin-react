@@ -12,13 +12,16 @@ export const MaterialsApi = createApi({
     getMaterials: builder.query({
       query: (params = {}) => {
         const searchParams = new URLSearchParams()
+
         if (params.search) {
           searchParams.append("search", params.search)
         }
         if (params.ordering) {
           searchParams.append("ordering", params.ordering)
         }
+        
         const queryString = searchParams.toString()
+        
         return `/materials/${queryString ? `?${queryString}` : ""}`
       },
     }),
