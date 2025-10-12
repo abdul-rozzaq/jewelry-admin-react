@@ -1,4 +1,4 @@
-import Product from "./inventory";
+import Product from "./product";
 import Organization from "./organization";
 
 type TransactionStatus = "pending" | "accepted";

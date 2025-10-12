@@ -33,7 +33,7 @@ import { unitColors, unitLabels } from "@/src/constants/units";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 
 import type Material from "@/src/types/material";
-import type Product from "@/src/types/inventory";
+import type Product from "@/src/types/product";
 import type Organization from "@/src/types/organization";
 
 import { getCurrentUser } from "@/src/lib/auth";
@@ -61,9 +61,9 @@ export default function ProductsPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const [formData, setFormData] = useState({ quantity: "", organization_id: "", material_id: "" });
+  const [formData, setFormData] = useState({ quantity: "", material_id: "" });
 
-  const resetForm = () => setFormData({ quantity: "", organization_id: "", material_id: "" });
+  const resetForm = () => setFormData({ quantity: "", material_id: "" });
 
   const isBank = user?.organization?.type === "bank";
 
@@ -73,7 +73,9 @@ export default function ProductsPage() {
 
   const getQuantityLabel = () => {
     const material = getSelectedMaterial();
+
     if (!material) return t("products.form.quantity");
+
     return `${t("products.form.quantity")} (${unitLabels[material.unit]})`;
   };
 
@@ -105,7 +107,7 @@ export default function ProductsPage() {
   });
 
   const handleCreateProducts = async () => {
-    if (!formData.quantity || !formData.organization_id || !formData.material_id) {
+    if (!formData.quantity || !formData.material_id) {
       toast({
         title: t("products.common.error"),
         description: t("products.validation.allFieldsRequired"),
@@ -116,7 +118,6 @@ export default function ProductsPage() {
 
     const apiData = {
       quantity: formData.quantity,
-      organization_id: Number.parseInt(formData.organization_id),
       material_id: Number.parseInt(formData.material_id),
     };
 
@@ -130,6 +131,7 @@ export default function ProductsPage() {
         title: t("products.common.success"),
         description: t("products.messages.created"),
       });
+
       dispatch(ProductsApi.util.resetApiState());
     } catch (error) {
       toast({
@@ -142,18 +144,19 @@ export default function ProductsPage() {
 
   const handleEditProduct = (product: Product) => {
     setSelectedProduct(product);
+
     setFormData({
       quantity: product.quantity,
-      organization_id: product.organization.id.toString(),
       material_id: product.material.id.toString(),
     });
+
     setIsEditDialogOpen(true);
   };
 
   const handleUpdateProduct = async () => {
     if (!selectedProduct) return;
 
-    if (!formData.quantity || !formData.organization_id || !formData.material_id) {
+    if (!formData.quantity || !formData.material_id) {
       toast({
         title: t("products.common.error"),
         description: t("products.validation.allFieldsRequired"),
@@ -164,7 +167,6 @@ export default function ProductsPage() {
 
     const apiData = {
       quantity: formData.quantity,
-      organization_id: Number.parseInt(formData.organization_id),
       material_id: Number.parseInt(formData.material_id),
     };
 
@@ -276,28 +278,6 @@ export default function ProductsPage() {
                         materials.map((material: Material) => (
                           <SelectItem key={material.id} value={material.id.toString()}>
                             {material.name} ({unitLabels[material.unit]})
-                          </SelectItem>
-                        ))
-                      )}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="organization">{t("products.form.organization")} *</Label>
-                  <Select value={formData.organization_id} onValueChange={(value) => setFormData({ ...formData, organization_id: value })}>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t("products.form.selectOrganization")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {organizations.length === 0 ? (
-                        <SelectItem value="no-organizations" disabled>
-                          {t("products.form.noOrganizations")}
-                        </SelectItem>
-                      ) : (
-                        organizations.map((org: Organization) => (
-                          <SelectItem key={org.id} value={org.id.toString()}>
-                            {org.name}
                           </SelectItem>
                         ))
                       )}
@@ -446,22 +426,6 @@ export default function ProductsPage() {
                   {materials.map((material: Material) => (
                     <SelectItem key={material.id} value={material.id.toString()}>
                       {material.name} ({unitLabels[material.unit]})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="edit-organization">{t("products.form.organization")} *</Label>
-              <Select value={formData.organization_id} onValueChange={(value) => setFormData({ ...formData, organization_id: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder={t("products.form.selectOrganization")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {organizations.map((org: Organization) => (
-                    <SelectItem key={org.id} value={org.id.toString()}>
-                      {org.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

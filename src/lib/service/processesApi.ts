@@ -4,7 +4,7 @@ import { baseQuery } from "./api";
 export const ProcessesApi = createApi({
   reducerPath: "ProcessesApi",
   baseQuery,
-  tagTypes: ["Processes", "Products"],
+  tagTypes: ["Processes", "Products", "ProcessTypes"],
   endpoints: (builder) => ({
     GetProcesses: builder.query({
       query: () => "/processes/list/",
@@ -17,6 +17,10 @@ export const ProcessesApi = createApi({
         body: data,
       }),
       invalidatesTags: ["Processes", "Products"],
+    }),
+    GetProcessTypes: builder.query({
+      query: () => "/processes/types/",
+      providesTags: ["ProcessTypes"],
     }),
     CompleteProcess: builder.mutation({
       query: (id: number) => ({
@@ -35,4 +39,5 @@ export const ProcessesApi = createApi({
   }),
 });
 
-export const { useGetProcessesQuery, useCreateProcessMutation, useCompleteProcessMutation, useDeleteProcessMutation } = ProcessesApi;
+export const { useGetProcessesQuery, useCreateProcessMutation, useCompleteProcessMutation, useDeleteProcessMutation, useGetProcessTypesQuery } =
+  ProcessesApi;

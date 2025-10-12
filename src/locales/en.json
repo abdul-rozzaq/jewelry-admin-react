@@ -340,6 +340,12 @@
       "note": "Once created, the process can be managed",
       "creating": "Creating...",
       "create": "Create Process"
+    },
+    "type": {
+      "title": "Select process type",
+      "description": "In this section, choose the type for the new process.",
+      "select": "Process type",
+      "placeholder": "Select a process type"
     }
   },
   "transfers": {

@@ -10,7 +10,7 @@ import { useGetProductsQuery } from "@/src/lib/service/productsApi";
 import { useAddTransactionMutation } from "@/src/lib/service/transactionsApi";
 import { toast } from "@/src/hooks/use-toast";
 import type Organization from "@/src/types/organization";
-import type Product from "@/src/types/inventory";
+import type Product from "@/src/types/product";
 import { getCurrentUser } from "@/src/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -39,6 +39,8 @@ export default function CreateTransactionPage() {
   const { data: inventories = [] as Product[], isLoading: inventoriesLoading } = useGetProductsQuery({
     organization: currentUser?.organization?.id,
   });
+
+  const mockBatches = Array.from({ length: 10 }, (_, i) => ({ id: i + 1, name: `Partiya-${i + 1}` }));
 
   const [addTransaction, { isLoading: isSubmitting }] = useAddTransactionMutation();
 
@@ -229,6 +231,28 @@ export default function CreateTransactionPage() {
             <Button onClick={handleAddAllItems} size="icon">
               <Magnet className="h-4 w-4" />
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="border-b pb-3">
+          <CardTitle className="text-base font-medium">Loyiha (Project)</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4">
+          <div>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Loyihani tanlang" />
+              </SelectTrigger>
+              <SelectContent>
+                {mockBatches.map((p) => (
+                  <SelectItem key={p.id} value={String(p.id)}>
+                    {p.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </CardContent>
       </Card>

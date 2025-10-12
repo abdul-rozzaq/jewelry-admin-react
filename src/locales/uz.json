@@ -342,6 +342,12 @@
       "note": "Jarayon yaratilgandan so‘ng uni boshqarish mumkin bo‘ladi",
       "creating": "Yaratilmoqda...",
       "create": "Jarayon yaratish"
+    },
+    "type": {
+      "title": "Jarayon turini tanlang",
+      "description": "Bu bo‘limda siz yangi jarayon uchun tur tanlaysiz.",
+      "select": "Jarayon turi",
+      "placeholder": "Jarayon turini tanlang"
     }
   },
   "transfers": {

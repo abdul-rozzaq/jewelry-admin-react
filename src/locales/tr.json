@@ -340,6 +340,12 @@
       "note": "Oluşturulduktan sonra süreç yönetilebilir",
       "creating": "Oluşturuluyor...",
       "create": "Süreç Oluştur"
+    },
+    "type": {
+      "title": "Süreç türünü seçin",
+      "description": "Bu bölümde yeni süreç için tür seçin.",
+      "select": "Süreç türü",
+      "placeholder": "Bir süreç türü seçin"
     }
   },
   "transfers": {
