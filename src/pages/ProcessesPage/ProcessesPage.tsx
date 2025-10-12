@@ -262,7 +262,7 @@ export default function ProcessesPage() {
                         {process.inputs && process.inputs.length > 0 ? (
                           <ul className="space-y-1">
                             {process.inputs.map((input, index) => {
-                              const inventoryItem = getInventoryById(input.product);
+                              const inventoryItem = getInventoryById(input.product.id);
                               return (
                                 <li key={index} className="text-sm flex justify-between">
                                   <span>{inventoryItem?.material.name || t("processes.unknown")}</span>
@@ -281,7 +281,7 @@ export default function ProcessesPage() {
                         {process.outputs && process.outputs.length > 0 ? (
                           <ul className="space-y-1">
                             {process.outputs.map((output) => {
-                              const material = getMaterialById(output.material);
+                              const material = getMaterialById(output.material.id);
                               return (
                                 <li key={output.id} className="text-sm flex justify-between">
                                   <span>{material?.name || t("processes.unknown")}</span>

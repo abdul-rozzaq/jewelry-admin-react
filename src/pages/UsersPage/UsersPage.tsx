@@ -47,7 +47,7 @@ export default function UsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     username: "",
     email: "",
     password: "",
@@ -55,7 +55,7 @@ export default function UsersPage() {
     firstName: "",
     lastName: "",
     role: "",
-    organization: "",
+    organization: null,
   });
 
   // const getOrganizationInfo = (orgId: number) => {
@@ -72,7 +72,7 @@ export default function UsersPage() {
       user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (user.last_name && user.last_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      `${user.organization.name} (${user.organization.type})`.includes(searchTerm.toLowerCase())
+      `${user.organization?.name} (${user.organization?.type})`.includes(searchTerm.toLowerCase())
   );
 
   const resetForm = () => {
@@ -157,7 +157,7 @@ export default function UsersPage() {
       firstName: user.first_name,
       lastName: user.last_name || "",
       role: "", // Role is not in the API response, so we leave it empty
-      organization: user.organization.toString(),
+      organization: user.organization?.toString(),
     });
     setIsEditDialogOpen(true);
     dispatch(UsersApi.util.resetApiState());
@@ -498,7 +498,7 @@ export default function UsersPage() {
                     <span className="text-muted-foreground text-sm">@{user.username}</span>
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{`${user.organization.name} (${user.organization.type})`}</TableCell>
+                  <TableCell>{`${user.organization?.name} (${user.organization?.type})`}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <Badge variant={user.is_active ? "default" : "secondary"}>
