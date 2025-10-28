@@ -1,120 +1,139 @@
-import type React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Trash2, Plus, ArrowLeft } from "lucide-react";
-import { getCurrentUser } from "@/src/lib/auth";
+import { Trash2, ArrowLeft, Plus } from "lucide-react";
 import { toast } from "@/src/hooks/use-toast";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-import type Material from "@/src/types/material";
-import { useCreateProcessMutation, useGetProcessTypesQuery } from "@/src/lib/service/processesApi";
+
 import { useGetProductsQuery } from "@/src/lib/service/productsApi";
 import { useGetMaterialsQuery } from "@/src/lib/service/materialsApi";
 import { useGetProjectsQuery } from "@/src/lib/service/projectsApi";
+import { useGetProcessByIdQuery, useGetProcessTypesQuery, useUpdateProcessMutation } from "@/src/lib/service/processesApi";
+
+import type Material from "@/src/types/material";
 import type Product from "@/src/types/product";
 import type Project from "@/src/types/project";
+import type { Process } from "@/src/types/process";
+import { getCurrentUser } from "@/src/lib/auth";
 
-interface ProcessInputCreate {
+interface ProcessInputEdit {
   material: number | null;
   product: number | null;
   quantity: number | null;
 }
 
-interface ProcessOutputCreate {
+interface ProcessOutputEdit {
   material: number | null;
   quantity: number | null;
 }
 
-export default function CreateProcessPage() {
+export default function EditProcessPage() {
   const { t, i18n } = useTranslation();
+  const params = useParams();
   const navigate = useNavigate();
-  const currentUser = getCurrentUser();
+  const id = Number(params.id);
 
-  const [createProcess] = useCreateProcessMutation();
+  const currentUser = getCurrentUser();
 
   const { data: processTypes = [] } = useGetProcessTypesQuery({});
   const { data: products = [] as Product[] } = useGetProductsQuery({ organization: currentUser?.organization?.id });
   const { data: materials = [] } = useGetMaterialsQuery({});
   const { data: projects = [] as Project[] } = useGetProjectsQuery({});
+  const { data: process, isLoading, error } = useGetProcessByIdQuery(id, { skip: !id });
+  const [updateProcess, { isLoading: isUpdating }] = useUpdateProcessMutation();
 
   const [selectedType, setSelectedType] = useState<number | null>(null);
-  const [inputs, setInputs] = useState<ProcessInputCreate[]>([{ material: null, quantity: null, product: null }]);
-  const [outputs, setOutputs] = useState<ProcessOutputCreate[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [inputs, setInputs] = useState<ProcessInputEdit[]>([]);
+  const [outputs, setOutputs] = useState<ProcessOutputEdit[]>([]);
 
   useEffect(() => {
-    if (!selectedType) return;
+    if (!process) return;
+    setSelectedType(process.process_type?.id ?? null);
+    setSelectedProject(process.project?.id ?? null);
 
-    const selected = processTypes.find((t: any) => t.id === selectedType);
+    const mappedInputs: ProcessInputEdit[] = (process.inputs || []).map((inp) => ({
+      product: inp.product?.id ?? null,
+      material: inp.material?.id ?? null,
+      quantity: Number(inp.quantity) ?? 0,
+    }));
 
-    if (selected?.template) {
-      const productsMap = products.reduce((acc, curVal) => ({ [curVal.material.id]: curVal, ...acc }), {});
+    const mappedOutputs: ProcessOutputEdit[] = (process.outputs || []).map((out) => ({
+      material: out.material?.id ?? null,
+      quantity: Number(out.quantity) ?? 0,
+    }));
 
-      const template = selected.template;
+    setInputs(mappedInputs);
+    setOutputs(mappedOutputs);
+  }, [process]);
 
-      const mappedInputs = (template.inputs || []).map((inp: Material) => {
-        const product = productsMap[inp.id];
-
-        return {
-          product: product?.id ?? null,
-          material: product ? null : inp.id,
-          quantity: 0,
-        };
-      });
-      const mappedOutputs = (template.outputs || []).map((out: Material) => ({ material: out.id ?? null, quantity: 0 }));
-
-      setInputs(mappedInputs.length ? mappedInputs : [{ material: null, quantity: null, prooduct: null }]);
-      setOutputs(mappedOutputs.length ? mappedOutputs : []);
-    }
-  }, [selectedType, processTypes]);
-
-  const addInput = () => setInputs([...inputs, { material: null, quantity: null, product: null }]);
-  const removeInput = (i: number) => setInputs(inputs.filter((_, idx) => idx !== i));
-
-  const updateInput = (i: number, key: keyof ProcessInputCreate, val: any) => {
+  const addInput = () => setInputs((prev) => [...prev, { material: null, product: null, quantity: null }]);
+  const removeInput = (i: number) => setInputs((prev) => prev.filter((_, idx) => idx !== i));
+  const updateInput = (i: number, key: keyof ProcessInputEdit, val: any) => {
     setInputs((prev) => prev.map((item, idx) => (idx === i ? { ...item, [key]: val } : item)));
   };
 
-  const addOutput = () => setOutputs([...outputs, { material: null, quantity: null }]);
-  const removeOutput = (i: number) => setOutputs(outputs.filter((_, idx) => idx !== i));
-  const updateOutput = (i: number, key: keyof ProcessOutputCreate, val: any) => {
+  const addOutput = () => setOutputs((prev) => [...prev, { material: null, quantity: null }]);
+  const removeOutput = (i: number) => setOutputs((prev) => prev.filter((_, idx) => idx !== i));
+  const updateOutput = (i: number, key: keyof ProcessOutputEdit, val: any) => {
     setOutputs((prev) => prev.map((item, idx) => (idx === i ? { ...item, [key]: val } : item)));
   };
 
   const isFormValid = () => {
-    return inputs.every((i) => i.material || i.product) && outputs.every((o) => o.material) && inputs.length && outputs.length;
+    return (
+      selectedType != null &&
+      inputs.length > 0 &&
+      outputs.length > 0 &&
+      inputs.every((i) => (i.product || i.material) && i.quantity && i.quantity > 0) &&
+      outputs.every((o) => o.material && o.quantity && o.quantity > 0)
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isFormValid()) return toast({ title: t("createProcess.validation.fillAllFields") });
-
-    setIsSubmitting(true);
+    if (!isFormValid()) {
+      return toast({ title: t("createProcess.validation.fillAllFields") });
+    }
 
     try {
-      const payload = {
+      const payload: any = {
+        id,
         type: selectedType,
         project: selectedProject,
         inputs: inputs.map((i) => ({ product: i.product, material: i.material, quantity: i.quantity })),
         outputs: outputs.map((o) => ({ material: o.material, quantity: o.quantity })),
       };
 
-      await createProcess(payload).unwrap();
-
-      toast({ title: t("createProcess.success.created") });
+      await updateProcess(payload).unwrap();
+      toast({ title: t("editProcess.success.updated") });
       navigate("/processes");
-    } catch {
-      toast({ title: t("createProcess.errors.createFailed") });
-    } finally {
-      setIsSubmitting(false);
+    } catch (err: any) {
+      toast({ title: t("editProcess.errors.updateFailed"), variant: "destructive" });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 p-6">
+        <div className="flex items-center gap-2">
+          <span className="animate-pulse">{t("Common.loading")}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !process) {
+    return (
+      <div className="flex-1 p-6">
+        <p className="text-red-500">{t("processes.errors.loadFailed")}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex-1 space-y-6 p-6">
@@ -126,8 +145,8 @@ export default function CreateProcessPage() {
           </Link>
         </Button>
         <div>
-          <h1 className="text-3xl font-bold">{t("createProcess.title")}</h1>
-          <p className="text-muted-foreground">{t("createProcess.subtitle")}</p>
+          <h1 className="text-3xl font-bold">{t("editProcess.title")}</h1>
+          <p className="text-muted-foreground">{t("editProcess.subtitle")}</p>
         </div>
       </div>
 
@@ -149,7 +168,7 @@ export default function CreateProcessPage() {
                     <SelectItem value="none">{t("createProcess.type.none")}</SelectItem>
                     {processTypes.map((pt: any) => (
                       <SelectItem key={pt.id} value={pt.id.toString()}>
-                        {pt.name[i18n.resolvedLanguage ?? "uz"] ?? pt.type}
+                        {(pt.name as any)[i18n.resolvedLanguage ?? "uz"] ?? pt.type}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -183,69 +202,60 @@ export default function CreateProcessPage() {
               <CardDescription>{t("createProcess.inputs.description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {inputs.map((input, i) => {
-                const title =
-                  !input.product && !input.material
-                    ? t("createProcess.inputs.materialOrProduct")
-                    : input.product
-                    ? t("createProcess.inputs.product")
-                    : t("createProcess.inputs.material");
+              {inputs.map((input, i) => (
+                <div key={i} className="p-4 border rounded-lg space-y-3">
+                  <div>
+                    <Label>{t("createProcess.inputs.material")}</Label>
+                    <Select
+                      value={input.product ? `product:${input.product}` : input.material ? `material:${input.material}` : ""}
+                      onValueChange={(value) => {
+                        const [optionType, rawId] = value.split(":");
+                        const numericId = Number(rawId);
 
-                return (
-                  <div key={i} className="p-4 border rounded-lg space-y-3">
-                    <div>
-                      <Label>{title}</Label>
-                      <Select
-                        value={input.product ? `product:${input.product}` : input.material ? `material:${input.material}` : ""}
-                        onValueChange={(value) => {
-                          const [optionType, rawId] = value.split(":");
-                          const numericId = Number(rawId);
+                        if (optionType === "product") {
+                          updateInput(i, "product", numericId);
+                          updateInput(i, "material", products.find((p) => p.id === numericId)?.material.id ?? null);
+                        } else {
+                          updateInput(i, "product", null);
+                          updateInput(i, "material", numericId);
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder={t("createProcess.inputs.selectMaterial")} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {products.map((p: Product) => (
+                          <SelectItem value={`product:${p.id}`} key={`product-${p.id}`}>
+                            {p.material.name} ({(+p.quantity).toFixed(3)} {p.material.unit})
+                          </SelectItem>
+                        ))}
 
-                          if (optionType === "product") {
-                            updateInput(i, "product", numericId);
-                            updateInput(i, "material", products.find((p) => p.id === numericId)?.material.id ?? null);
-                          } else {
-                            updateInput(i, "product", null);
-                            updateInput(i, "material", numericId);
-                          }
-                        }}
-                      >
-                        <SelectTrigger className="mt-1">
-                          <SelectValue placeholder={t("createProcess.inputs.selectMaterial")} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {products.map((p: Product) => (
-                            <SelectItem value={`product:${p.id}`} key={`product-${p.id}`}>
-                              {p.material.name} ({(+p.quantity).toFixed(3)} {p.material.unit})
-                            </SelectItem>
-                          ))}
+                        <SelectSeparator />
 
-                          <SelectSeparator />
-
-                          {materials.map((m: Material) => (
-                            <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
-                              {m.name} ({m.unit})
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex gap-2 items-end">
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.001"
-                        placeholder={t("createProcess.inputs.quantity")}
-                        value={input.quantity ?? ""}
-                        onChange={(e) => updateInput(i, "quantity", parseFloat(e.target.value) ?? null)}
-                      />
-                      <Button variant="outline" size="sm" onClick={() => removeInput(i)}>
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                        {materials.map((m: Material) => (
+                          <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
+                            {m.name} ({m.unit})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                );
-              })}
+                  <div className="flex gap-2 items-end">
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.001"
+                      placeholder={t("createProcess.inputs.quantity")}
+                      value={input.quantity ?? ""}
+                      onChange={(e) => updateInput(i, "quantity", parseFloat(e.target.value) ?? null)}
+                    />
+                    <Button variant="outline" size="sm" onClick={() => removeInput(i)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
               <Button type="button" variant="outline" onClick={addInput} className="w-full border-dashed">
                 <Plus className="h-4 w-4 mr-1" /> {t("createProcess.inputs.addInput")}
               </Button>
@@ -302,8 +312,8 @@ export default function CreateProcessPage() {
             <Button type="button" variant="outline" asChild>
               <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
             </Button>
-            <Button type="submit" disabled={!isFormValid() || isSubmitting}>
-              {isSubmitting ? t("createProcess.submit.creating") : t("createProcess.submit.create")}
+            <Button type="submit" disabled={!isFormValid() || isUpdating}>
+              {isUpdating ? t("editProcess.submit.updating") : t("editProcess.submit.update")}
             </Button>
           </CardContent>
         </Card>

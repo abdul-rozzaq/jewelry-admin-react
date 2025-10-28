@@ -1,5 +1,6 @@
 import Product from "./product";
 import Organization from "./organization";
+import Project from "./project";
 
 type TransactionStatus = "pending" | "accepted";
 
@@ -17,6 +18,7 @@ interface Transaction {
   receiver: Organization;
   created_at: string;
   updated_at: string;
+  project?: Project;
   status: TransactionStatus;
 }
 

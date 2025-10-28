@@ -7,10 +7,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
 import { Search, Eye, CheckCircle, Clock, XCircle, ArrowLeftRight, Loader2, Plus } from "lucide-react";
 import { useGetTransactionsQuery } from "@/src/lib/service/transactionsApi";
-import { getCurrentUser } from "@/src/lib/auth";
 import type Organization from "@/src/types/organization";
 import { useGetOrganizationsQuery } from "@/src/lib/service/organizationsApi";
-import type { Transaction } from "@/src/types/transactions";
+import type { Transaction, TransactionItem } from "@/src/types/transactions";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -33,28 +32,7 @@ const getStatusBadge = (status: string, t: any) => {
           {t("transfers.status.pending")}
         </Badge>
       );
-    case "pending_receiver":
-      return (
-        <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
-          <Clock className="h-3 w-3 mr-1" />
-          {t("transfers.status.pendingReceiver")}
-        </Badge>
-      );
-    case "returned":
-      return (
-        <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-100">
-          <ArrowLeftRight className="h-3 w-3 mr-1" />
-          {t("transfers.status.returned")}
-        </Badge>
-      );
-    case "cancelled":
-    case "rejected":
-      return (
-        <Badge variant="destructive">
-          <XCircle className="h-3 w-3 mr-1" />
-          {t("transfers.status.cancelled")}
-        </Badge>
-      );
+
     default:
       return <Badge variant="secondary">{t("transfers.status.unknown")}</Badge>;
   }
@@ -65,8 +43,6 @@ export default function TransactionsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [organizationFilter, setOrganizationFilter] = useState("all");
-
-  const user = getCurrentUser();
 
   const {
     data: transfers = [] as Transaction[],
@@ -193,7 +169,7 @@ export default function TransactionsPage() {
               </TableHeader>
               <TableBody>
                 {filteredTransfers.length > 0 ? (
-                  filteredTransfers.map((tr) => (
+                  filteredTransfers.map((tr: Transaction) => (
                     <TableRow key={tr.id}>
                       <TableCell className="font-mono">#{tr.id}</TableCell>
                       <TableCell>{tr.sender.name}</TableCell>
@@ -201,11 +177,11 @@ export default function TransactionsPage() {
                       <TableCell>
                         {tr.items && tr.items.length > 0 ? (
                           <ul className="space-y-1">
-                            {tr.items.map((it: any) => (
+                            {tr.items.map((it: TransactionItem) => (
                               <li key={it.id} className="text-sm flex justify-between">
-                                <span>{it.inventory.material.name}</span>
+                                <span>{it.product.material.name}</span>
                                 <span className="font-mono">
-                                  {it.quantity} {it.inventory.material.unit}
+                                  {it.quantity} {it.product.material.unit}
                                 </span>
                               </li>
                             ))}

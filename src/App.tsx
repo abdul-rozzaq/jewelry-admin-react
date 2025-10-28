@@ -15,8 +15,10 @@ import UsersPage from "./pages/UsersPage/UsersPage";
 import OrganizationDetailPage from "./pages/OrganizationsPage/OrganizationDetailPage";
 import CreateTransactionPage from "./pages/TransactionsPage/CreateTransactionPage";
 import CreateProcessPage from "./pages/ProcessesPage/CreateProcessPage";
+import EditProcessPage from "./pages/ProcessesPage/EditProcessPage";
 import { ThemeProvider } from "./context/ThemeContext";
 import TransactionDetailPage from "./pages/TransactionsPage/TransactionDetailPage";
+import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -39,6 +41,11 @@ function App() {
                 <Route path=":id" element={<OrganizationDetailPage />} />
               </Route>
 
+              <Route path="/projects">
+                <Route index element={<ProjectsPage />} />
+                {/* <Route path=":id" element={<OrganizationDetailPage />} /> */}
+              </Route>
+
               <Route path="/transactions">
                 <Route index element={<TransactionsPage />} />
                 <Route path="create" element={<CreateTransactionPage />} />
@@ -50,6 +57,7 @@ function App() {
               <Route path="/processes">
                 <Route index element={<ProcessesPage />} />
                 <Route path="create" element={<CreateProcessPage />} />
+                <Route path=":id/edit" element={<EditProcessPage />} />
               </Route>
 
               <Route path="/*" element={<NotFoundPage />} />

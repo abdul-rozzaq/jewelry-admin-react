@@ -16,7 +16,6 @@ import {
   AlertDialogTitle,
 } from "@/src/components/ui/alert-dialog";
 import { Badge } from "@/src/components/ui/badge";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/src/components/ui/dropdown-menu";
 import { Search, Plus, MoreHorizontal, Edit, Trash2, Loader2, Package2, Building2 } from "lucide-react";
 import { toast } from "@/src/hooks/use-toast";
 import {
@@ -28,6 +27,7 @@ import {
 } from "@/src/lib/service/productsApi";
 import { useGetMaterialsQuery } from "@/src/lib/service/materialsApi";
 import { useGetOrganizationsQuery } from "@/src/lib/service/organizationsApi";
+import { useGetProjectsQuery } from "@/src/lib/service/projectsApi";
 import { useDispatch } from "react-redux";
 import { unitColors, unitLabels } from "@/src/constants/units";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
@@ -47,10 +47,12 @@ export default function ProductsPage() {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [organizationFilter, setOrganizationFilter] = useState<string>("all");
+  const [projectFilter, setProjectFilter] = useState<string>("all");
 
   const { data: products = [], isLoading: productsLoading, error: productsError } = useGetProductsQuery(undefined);
   const { data: materials = [], isLoading: materialsLoading } = useGetMaterialsQuery(undefined);
   const { data: organizations = [], isLoading: organizationsLoading } = useGetOrganizationsQuery(undefined);
+  const { data: projects = [], isLoading: projectsLoading } = useGetProjectsQuery(undefined);
 
   const [addProduct] = useAddProductMutation();
   const [updateProduct] = useUpdateProductMutation();
@@ -61,9 +63,9 @@ export default function ProductsPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const [formData, setFormData] = useState({ quantity: "", material_id: "" });
+  const [formData, setFormData] = useState({ quantity: "", material_id: "", project_id: "" });
 
-  const resetForm = () => setFormData({ quantity: "", material_id: "" });
+  const resetForm = () => setFormData({ quantity: "", material_id: "", project_id: "" });
 
   const isBank = user?.organization?.type === "bank";
 
@@ -80,30 +82,35 @@ export default function ProductsPage() {
   };
 
   const filteredProducts = products.filter((item: Product) => {
-    const search = searchTerm?.toLowerCase() ?? "";
+    const qty = Number(item.quantity);
+    if (!qty || Number.isNaN(qty)) return false;
 
-    if (!parseFloat(item.quantity)) return false;
+    const search = (searchTerm || "").trim().toLowerCase();
+    const orgFilterNum = organizationFilter === "all" ? null : Number(organizationFilter);
+    const projectFilterNum = projectFilter === "all" ? null : Number(projectFilter);
 
-    if (!search && organizationFilter == "all") return true;
+    if (!search && orgFilterNum == null && projectFilterNum == null) return true;
 
-    if (organizationFilter != "all" && !search) {
-      return item.organization.id === +organizationFilter;
+    if (!search) {
+      if (orgFilterNum != null && projectFilterNum != null) {
+        return item.organization.id === orgFilterNum && item.project?.id === projectFilterNum;
+      }
+      if (orgFilterNum != null) return item.organization.id === orgFilterNum;
+      if (projectFilterNum != null) return item.project?.id === projectFilterNum;
+      return true;
     }
 
-    if (search && organizationFilter === "all") {
-      return (
-        item.material.name.toLowerCase().includes(search) ||
-        item.organization.name.toLowerCase().includes(search) ||
-        item.id.toString().includes(search)
-      );
-    }
+    const materialName = item.material?.name?.toLowerCase() ?? "";
+    const organizationName = item.organization?.name?.toLowerCase() ?? "";
+    const idStr = item.id?.toString() ?? "";
 
-    return (
-      (item.material.name.toLowerCase().includes(search) ||
-        item.organization.name.toLowerCase().includes(search) ||
-        item.id.toString().includes(search)) &&
-      item.organization.id === +organizationFilter
-    );
+    const matchesSearch = materialName.includes(search) || organizationName.includes(search) || idStr.includes(search);
+    if (!matchesSearch) return false;
+
+    if (orgFilterNum != null && item.organization.id !== orgFilterNum) return false;
+    if (projectFilterNum != null && item.project?.id !== projectFilterNum) return false;
+
+    return true;
   });
 
   const handleCreateProducts = async () => {
@@ -116,10 +123,12 @@ export default function ProductsPage() {
       return;
     }
 
-    const apiData = {
+    const apiData: any = {
       quantity: formData.quantity,
       material_id: Number.parseInt(formData.material_id),
     };
+
+    if (formData.project_id) apiData.project_id = Number.parseInt(formData.project_id);
 
     try {
       await addProduct(apiData).unwrap();
@@ -148,6 +157,7 @@ export default function ProductsPage() {
     setFormData({
       quantity: product.quantity,
       material_id: product.material.id.toString(),
+      project_id: product.project?.id?.toString() ?? "",
     });
 
     setIsEditDialogOpen(true);
@@ -165,10 +175,12 @@ export default function ProductsPage() {
       return;
     }
 
-    const apiData = {
+    const apiData: any = {
       quantity: formData.quantity,
       material_id: Number.parseInt(formData.material_id),
     };
+
+    if (formData.project_id) apiData.project_id = Number.parseInt(formData.project_id);
 
     try {
       await updateProduct({ id: selectedProduct.id, ...apiData }).unwrap();
@@ -216,7 +228,7 @@ export default function ProductsPage() {
     setIsDeleteDialogOpen(true);
   };
 
-  if (productsLoading || materialsLoading || organizationsLoading) {
+  if (productsLoading || materialsLoading || organizationsLoading || projectsLoading) {
     return (
       <div className="p-6 space-y-6">
         <div className="flex items-center justify-center py-12">
@@ -286,6 +298,26 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="grid gap-2">
+                  <Label htmlFor="project">{t("products.form.project")}</Label>
+                  <Select
+                    value={formData.project_id || "none"}
+                    onValueChange={(value) => setFormData({ ...formData, project_id: value === "none" ? "" : value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("products.form.selectProject")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">{t("products.form.noProject")}</SelectItem>
+                      {projects.map((project: any) => (
+                        <SelectItem key={project.id} value={project.id.toString()}>
+                          {project.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid gap-2">
                   <Label htmlFor="quantity">{getQuantityLabel()} *</Label>
                   <Input
                     id="quantity"
@@ -338,6 +370,19 @@ export default function ProductsPage() {
                 ))}
               </SelectContent>
             </Select>
+            <Select value={projectFilter ?? "all"} onValueChange={(value) => setProjectFilter(value)}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder={t("products.filters.byProject")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t("products.filters.allProjects")}</SelectItem>
+                {projects.map((project: any) => (
+                  <SelectItem key={project.id} value={project.id.toString()}>
+                    {project.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         )}
       </div>
@@ -366,6 +411,7 @@ export default function ProductsPage() {
                   <TableHead>{t("products.table.columns.id")}</TableHead>
                   <TableHead>{t("products.table.columns.material")}</TableHead>
                   <TableHead>{t("products.table.columns.quantity")}</TableHead>
+                  <TableHead>{t("products.table.columns.project")}</TableHead>
                   <TableHead>{t("products.table.columns.organization")}</TableHead>
                   <TableHead>{t("products.table.columns.createdAt")}</TableHead>
                   <TableHead className="text-right">{t("products.table.columns.actions")}</TableHead>
@@ -381,6 +427,7 @@ export default function ProductsPage() {
                         {item.quantity} {unitLabels[item.material.unit]}
                       </Badge>
                     </TableCell>
+                    <TableCell>{item.project ? item.project.name : ""}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Building2 className="h-4 w-4 text-muted-foreground" />
@@ -426,6 +473,26 @@ export default function ProductsPage() {
                   {materials.map((material: Material) => (
                     <SelectItem key={material.id} value={material.id.toString()}>
                       {material.name} ({unitLabels[material.unit]})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="edit-project">{t("products.form.project")}</Label>
+              <Select
+                value={formData.project_id || "none"}
+                onValueChange={(value) => setFormData({ ...formData, project_id: value === "none" ? "" : value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t("products.form.selectProject")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">{t("products.form.noProject")}</SelectItem>
+                  {projects.map((project: any) => (
+                    <SelectItem key={project.id} value={project.id.toString()}>
+                      {project.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

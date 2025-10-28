@@ -75,21 +75,10 @@ export default function TransactionDetailPage() {
   const [acceptTransaction, { isLoading: isAccepting }] = useAcceptTransactionMutation();
 
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-  const [rejectNote, setRejectNote] = useState("");
-  const [formError, setFormError] = useState("");
 
   const handleConfirmTransfer = async () => {
     try {
-      const payload = {
-        id: transactionId,
-        note: "",
-        items: transactionDetail.items.map((item: any) => ({
-          inventory_id: item.inventory.id,
-          received_quantity: item.quantity,
-        })),
-      };
-
-      await acceptTransaction(payload).unwrap();
+      await acceptTransaction({ id: transactionId }).unwrap();
 
       toast({
         title: t("TransferDetail.success.title"),
@@ -109,15 +98,6 @@ export default function TransactionDetailPage() {
 
       setIsConfirmDialogOpen(false);
     }
-  };
-
-  const handleRejectTransfer = async () => {
-    if (!rejectNote.trim()) {
-      setFormError(t("TransferDetail.errors.rejectReasonRequired"));
-      return;
-    }
-
-    setFormError("");
   };
 
   const user = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user") || "{}") : null;

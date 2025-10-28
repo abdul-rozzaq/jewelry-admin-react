@@ -5,7 +5,7 @@ import { Badge } from "@/src/components/ui/badge";
 import { Input } from "@/src/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Search, CheckCircle, Settings, Loader2, SquareCheckBig, Trash2, Plus } from "lucide-react";
+import { Search, CheckCircle, Settings, Loader2, SquareCheckBig, Trash2, Plus, Edit } from "lucide-react";
 import { useCompleteProcessMutation, useDeleteProcessMutation, useGetProcessesQuery } from "@/src/lib/service/processesApi";
 import { useGetProductsQuery } from "@/src/lib/service/productsApi";
 import { useGetMaterialsQuery } from "@/src/lib/service/materialsApi";
@@ -262,12 +262,13 @@ export default function ProcessesPage() {
                         {process.inputs && process.inputs.length > 0 ? (
                           <ul className="space-y-1">
                             {process.inputs.map((input, index) => {
-                              const inventoryItem = getInventoryById(input.product.id);
+                              const product = input.product;
+
                               return (
                                 <li key={index} className="text-sm flex justify-between">
-                                  <span>{inventoryItem?.material.name || t("processes.unknown")}</span>
+                                  <span>{product?.material.name ?? input.material?.name}</span>
                                   <span className="font-mono">
-                                    {input.quantity} {inventoryItem?.material.unit || ""}
+                                    {input.quantity} {product?.material.unit || ""}
                                   </span>
                                 </li>
                               );
@@ -303,6 +304,12 @@ export default function ProcessesPage() {
                           <div className="flex gap-2">
                             <Button className="cursor-pointer" variant="ghost" size="sm" onClick={() => openCompleteModal(process)}>
                               <SquareCheckBig className="h-4 w-4" />
+                            </Button>
+
+                            <Button className="cursor-pointer" variant="ghost" size="sm">
+                              <Link to={`/processes/${process.id}/edit`}>
+                                <Edit className="h-4 w-4" />
+                              </Link>
                             </Button>
                             <Button className="cursor-pointer" variant="destructive" size="sm" onClick={() => openDeleteModal(process)}>
                               <Trash2 className="h-4 w-4" />

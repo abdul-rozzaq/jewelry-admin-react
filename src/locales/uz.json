@@ -13,7 +13,8 @@
     "history": "Tarix",
     "users": "Foydalanuvchilar",
     "processes": "Jarayonlar",
-    "settings": "Sozlamalar"
+    "settings": "Sozlamalar",
+    "projects": "Loyihalar"
   },
   "Auth": {
     "logout": "Chiqish",
@@ -44,6 +45,7 @@
     "newTransfer": "Yangi transfer",
     "stats": {
       "totalMaterials": "Jami materiallar",
+      "totalGoldAmount": "Jami oltin miqdori",
       "fromLastMonth": "o‘tgan oyga nisbatan",
       "activeWorkshops": "Faol atolyeler",
       "ofTotalWorkshops": "13 ta atolyedan",
@@ -113,7 +115,9 @@
     },
     "filters": {
       "all": "Hammasi",
-      "byOrganization": "Ustaxona bo‘yicha filtrlash"
+      "byOrganization": "Ustaxona bo‘yicha filtrlash",
+      "byProject": "Loyiha bo‘yicha filtrlash",
+      "allProjects": "Barcha loyihalar"
     },
     "table": {
       "title": "Mahsulotlar ro‘yxati",
@@ -121,6 +125,7 @@
       "columns": {
         "id": "ID",
         "material": "Material",
+        "project": "Loyiha",
         "quantity": "Miqdor",
         "organization": "Tashkilot",
         "createdAt": "Yaratilgan sana",
@@ -131,6 +136,9 @@
       "material": "Material",
       "selectMaterial": "Materialni tanlash",
       "noMaterials": "Hech qanday material topilmadi",
+      "project": "Loyiha",
+      "selectProject": "Loyihani tanlash",
+      "noProject": "Loyihasiz",
       "organization": "Tashkilot",
       "selectOrganization": "Tashkilotni tanlash",
       "noOrganizations": "Hech qanday tashkilot topilmadi",
@@ -306,6 +314,10 @@
   "createProcess": {
     "title": "Yangi jarayon yaratish",
     "subtitle": "Mahsulot ishlab chiqarish jarayonini yarating",
+    "typeAndProject": {
+      "title": "Jarayon turi va loyiha",
+      "description": "Jarayon turini va (ixtiyoriy) loyihani tanlang"
+    },
     "validation": {
       "fillAllFields": "Iltimos, barcha maydonlarni to‘ldiring"
     },
@@ -323,6 +335,8 @@
       "title": "Kirish materiallari",
       "description": "Jarayon uchun kerak bo‘ladigan materiallar",
       "material": "Material",
+      "materialOrProduct": "Material yoki Mahsulot",
+      "product": "Mahsulot",
       "selectMaterial": "Material tanlang",
       "available": "Mavjud",
       "quantity": "Miqdor",
@@ -347,7 +361,26 @@
       "title": "Jarayon turini tanlang",
       "description": "Bu bo‘limda siz yangi jarayon uchun tur tanlaysiz.",
       "select": "Jarayon turi",
-      "placeholder": "Jarayon turini tanlang"
+      "placeholder": "Jarayon turini tanlang",
+      "none": "Tanlanmagan"
+    },
+    "projectPlaceholder": "Loyihani tanlang",
+    "project": {
+      "none": "Belgilanmagan"
+    }
+  },
+  "editProcess": {
+    "title": "Jarayonni tahrirlash",
+    "subtitle": "Jarayon maʼlumotlarini yangilang",
+    "submit": {
+      "update": "Oʻzgarishlarni saqlash",
+      "updating": "Saqlanmoqda..."
+    },
+    "success": {
+      "updated": "Jarayon muvaffaqiyatli yangilandi"
+    },
+    "errors": {
+      "updateFailed": "Jarayonni yangilashda xatolik yuz berdi"
     }
   },
   "transfers": {
@@ -394,7 +427,9 @@
   "createTransfer": {
     "pageTitle": "Yangi Transfer",
     "receiverLabel": "Qabul Qiluvchi",
+    "receiverAndProject": "Qabul qiluvchi va loyiha",
     "receiverPlaceholder": "Atolye tanlang",
+    "projectPlaceholder": "Loyihani tanlang",
     "inventoryLabel": "Inventar",
     "inventoryPlaceholder": "Tanlang",
     "quantityLabel": "Miqdor",
@@ -748,6 +783,83 @@
     "errors": {
       "title": "Xatolik",
       "loadWorkshopFailed": "Ustaxona ma’lumotlarini yuklashda xatolik yuz berdi."
+    }
+  },
+  "projects": {
+    "title": "Loyihalar",
+    "subtitle": "Loyihalarni boshqarish",
+    "actions": {
+      "create": "Yangi loyiha",
+      "edit": "Tahrirlash",
+      "delete": "O‘chirish"
+    },
+    "add": "Yangi loyiha qo‘shish",
+    "cancel": "Bekor qilish",
+    "save": "Saqlash",
+    "confirmDelete": "Ushbu loyihani o‘chirishni xohlaysizmi?",
+    "status": {
+      "active": "Faol",
+      "inactive": "Faol emas"
+    },
+    "messages": {
+      "created": "Loyiha muvaffaqiyatli qo‘shildi",
+      "updated": "Loyiha muvaffaqiyatli tahrirlandi",
+      "deleted": "Loyiha muvaffaqiyatli o‘chirildi",
+      "createError": "Loyiha yaratishda xatolik yuz berdi",
+      "updateError": "Loyiha yangilanishida xatolik yuz berdi",
+      "deleteError": "Loyiha o‘chirishda xatolik yuz berdi"
+    },
+    "validation": {
+      "nameRequired": "Loyiha nomi kiritilishi shart"
+    },
+    "common": {
+      "success": "Muvaffaqiyat",
+      "error": "Xatolik",
+      "loading": "Yuklanmoqda...",
+      "retry": "Qayta urinib ko‘rish",
+      "cancel": "Bekor qilish",
+      "create": "Yaratish",
+      "update": "Yangilash",
+      "no": "Yo‘q"
+    },
+    "table": {
+      "title": "Loyihalar ro‘yxati",
+      "description": "Jami {{count}} ta loyiha",
+      "columns": {
+        "id": "ID",
+        "name": "Nomi",
+        "description": "Tavsif",
+        "isActive": "Faol",
+        "createdAt": "Yaratilgan vaqti",
+        "actions": "Amallar"
+      }
+    },
+    "empty": {
+      "title": "Loyiha mavjud emas",
+      "noData": "Hali loyihalar qo‘shilmagan",
+      "noResults": "Hech qanday natija topilmadi",
+      "clearSearch": "Qidiruvni tozalash"
+    },
+    "search": {
+      "placeholder": "Qidiruv..."
+    },
+    "dialogs": {
+      "create": {
+        "title": "Yangi loyiha yaratish",
+        "description": "Loyihani yaratish uchun barcha maydonlarni to‘ldiring"
+      },
+      "edit": {
+        "title": "Loyihani tahrirlash",
+        "description": "Loyihaning ma’lumotlarini tahrirlash"
+      },
+      "delete": {
+        "title": "Loyihani o‘chirish",
+        "description": "Loyihani o‘chirishni tasdiqlang",
+        "confirm": "O‘chirish"
+      }
+    },
+    "errors": {
+      "loadError": "Loyihalarni yuklashda xatolik yuz berdi"
     }
   }
 }

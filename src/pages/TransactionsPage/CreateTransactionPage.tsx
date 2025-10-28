@@ -14,6 +14,8 @@ import type Product from "@/src/types/product";
 import { getCurrentUser } from "@/src/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useGetProjectsQuery } from "@/src/lib/service/projectsApi";
+import Project from "@/src/types/project";
 
 const parseQuantity = (quantity: any): number => {
   if (typeof quantity === "number") return quantity;
@@ -36,28 +38,29 @@ export default function CreateTransactionPage() {
   const currentUser = getCurrentUser();
 
   const { data: receivers = [] as Organization[], isLoading: receiversLoading } = useGetOrganizationsQuery({});
-  const { data: inventories = [] as Product[], isLoading: inventoriesLoading } = useGetProductsQuery({
+  const { data: projects } = useGetProjectsQuery({});
+  const { data: products = [] as Product[], isLoading: inventoriesLoading } = useGetProductsQuery({
     organization: currentUser?.organization?.id,
   });
-
-  const mockBatches = Array.from({ length: 10 }, (_, i) => ({ id: i + 1, name: `Partiya-${i + 1}` }));
 
   const [addTransaction, { isLoading: isSubmitting }] = useAddTransactionMutation();
 
   const [receiver, setReceiver] = useState("");
-  const [items, setItems] = useState<{ inventory: string; quantity: string }[]>([]);
-  const [currentItem, setCurrentItem] = useState({ inventory: "", quantity: "" });
+  const [selectedProject, setSelectedProject] = useState("");
+
+  const [items, setItems] = useState<{ product: string; quantity: string }[]>([]);
+  const [currentItem, setCurrentItem] = useState({ product: "", quantity: "" });
   const [error, setError] = useState("");
 
-  const availableInventories = inventories.filter((inv: Product) => parseQuantity(inv.quantity) > 0);
+  const availableProducts = products.filter((inv: Product) => parseQuantity(inv.quantity) > 0);
 
   const handleAddItem = () => {
-    if (!currentItem.inventory || !isValidQuantity(currentItem.quantity)) {
+    if (!currentItem.product || !isValidQuantity(currentItem.quantity)) {
       setError(t("createTransfer.errors.invalidInventoryOrQuantity"));
       return;
     }
 
-    const selectedInv: Product = inventories.find((inv: Product) => String(inv.id) === currentItem.inventory);
+    const selectedInv: Product = products.find((inv: Product) => String(inv.id) === currentItem.product);
 
     if (!selectedInv) {
       setError(t("createTransfer.errors.inventoryNotFound"));
@@ -78,7 +81,7 @@ export default function CreateTransactionPage() {
       return;
     }
 
-    const existingItemIndex = items.findIndex((item) => item.inventory === currentItem.inventory);
+    const existingItemIndex = items.findIndex((item) => item.product === currentItem.product);
 
     let newTotalQty = addQty;
 
@@ -102,10 +105,10 @@ export default function CreateTransactionPage() {
       updatedItems[existingItemIndex].quantity = newTotalQty.toFixed(3);
       setItems(updatedItems);
     } else {
-      setItems([...items, { inventory: currentItem.inventory, quantity: addQty.toFixed(3) }]);
+      setItems([...items, { product: currentItem.product, quantity: addQty.toFixed(3) }]);
     }
 
-    setCurrentItem({ inventory: "", quantity: "" });
+    setCurrentItem({ product: "", quantity: "" });
     setError("");
   };
 
@@ -113,7 +116,7 @@ export default function CreateTransactionPage() {
     setItems(items.filter((_, i) => i !== index));
   };
 
-  const handleAddAllItems = () => setItems(inventories.map((e: Product) => ({ inventory: e.id.toString(), quantity: e.quantity.toString() })));
+  const handleAddAllItems = () => setItems(products.map((e: Product) => ({ product: e.id.toString(), quantity: e.quantity.toString() })));
 
   const handleSubmit = async () => {
     if (!receiver || items.length === 0) {
@@ -123,8 +126,9 @@ export default function CreateTransactionPage() {
 
     const payload = {
       receiver: Number(receiver),
+      project: selectedProject ? Number(selectedProject) : null,
       items: items.map((item) => ({
-        inventory: Number(item.inventory),
+        product: Number(item.product),
         quantity: item.quantity,
       })),
     };
@@ -141,7 +145,7 @@ export default function CreateTransactionPage() {
       setReceiver("");
       setItems([]);
 
-      setCurrentItem({ inventory: "", quantity: "" });
+      setCurrentItem({ product: "", quantity: "" });
       setError("");
 
       setTimeout(() => navigate("/transactions"), 1000);
@@ -178,7 +182,7 @@ export default function CreateTransactionPage() {
     );
   }
 
-  if (availableInventories.length === 0) {
+  if (availableProducts.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center p-6 bg-gray-50">
         <Card className="max-w-md w-full shadow-sm border border-gray-200">
@@ -211,10 +215,10 @@ export default function CreateTransactionPage() {
 
       <Card>
         <CardHeader className="border-b pb-3">
-          <CardTitle className="text-base font-medium">{t("createTransfer.receiverLabel")}</CardTitle>
+          <CardTitle className="text-base font-medium">{t("createTransfer.receiverAndProject")}</CardTitle>
         </CardHeader>
         <CardContent className="pt-4">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select value={receiver} onValueChange={setReceiver}>
               <SelectTrigger className="w-full border">
                 <SelectValue placeholder={t("createTransfer.receiverPlaceholder")} />
@@ -228,25 +232,14 @@ export default function CreateTransactionPage() {
               </SelectContent>
             </Select>
 
-            <Button onClick={handleAddAllItems} size="icon">
-              <Magnet className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="border-b pb-3">
-          <CardTitle className="text-base font-medium">Loyiha (Project)</CardTitle>
-        </CardHeader>
-        <CardContent className="pt-4">
-          <div>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Loyihani tanlang" />
+            <Select value={selectedProject} onValueChange={(e) => setSelectedProject(e != "none" ? e : "")}>
+              <SelectTrigger className="w-full border">
+                <SelectValue placeholder={t("createTransfer.projectPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
-                {mockBatches.map((p) => (
+                <SelectItem value={"none"}>Belgilanmagan</SelectItem>
+
+                {projects.map((p: Project) => (
                   <SelectItem key={p.id} value={String(p.id)}>
                     {p.name}
                   </SelectItem>
@@ -260,21 +253,26 @@ export default function CreateTransactionPage() {
       <Card>
         <CardHeader className="border-b pb-3 flex justify-between items-center">
           <CardTitle className="text-base font-medium ">{t("createTransfer.inventoryLabel")}</CardTitle>
-          <span className="text-sm ">
-            Jami: {totalItems} ta, {totalQuantity.toFixed(3)} birlik
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="text-sm ">
+              Jami: {totalItems} ta, {totalQuantity.toFixed(3)} birlik
+            </span>
+            <Button onClick={handleAddAllItems} size="icon">
+              <Magnet className="h-4 w-4" />
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="pt-4 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
             <div>
               <Label className="text-sm  mb-1 block">{t("createTransfer.inventoryLabel")}</Label>
-              <Select value={currentItem.inventory} onValueChange={(val) => setCurrentItem({ ...currentItem, inventory: val })}>
+              <Select value={currentItem.product} onValueChange={(val) => setCurrentItem({ ...currentItem, product: val })}>
                 <SelectTrigger className="w-full ">
                   <SelectValue placeholder={t("createTransfer.inventoryPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {availableInventories
-                    .filter((inv: Product) => items.every((e) => e.inventory !== inv.id.toString()))
+                  {availableProducts
+                    .filter((inv: Product) => items.every((e) => e.product !== inv.id.toString()))
                     .map((inv: Product) => {
                       const availableQty = parseQuantity(inv.quantity);
                       const materialName = inv.material.name;
@@ -325,7 +323,7 @@ export default function CreateTransactionPage() {
               </thead>
               <tbody>
                 {items.map((it, i) => {
-                  const inv = inventories.find((x) => String(x.id) === it.inventory);
+                  const inv = products.find((x) => String(x.id) === it.product);
                   const availableQty = parseQuantity(inv?.quantity);
                   const transferQty = Number.parseFloat(it.quantity);
                   const remaining = availableQty - transferQty;

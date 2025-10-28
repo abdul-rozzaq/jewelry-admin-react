@@ -1,7 +1,7 @@
 import Organization from "./organization";
 import Material from "./material";
 import Product from "./product";
-import { Project } from "./project";
+import Project from "./project";
 
 export interface ProcessTemplate {
   id: number;
@@ -29,7 +29,8 @@ export interface ProcessInput {
   id: number;
   quantity: number;
   process: number;
-  product: Product;
+  product?: Product;
+  material?: Material;
 }
 
 export interface ProcessOutput {

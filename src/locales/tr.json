@@ -44,6 +44,7 @@
     "newTransfer": "Yeni Transfer",
     "stats": {
       "totalMaterials": "Toplam Malzeme",
+      "totalGoldAmount": "Toplam Altın Miktarı",
       "fromLastMonth": "geçen aya göre",
       "activeWorkshops": "Aktif Atölyeler",
       "ofTotalWorkshops": "13 atölyeden",
@@ -304,6 +305,10 @@
   "createProcess": {
     "title": "Yeni Süreç Oluştur",
     "subtitle": "Bir ürün üretim süreci oluşturun",
+    "typeAndProject": {
+      "title": "Süreç türü ve proje",
+      "description": "Bir süreç türü ve (isteğe bağlı) proje seçin"
+    },
     "validation": {
       "fillAllFields": "Lütfen tüm alanları doldurun"
     },
@@ -345,7 +350,26 @@
       "title": "Süreç türünü seçin",
       "description": "Bu bölümde yeni süreç için tür seçin.",
       "select": "Süreç türü",
-      "placeholder": "Bir süreç türü seçin"
+      "placeholder": "Bir süreç türü seçin",
+      "none": "Seçilmedi"
+    },
+    "projectPlaceholder": "Proje seç",
+    "project": {
+      "none": "Atanmamış"
+    }
+  },
+  "editProcess": {
+    "title": "Süreci Düzenle",
+    "subtitle": "Süreç detaylarını güncelleyin",
+    "submit": {
+      "update": "Değişiklikleri Kaydet",
+      "updating": "Kaydediliyor..."
+    },
+    "success": {
+      "updated": "Süreç başarıyla güncellendi"
+    },
+    "errors": {
+      "updateFailed": "Süreç güncellenirken bir hata oluştu"
     }
   },
   "transfers": {
@@ -392,7 +416,9 @@
   "createTransfer": {
     "pageTitle": "Yeni Transfer",
     "receiverLabel": "Alıcı",
+    "receiverAndProject": "Alıcı ve proje",
     "receiverPlaceholder": "Atölye seç",
+    "projectPlaceholder": "Proje seç",
     "inventoryLabel": "Stok",
     "inventoryPlaceholder": "Seçin",
     "quantityLabel": "Miktar",
@@ -746,6 +772,64 @@
     "errors": {
       "title": "Hata",
       "loadWorkshopFailed": "Atölye detayları yüklenirken bir hata oluştu."
+    }
+  },
+  "projects": {
+    "title": "Projeler",
+    "actions": "İşlemler",
+    "add": "Yeni Proje Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "confirmDelete": "Bu projeyi silmek istediğinizden emin misiniz?",
+    "statusActive": "Aktif",
+    "statusInactive": "Aktif değil",
+    "messages": {
+      "created": "Proje başarıyla eklendi",
+      "updated": "Proje başarıyla güncellendi",
+      "deleted": "Proje başarıyla silindi"
+    },
+    "validation": {
+      "nameRequired": "Proje adı gerekli"
+    },
+    "common": {
+      "success": "Başarılı",
+      "error": "Hata",
+      "loading": "Yükleniyor...",
+      "retry": "Tekrar Dene"
+    },
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Adı",
+        "description": "Açıklama",
+        "isActive": "Aktif",
+        "createdAt": "Oluşturulma Tarihi"
+      }
+    },
+    "empty": {
+      "title": "Proje yok",
+      "noData": "Henüz proje eklenmedi",
+      "noResults": "Sonuç bulunamadı"
+    },
+    "search": {
+      "placeholder": "Ara..."
+    },
+    "dialogs": {
+      "create": {
+        "title": "Proje Oluştur",
+        "description": "Bir proje oluşturmak için tüm alanları doldurun"
+      },
+      "edit": {
+        "title": "Projeyi Düzenle",
+        "description": "Proje detaylarını düzenleyin"
+      },
+      "delete": {
+        "title": "Projeyi Sil",
+        "description": "Proje silmeyi onaylayın",
+        "confirm": "Sil"
+      }
     }
   }
 }

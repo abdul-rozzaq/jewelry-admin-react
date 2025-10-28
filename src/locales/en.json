@@ -44,6 +44,7 @@
     "newTransfer": "New Transfer",
     "stats": {
       "totalMaterials": "Total Materials",
+      "totalGoldAmount": "Total Gold Amount",
       "fromLastMonth": "from last month",
       "activeWorkshops": "Active Workshops",
       "ofTotalWorkshops": "out of 13 workshops",
@@ -304,6 +305,10 @@
   "createProcess": {
     "title": "Create New Process",
     "subtitle": "Create a product manufacturing process",
+    "typeAndProject": {
+      "title": "Process Type and Project",
+      "description": "Select a process type and optionally a project"
+    },
     "validation": {
       "fillAllFields": "Please fill in all fields"
     },
@@ -345,7 +350,26 @@
       "title": "Select process type",
       "description": "In this section, choose the type for the new process.",
       "select": "Process type",
-      "placeholder": "Select a process type"
+      "placeholder": "Select a process type",
+      "none": "None"
+    },
+    "projectPlaceholder": "Select a project",
+    "project": {
+      "none": "Unassigned"
+    }
+  },
+  "editProcess": {
+    "title": "Edit Process",
+    "subtitle": "Update process details",
+    "submit": {
+      "update": "Save Changes",
+      "updating": "Saving..."
+    },
+    "success": {
+      "updated": "Process updated successfully"
+    },
+    "errors": {
+      "updateFailed": "An error occurred while updating the process"
     }
   },
   "transfers": {
@@ -392,7 +416,9 @@
   "createTransfer": {
     "pageTitle": "New Transfer",
     "receiverLabel": "Receiver",
+    "receiverAndProject": "Receiver and project",
     "receiverPlaceholder": "Select a workshop",
+    "projectPlaceholder": "Select a project",
     "inventoryLabel": "Inventory",
     "inventoryPlaceholder": "Select",
     "quantityLabel": "Quantity",
@@ -746,6 +772,64 @@
     "errors": {
       "title": "Error",
       "loadWorkshopFailed": "An error occurred while loading workshop details."
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "actions": "Actions",
+    "add": "Add New Project",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "confirmDelete": "Are you sure you want to delete this project?",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "messages": {
+      "created": "Project added successfully",
+      "updated": "Project updated successfully",
+      "deleted": "Project deleted successfully"
+    },
+    "validation": {
+      "nameRequired": "Project name is required"
+    },
+    "common": {
+      "success": "Success",
+      "error": "Error",
+      "loading": "Loading...",
+      "retry": "Retry"
+    },
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "description": "Description",
+        "isActive": "Active",
+        "createdAt": "Created At"
+      }
+    },
+    "empty": {
+      "title": "No projects",
+      "noData": "No projects added yet",
+      "noResults": "No results found"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "dialogs": {
+      "create": {
+        "title": "Create Project",
+        "description": "Fill in all fields to create a project"
+      },
+      "edit": {
+        "title": "Edit Project",
+        "description": "Edit project details"
+      },
+      "delete": {
+        "title": "Delete Project",
+        "description": "Confirm project deletion",
+        "confirm": "Delete"
+      }
     }
   }
 }

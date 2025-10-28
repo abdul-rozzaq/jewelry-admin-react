@@ -7,7 +7,8 @@ interface StatsItem {
 
 export interface DashboardStats {
     products: StatsItem
-    organization: StatsItem
-    transaction: StatsItem
+    organizations: StatsItem
+    transactions: StatsItem
+    gold: StatsItem
 }
 

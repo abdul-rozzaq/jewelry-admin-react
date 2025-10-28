@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet";
-import { Home, Factory, ArrowLeftRight, Bell, Settings, Users, Menu, LogOut, ShoppingBag, Package, Moon, Sun } from "lucide-react";
+import { Home, Factory, ArrowLeftRight, Bell, Settings, Users, Menu, LogOut, ShoppingBag, Package, Moon, Sun, Cog } from "lucide-react";
 import { Toaster } from "@/src/components/ui/toaster";
 import { cn } from "@/src/lib/utils";
 import { LanguageSwitcher } from "@/src/components/language-switcher";
@@ -42,6 +42,7 @@ export default function DashboardLayout() {
     { name: t("Navigation.dashboard"), href: "/", icon: Home },
     { name: t("Navigation.materials"), href: "/materials", icon: Package, types: ["bank"] },
     { name: t("Navigation.inventory"), href: "/products", icon: ShoppingBag },
+    { name: t("Navigation.projects"), href: "/projects", icon: Cog, types: ["bank"] },
     { name: t("Navigation.workshops"), href: "/organizations", icon: Factory, types: ["bank"] },
     { name: t("Navigation.transfers"), href: "/transactions", icon: ArrowLeftRight },
     { name: t("Navigation.users"), href: "/users", icon: Users, types: ["bank"] },

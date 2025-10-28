@@ -94,37 +94,45 @@ export default function DashboardPage() {
             <Gem className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-24" /> : <div className="text-2xl font-bold">{data?.products.total} g</div>}
+            {isLoading ? (
+              <Skeleton className="h-6 w-24" />
+            ) : (
+              <div className="text-2xl font-bold">{Number(data?.products.total ?? 0).toLocaleString()} g</div>
+            )}
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("dashboard.stats.activeWorkshops")}</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("dashboard.stats.totalGoldAmount")}</CardTitle>
             <Factory className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-16" /> : <div className="text-2xl font-bold">{data?.organization.count}</div>}
+            {isLoading ? (
+              <Skeleton className="h-6 w-24" />
+            ) : (
+              <div className="text-2xl font-bold">{Number(data?.gold.total ?? 0).toLocaleString()} g</div>
+            )}
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t("dashboard.stats.todayTransfers")}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-12" /> : <div className="text-2xl font-bold"> {data?.transaction.count} </div>}
+            {isLoading ? <Skeleton className="h-6 w-12" /> : <div className="text-2xl font-bold"> {data?.transactions.count} </div>}
           </CardContent>
-        </Card>
+        </Card> */}
 
-        <Card>
+        {/* <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t("dashboard.stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>{isLoading ? <Skeleton className="h-6 w-10" /> : <div className="text-2xl font-bold">3</div>}</CardContent>
-        </Card>
+          <CardContent>{isLoading ? <Skeleton className="h-6 w-10" /> : <div className="text-2xl font-bold">{ data?.organizations.count }</div>}</CardContent>
+        </Card> */}
       </div>
 
       {/* Charts Section */}

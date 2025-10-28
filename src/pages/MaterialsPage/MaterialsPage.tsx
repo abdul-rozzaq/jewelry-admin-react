@@ -42,8 +42,6 @@ export default function MaterialsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const { data: materials = [], isLoading: materialsLoading, error: materialsError } = useGetMaterialsQuery({ search: searchTerm });
 
-  const hashedMaterials: Record<number, Material> = materials.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {});
-
   const [addMaterial] = useAddMaterialMutation();
   const [updateMaterial] = useUpdateMaterialMutation();
   const [deleteMaterial] = useDeleteMaterialMutation();
@@ -57,7 +55,6 @@ export default function MaterialsPage() {
     name: "",
     unit: "" as "g" | "pcs" | "ct" | "",
     purity: "",
-    parent: null,
   };
 
   const [formData, setFormData] = useState<FormDataType>(formInitialData);
@@ -110,7 +107,6 @@ export default function MaterialsPage() {
     setFormData({
       name: material.name,
       unit: material.unit as "g" | "pcs" | "ct" | "",
-      parent: material.parent,
       purity: material.purity,
     });
 
@@ -251,20 +247,6 @@ export default function MaterialsPage() {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="parent">{t("materials.form.parent")} *</Label>
-                <Select value={formData.parent?.toString() ?? ""} onValueChange={(value: string) => setFormData({ ...formData, parent: +value })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t("materials.form.parentPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {materials.map((material: Material) => (
-                      <SelectItem value={material.id.toString()}>{material.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="grid gap-2">
                 <Label htmlFor="unit">{t("materials.form.unit")} *</Label>
                 <Select value={formData.unit} onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}>
                   <SelectTrigger>
@@ -320,7 +302,6 @@ export default function MaterialsPage() {
                 <TableHead>#</TableHead>
                 <TableHead>{t("materials.table.columns.name")}</TableHead>
                 <TableHead>{t("materials.table.columns.unit")}</TableHead>
-                <TableHead>{t("materials.table.columns.parent")}</TableHead>
                 <TableHead>{t("materials.table.columns.purity")}</TableHead>
                 <TableHead>{t("materials.table.columns.createdAt")}</TableHead>
                 <TableHead className="text-right">{t("materials.table.columns.actions")}</TableHead>
@@ -336,8 +317,7 @@ export default function MaterialsPage() {
                       {unitLabels[material.unit]} ({material.unit})
                     </Badge>
                   </TableCell>
-                  <TableCell>{material.parent ? hashedMaterials[material.parent].name : ""}</TableCell>
-                  <TableCell>{material.purity} c</TableCell>
+                  <TableCell>{Number(material.purity).toFixed(1)}</TableCell>
                   <TableCell>{new Date(material.created_at).toLocaleDateString("uz-UZ")}</TableCell>
                   <TableCell className="flex justify-end space-x-2">
                     <Button variant="outline" size="sm" onClick={() => handleEditMaterial(material)}>
@@ -381,20 +361,6 @@ export default function MaterialsPage() {
                 onChange={(e) => setFormData({ ...formData, purity: e.target.value })}
                 placeholder={t("materials.form.purityPlaceholder")}
               />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="parent">{t("materials.form.parent")} *</Label>
-              <Select value={formData.parent?.toString() ?? ""} onValueChange={(value: string) => setFormData({ ...formData, parent: +value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder={t("materials.form.parentPlaceholder")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {materials.map((material: Material) => (
-                    <SelectItem value={material.id.toString()}>{material.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             <div className="grid gap-2">

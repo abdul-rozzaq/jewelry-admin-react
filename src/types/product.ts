@@ -1,20 +1,14 @@
+import Material from "./material";
+import Organization from "./organization";
+import Project from "./project";
+
 export default interface Product {
   id: number;
   quantity: string;
-  organization: {
-    id: number;
-    name: string;
-    type: string;
-    created_at: string;
-    updated_at: string;
-  };
-  material: {
-    id: number;
-    name: string;
-    unit: "g" | "pcs" | "ct";
-    created_at: string;
-    updated_at: string;
-  };
+  organization: Organization;
+  purity: string;
+  material: Material;
+  project?: Project;
   created_at: string;
   updated_at: string;
 }

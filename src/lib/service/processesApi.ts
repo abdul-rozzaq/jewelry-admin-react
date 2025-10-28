@@ -10,6 +10,10 @@ export const ProcessesApi = createApi({
       query: () => "/processes/list/",
       providesTags: ["Processes"],
     }),
+    GetProcessById: builder.query({
+      query: (id: number | string) => `/processes/retrieve/${id}/`,
+      providesTags: (result, error, id) => [{ type: "Processes", id } as any],
+    }),
     CreateProcess: builder.mutation({
       query: (data) => ({
         url: "/processes/create/",
@@ -17,6 +21,14 @@ export const ProcessesApi = createApi({
         body: data,
       }),
       invalidatesTags: ["Processes", "Products"],
+    }),
+    UpdateProcess: builder.mutation({
+      query: ({ id, ...data }: any) => ({
+        url: `/processes/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Processes", id } as any],
     }),
     GetProcessTypes: builder.query({
       query: () => "/processes/types/",
@@ -39,5 +51,12 @@ export const ProcessesApi = createApi({
   }),
 });
 
-export const { useGetProcessesQuery, useCreateProcessMutation, useCompleteProcessMutation, useDeleteProcessMutation, useGetProcessTypesQuery } =
-  ProcessesApi;
+export const {
+  useGetProcessesQuery,
+  useGetProcessByIdQuery,
+  useCreateProcessMutation,
+  useUpdateProcessMutation,
+  useCompleteProcessMutation,
+  useDeleteProcessMutation,
+  useGetProcessTypesQuery,
+} = ProcessesApi;
