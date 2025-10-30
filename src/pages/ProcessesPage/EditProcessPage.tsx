@@ -85,7 +85,7 @@ export default function EditProcessPage() {
 
   const isFormValid = () => {
     return (
-      selectedType != null &&
+      // selectedType != null &&
       inputs.length > 0 &&
       outputs.length > 0 &&
       inputs.every((i) => (i.product || i.material) && i.quantity && i.quantity > 0) &&

@@ -24,7 +24,7 @@ export const ProcessesApi = createApi({
     }),
     UpdateProcess: builder.mutation({
       query: ({ id, ...data }: any) => ({
-        url: `/processes/${id}/`,
+        url: `/processes/${id}/update/`,
         method: "PATCH",
         body: data,
       }),
