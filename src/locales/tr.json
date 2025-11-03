@@ -114,7 +114,9 @@
     },
     "filters": {
       "all": "Tümü",
-      "byOrganization": "Atölyeye göre filtrele"
+      "byOrganization": "Atölyeye göre filtrele",
+      "byProject": "Projeye göre filtrele",
+      "allProjects": "Tüm Projeler"
     },
     "table": {
       "title": "Ürünler Listesi",
@@ -123,19 +125,37 @@
         "id": "ID",
         "material": "Malzeme",
         "quantity": "Miktar",
+        "karat": "Karat",
+        "purity": "Saflık",
+        "pureGold": "Saf Altın",
+        "composite": "Kompozit",
+        "project": "Proje",
         "organization": "Kuruluş",
         "createdAt": "Oluşturulma Tarihi",
         "actions": "İşlemler"
+      },
+      "composite": {
+        "yes": "Evet",
+        "no": "Hayır"
       }
     },
     "form": {
       "material": "Malzeme",
       "selectMaterial": "Malzeme seç",
       "noMaterials": "Hiç malzeme bulunamadı",
+      "project": "Proje",
+      "selectProject": "Proje seç",
+      "noProject": "Proje yok",
       "organization": "Kuruluş",
       "selectOrganization": "Kuruluş seç",
       "noOrganizations": "Hiç kuruluş bulunamadı",
       "quantity": "Miktar",
+      "karat": "Karat",
+      "pureGold": "Saf Altın (g)",
+      "composite": "Kompozit",
+      "selectComposite": "Kompozit türü seç",
+      "sourceDescription": "Kaynak Açıklaması",
+      "sourceDescriptionPlaceholder": "Kaynak açıklaması girin",
       "example": "Örnek"
     },
     "dialogs": {
@@ -235,7 +255,8 @@
       "parent": "Ana malzeme",
       "parentPlaceholder": "Ana malzeme seçin",
       "purity": "Saflık",
-      "purityPlaceholder": "Malzeme saflığını girin"
+      "purityPlaceholder": "Malzeme saflığını girin",
+      "mixes_with_gold": "Altınla karışır"
     },
     "units": {
       "gram": "Gram (g)",
@@ -251,6 +272,7 @@
       "columns": {
         "name": "Ad",
         "unit": "Birim",
+        "mixes_with_gold": "Altınla karışır",
         "createdAt": "Oluşturulma Tarihi",
         "actions": "İşlemler"
       }

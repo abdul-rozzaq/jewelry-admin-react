@@ -114,7 +114,9 @@
     },
     "filters": {
       "all": "All",
-      "byOrganization": "Filter by Workshop"
+      "byOrganization": "Filter by Workshop",
+      "byProject": "Filter by Project",
+      "allProjects": "All Projects"
     },
     "table": {
       "title": "Products List",
@@ -123,19 +125,37 @@
         "id": "ID",
         "material": "Material",
         "quantity": "Quantity",
+        "karat": "Karat",
+        "purity": "Purity",
+        "pureGold": "Pure Gold",
+        "composite": "Composite",
+        "project": "Project",
         "organization": "Organization",
         "createdAt": "Created Date",
         "actions": "Actions"
+      },
+      "composite": {
+        "yes": "Yes",
+        "no": "No"
       }
     },
     "form": {
       "material": "Material",
       "selectMaterial": "Select a material",
       "noMaterials": "No materials found",
+      "project": "Project",
+      "selectProject": "Select a project",
+      "noProject": "No project",
       "organization": "Organization",
       "selectOrganization": "Select an organization",
       "noOrganizations": "No organizations found",
       "quantity": "Quantity",
+      "karat": "Karat",
+      "pureGold": "Pure Gold (g)",
+      "composite": "Composite",
+      "selectComposite": "Select composite type",
+      "sourceDescription": "Source Description",
+      "sourceDescriptionPlaceholder": "Enter source description",
       "example": "Example"
     },
     "dialogs": {
@@ -235,7 +255,8 @@
       "parent": "Parent material",
       "parentPlaceholder": "Select parent material",
       "purity": "Purity",
-      "purityPlaceholder": "Enter material purity"
+      "purityPlaceholder": "Enter material purity",
+      "mixes_with_gold": "Mixes with gold"
     },
     "units": {
       "gram": "Gram (g)",
@@ -251,6 +272,7 @@
       "columns": {
         "name": "Name",
         "unit": "Unit",
+        "mixes_with_gold": "Mixes with gold",
         "createdAt": "Created Date",
         "actions": "Actions"
       }

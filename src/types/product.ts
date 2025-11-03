@@ -9,6 +9,10 @@ export default interface Product {
   purity: string;
   material: Material;
   project?: Project;
+  karat: number;
+  is_composite: boolean;
+  pure_gold: string;
+  source_description: string | null;
   created_at: string;
   updated_at: string;
 }

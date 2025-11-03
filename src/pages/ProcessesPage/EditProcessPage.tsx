@@ -53,6 +53,7 @@ export default function EditProcessPage() {
 
   useEffect(() => {
     if (!process) return;
+
     setSelectedType(process.process_type?.id ?? null);
     setSelectedProject(process.project?.id ?? null);
 
@@ -103,7 +104,7 @@ export default function EditProcessPage() {
     try {
       const payload: any = {
         id,
-        type: selectedType,
+        process_type: selectedType,
         project: selectedProject,
         inputs: inputs.map((i) => ({ product: i.product, material: i.material, quantity: i.quantity })),
         outputs: outputs.map((o) => ({ material: o.material, quantity: o.quantity })),
@@ -137,16 +138,26 @@ export default function EditProcessPage() {
 
   return (
     <div className="flex-1 space-y-6 p-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="sm" asChild>
-          <Link to="/processes">
-            <ArrowLeft className="h-4 w-4 mr-0.5" />
-            {t("createProcess.actions.back")}
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-3xl font-bold">{t("editProcess.title")}</h1>
-          <p className="text-muted-foreground">{t("editProcess.subtitle")}</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/processes">
+              <ArrowLeft className="h-4 w-4 mr-0.5" />
+              {t("createProcess.actions.back")}
+            </Link>
+          </Button>
+          <div>
+            <h1 className="text-3xl font-bold">{t("editProcess.title")}</h1>
+            <p className="text-muted-foreground">{t("editProcess.subtitle")}</p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <Button type="button" variant="outline" asChild>
+            <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
+          </Button>
+          <Button type="button" onClick={handleSubmit} disabled={!isFormValid() || isUpdating}>
+            {isUpdating ? t("editProcess.submit.updating") : t("editProcess.submit.update")}
+          </Button>
         </div>
       </div>
 
@@ -233,11 +244,13 @@ export default function EditProcessPage() {
 
                         <SelectSeparator />
 
-                        {materials.map((m: Material) => (
-                          <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
-                            {m.name} ({m.unit})
-                          </SelectItem>
-                        ))}
+                        {materials
+                          .filter((e: Material) => !e.mixes_with_gold)
+                          .map((m: Material) => (
+                            <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
+                              {m.name} ({m.unit}) - {m.purity}
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -306,17 +319,6 @@ export default function EditProcessPage() {
             </CardContent>
           </Card>
         </div>
-
-        <Card>
-          <CardContent className="pt-6 flex justify-end gap-2">
-            <Button type="button" variant="outline" asChild>
-              <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
-            </Button>
-            <Button type="submit" disabled={!isFormValid() || isUpdating}>
-              {isUpdating ? t("editProcess.submit.updating") : t("editProcess.submit.update")}
-            </Button>
-          </CardContent>
-        </Card>
       </form>
     </div>
   );

@@ -125,11 +125,19 @@
       "columns": {
         "id": "ID",
         "material": "Material",
-        "project": "Loyiha",
         "quantity": "Miqdor",
+        "karat": "Karat",
+        "purity": "Soflik",
+        "pureGold": "Sof oltin",
+        "composite": "Kompozit",
+        "project": "Loyiha",
         "organization": "Tashkilot",
         "createdAt": "Yaratilgan sana",
         "actions": "Amallar"
+      },
+      "composite": {
+        "yes": "Ha",
+        "no": "Yo‘q"
       }
     },
     "form": {
@@ -143,6 +151,12 @@
       "selectOrganization": "Tashkilotni tanlash",
       "noOrganizations": "Hech qanday tashkilot topilmadi",
       "quantity": "Miqdor",
+      "karat": "Karat",
+      "pureGold": "Sof oltin (g)",
+      "composite": "Kompozit",
+      "selectComposite": "Kompozit turini tanlash",
+      "sourceDescription": "Manba tavsifi",
+      "sourceDescriptionPlaceholder": "Manba tavsifini kiriting",
       "example": "Namuna"
     },
     "dialogs": {
@@ -242,7 +256,8 @@
       "parent": "Asosiy material",
       "parentPlaceholder": "Asosiy materialni tanlang",
       "purity": "Soflik",
-      "purityPlaceholder": "Material sofligi kiriting"
+      "purityPlaceholder": "Material sofligi kiriting",
+      "mixes_with_gold": "Oltin bilan aralashadi"
     },
     "units": {
       "gram": "Gram (g)",
@@ -259,7 +274,7 @@
         "name": "Nomi",
         "unit": "O‘lchov birligi",
         "purity": "Soflik",
-        "parent": "Asosiy material",
+        "mixes_with_gold": "Oltin bilan aralashadi",
         "createdAt": "Yaratilgan sana",
         "actions": "Amallar"
       }

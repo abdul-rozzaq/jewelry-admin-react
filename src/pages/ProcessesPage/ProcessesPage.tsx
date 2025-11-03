@@ -306,11 +306,11 @@ export default function ProcessesPage() {
                               <SquareCheckBig className="h-4 w-4" />
                             </Button>
 
-                            <Button className="cursor-pointer" variant="ghost" size="sm">
-                              <Link to={`/processes/${process.id}/edit`}>
+                            <Link to={`/processes/${process.id}/edit`}>
+                              <Button className="cursor-pointer" variant="ghost" size="sm">
                                 <Edit className="h-4 w-4" />
-                              </Link>
-                            </Button>
+                              </Button>
+                            </Link>
                             <Button className="cursor-pointer" variant="destructive" size="sm" onClick={() => openDeleteModal(process)}>
                               <Trash2 className="h-4 w-4" />
                             </Button>

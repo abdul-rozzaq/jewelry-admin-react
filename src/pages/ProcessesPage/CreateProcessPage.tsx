@@ -66,6 +66,7 @@ export default function CreateProcessPage() {
           quantity: 0,
         };
       });
+
       const mappedOutputs = (template.outputs || []).map((out: Material) => ({ material: out.id ?? null, quantity: 0 }));
 
       setInputs(mappedInputs.length ? mappedInputs : [{ material: null, quantity: null, prooduct: null }]);
@@ -99,7 +100,7 @@ export default function CreateProcessPage() {
 
     try {
       const payload = {
-        type: selectedType,
+        process_type: selectedType,
         project: selectedProject,
         inputs: inputs.map((i) => ({ product: i.product, material: i.material, quantity: i.quantity })),
         outputs: outputs.map((o) => ({ material: o.material, quantity: o.quantity })),
@@ -118,19 +119,28 @@ export default function CreateProcessPage() {
 
   return (
     <div className="flex-1 space-y-6 p-6">
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="sm" asChild>
-          <Link to="/processes">
-            <ArrowLeft className="h-4 w-4 mr-0.5" />
-            {t("createProcess.actions.back")}
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-3xl font-bold">{t("createProcess.title")}</h1>
-          <p className="text-muted-foreground">{t("createProcess.subtitle")}</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/processes">
+              <ArrowLeft className="h-4 w-4 mr-0.5" />
+              {t("createProcess.actions.back")}
+            </Link>
+          </Button>
+          <div>
+            <h1 className="text-3xl font-bold">{t("createProcess.title")}</h1>
+            <p className="text-muted-foreground">{t("createProcess.subtitle")}</p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <Button type="button" variant="outline" asChild>
+            <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
+          </Button>
+          <Button type="submit" onClick={handleSubmit} disabled={!isFormValid() || isSubmitting}>
+            {isSubmitting ? t("createProcess.submit.creating") : t("createProcess.submit.create")}
+          </Button>
         </div>
       </div>
-
       <form onSubmit={handleSubmit} className="space-y-6">
         <Card>
           <CardHeader>
@@ -196,6 +206,7 @@ export default function CreateProcessPage() {
                     <div>
                       <Label>{title}</Label>
                       <Select
+                        disabled={selectedType !== null}
                         value={input.product ? `product:${input.product}` : input.material ? `material:${input.material}` : ""}
                         onValueChange={(value) => {
                           const [optionType, rawId] = value.split(":");
@@ -216,17 +227,19 @@ export default function CreateProcessPage() {
                         <SelectContent>
                           {products.map((p: Product) => (
                             <SelectItem value={`product:${p.id}`} key={`product-${p.id}`}>
-                              {p.material.name} ({(+p.quantity).toFixed(3)} {p.material.unit})
+                              {p.material.name} ({(+p.quantity).toFixed(3)} {p.material.unit}) - {parseFloat(p.purity) * 10}
                             </SelectItem>
                           ))}
 
                           <SelectSeparator />
 
-                          {materials.map((m: Material) => (
-                            <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
-                              {m.name} ({m.unit})
-                            </SelectItem>
-                          ))}
+                          {materials
+                            .filter((e: Material) => !e.mixes_with_gold)
+                            .map((m: Material) => (
+                              <SelectItem value={`material:${m.id}`} key={`material-${m.id}`}>
+                                {m.name} ({m.unit}) - {m.purity}
+                              </SelectItem>
+                            ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -246,9 +259,11 @@ export default function CreateProcessPage() {
                   </div>
                 );
               })}
-              <Button type="button" variant="outline" onClick={addInput} className="w-full border-dashed">
-                <Plus className="h-4 w-4 mr-1" /> {t("createProcess.inputs.addInput")}
-              </Button>
+              {selectedType === null && (
+                <Button type="button" variant="outline" onClick={addInput} className="w-full border-dashed">
+                  <Plus className="h-4 w-4 mr-1" /> {t("createProcess.inputs.addInput")}
+                </Button>
+              )}
             </CardContent>
           </Card>
 
@@ -262,7 +277,11 @@ export default function CreateProcessPage() {
                 <div key={i} className="p-4 border rounded-lg space-y-3">
                   <div>
                     <Label>{t("createProcess.outputs.product")}</Label>
-                    <Select value={output.material?.toString() || ""} onValueChange={(v) => updateOutput(i, "material", Number(v))}>
+                    <Select
+                      value={output.material?.toString() || ""}
+                      onValueChange={(v) => updateOutput(i, "material", Number(v))}
+                      disabled={selectedType !== null}
+                    >
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder={t("createProcess.outputs.selectProduct")} />
                       </SelectTrigger>
@@ -290,23 +309,14 @@ export default function CreateProcessPage() {
                   </div>
                 </div>
               ))}
-              <Button type="button" variant="outline" onClick={addOutput} className="w-full border-dashed">
-                <Plus className="h-4 w-4 mr-1" /> {t("createProcess.outputs.addOutput")}
-              </Button>
+              {selectedType === null && (
+                <Button type="button" variant="outline" onClick={addOutput} className="w-full border-dashed">
+                  <Plus className="h-4 w-4 mr-1" /> {t("createProcess.outputs.addOutput")}
+                </Button>
+              )}
             </CardContent>
           </Card>
         </div>
-
-        <Card>
-          <CardContent className="pt-6 flex justify-end gap-2">
-            <Button type="button" variant="outline" asChild>
-              <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
-            </Button>
-            <Button type="submit" disabled={!isFormValid() || isSubmitting}>
-              {isSubmitting ? t("createProcess.submit.creating") : t("createProcess.submit.create")}
-            </Button>
-          </CardContent>
-        </Card>
       </form>
     </div>
   );

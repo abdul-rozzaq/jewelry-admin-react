@@ -45,8 +45,10 @@ export default function ProductsPage() {
 
   const user = getCurrentUser();
 
+  const organizationId = user?.organization?.id;
+
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [organizationFilter, setOrganizationFilter] = useState<string>("all");
+  const [organizationFilter, setOrganizationFilter] = useState<string>(organizationId?.toString() ?? "all");
   const [projectFilter, setProjectFilter] = useState<string>("all");
 
   const { data: products = [], isLoading: productsLoading, error: productsError } = useGetProductsQuery(undefined);
@@ -63,9 +65,26 @@ export default function ProductsPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const [formData, setFormData] = useState({ quantity: "", material_id: "", project_id: "" });
+  const [formData, setFormData] = useState({
+    quantity: "",
+    material_id: "",
+    project_id: "",
+    karat: "",
+    is_composite: false,
+    pure_gold: "",
+    source_description: "",
+  });
 
-  const resetForm = () => setFormData({ quantity: "", material_id: "", project_id: "" });
+  const resetForm = () =>
+    setFormData({
+      quantity: "",
+      material_id: "",
+      project_id: "",
+      karat: "",
+      is_composite: false,
+      pure_gold: "",
+      source_description: "",
+    });
 
   const isBank = user?.organization?.type === "bank";
 
@@ -79,6 +98,11 @@ export default function ProductsPage() {
     if (!material) return t("products.form.quantity");
 
     return `${t("products.form.quantity")} (${unitLabels[material.unit]})`;
+  };
+
+  const getKaratValue = () => {
+    const material = getSelectedMaterial();
+    return material?.karat?.toString() || "";
   };
 
   const filteredProducts = products.filter((item: Product) => {
@@ -114,7 +138,7 @@ export default function ProductsPage() {
   });
 
   const handleCreateProducts = async () => {
-    if (!formData.quantity || !formData.material_id) {
+    if (!formData.quantity || !formData.material_id || !formData.pure_gold) {
       toast({
         title: t("products.common.error"),
         description: t("products.validation.allFieldsRequired"),
@@ -126,6 +150,9 @@ export default function ProductsPage() {
     const apiData: any = {
       quantity: formData.quantity,
       material_id: Number.parseInt(formData.material_id),
+      is_composite: formData.is_composite,
+      pure_gold: formData.pure_gold,
+      source_description: formData.source_description || null,
     };
 
     if (formData.project_id) apiData.project_id = Number.parseInt(formData.project_id);
@@ -158,6 +185,10 @@ export default function ProductsPage() {
       quantity: product.quantity,
       material_id: product.material.id.toString(),
       project_id: product.project?.id?.toString() ?? "",
+      karat: product.material.karat.toString(),
+      is_composite: product.is_composite,
+      pure_gold: product.pure_gold,
+      source_description: product.source_description || "",
     });
 
     setIsEditDialogOpen(true);
@@ -166,7 +197,7 @@ export default function ProductsPage() {
   const handleUpdateProduct = async () => {
     if (!selectedProduct) return;
 
-    if (!formData.quantity || !formData.material_id) {
+    if (!formData.quantity || !formData.material_id || !formData.pure_gold) {
       toast({
         title: t("products.common.error"),
         description: t("products.validation.allFieldsRequired"),
@@ -178,6 +209,9 @@ export default function ProductsPage() {
     const apiData: any = {
       quantity: formData.quantity,
       material_id: Number.parseInt(formData.material_id),
+      is_composite: formData.is_composite,
+      pure_gold: formData.pure_gold,
+      source_description: formData.source_description || null,
     };
 
     if (formData.project_id) apiData.project_id = Number.parseInt(formData.project_id);
@@ -268,16 +302,27 @@ export default function ProductsPage() {
                 {t("products.actions.create")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[400px]">
+            <DialogContent className="sm:max-w-[600px]">
               <DialogHeader>
                 <DialogTitle>{t("products.dialogs.create.title")}</DialogTitle>
                 <DialogDescription>{t("products.dialogs.create.description")}</DialogDescription>
               </DialogHeader>
 
-              <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4 py-4">
                 <div className="grid gap-2">
                   <Label htmlFor="material">{t("products.form.material")} *</Label>
-                  <Select value={formData.material_id} onValueChange={(value) => setFormData({ ...formData, material_id: value, quantity: "" })}>
+                  <Select
+                    value={formData.material_id}
+                    onValueChange={(value) => {
+                      const selectedMaterial = materials.find((m: Material) => m.id.toString() === value);
+                      setFormData({
+                        ...formData,
+                        material_id: value,
+                        quantity: "",
+                        karat: selectedMaterial?.karat?.toString() || "",
+                      });
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder={t("products.form.selectMaterial")} />
                     </SelectTrigger>
@@ -327,6 +372,50 @@ export default function ProductsPage() {
                     onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                     placeholder={`${t("products.form.example")}: ${getSelectedMaterial()?.unit === "g" ? "100.5" : "10"}`}
                     disabled={!formData.material_id}
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="karat">{t("products.form.karat")}</Label>
+                  <Input id="karat" type="number" value={getKaratValue()} disabled placeholder="24" />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="pure_gold">{t("products.form.pureGold")} *</Label>
+                  <Input
+                    id="pure_gold"
+                    type="number"
+                    step="0.01"
+                    value={formData.pure_gold}
+                    onChange={(e) => setFormData({ ...formData, pure_gold: e.target.value })}
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="is_composite">{t("products.form.composite")}</Label>
+                  <Select
+                    value={formData.is_composite.toString()}
+                    onValueChange={(value) => setFormData({ ...formData, is_composite: value === "true" })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("products.form.selectComposite")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="false">{t("products.table.composite.no")}</SelectItem>
+                      <SelectItem value="true">{t("products.table.composite.yes")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="source_description">{t("products.form.sourceDescription")}</Label>
+                  <Input
+                    id="source_description"
+                    type="text"
+                    value={formData.source_description}
+                    onChange={(e) => setFormData({ ...formData, source_description: e.target.value })}
+                    placeholder={t("products.form.sourceDescriptionPlaceholder")}
                   />
                 </div>
               </div>
@@ -411,6 +500,10 @@ export default function ProductsPage() {
                   <TableHead>{t("products.table.columns.id")}</TableHead>
                   <TableHead>{t("products.table.columns.material")}</TableHead>
                   <TableHead>{t("products.table.columns.quantity")}</TableHead>
+                  <TableHead>{t("products.table.columns.pureGold")}</TableHead>
+                  <TableHead>{t("products.table.columns.purity")}</TableHead>
+                  <TableHead>{t("products.table.columns.karat")}</TableHead>
+                  <TableHead>{t("products.table.columns.composite")}</TableHead>
                   <TableHead>{t("products.table.columns.project")}</TableHead>
                   <TableHead>{t("products.table.columns.organization")}</TableHead>
                   <TableHead>{t("products.table.columns.createdAt")}</TableHead>
@@ -425,6 +518,19 @@ export default function ProductsPage() {
                     <TableCell>
                       <Badge className={unitColors[item.material.unit]}>
                         {item.quantity} {unitLabels[item.material.unit]}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={unitColors[item.material.unit]}>
+                        {item.pure_gold} {unitLabels[item.material.unit]}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{item.purity}%</TableCell>
+                    <TableCell>{item.karat}K</TableCell>
+
+                    <TableCell>
+                      <Badge variant={item.is_composite ? "default" : "secondary"}>
+                        {item.is_composite ? t("products.table.composite.yes") : t("products.table.composite.no")}
                       </Badge>
                     </TableCell>
                     <TableCell>{item.project ? item.project.name : ""}</TableCell>
@@ -454,15 +560,14 @@ export default function ProductsPage() {
         </CardContent>
       </Card>
 
-      {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[400px]">
+        <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>{t("products.dialogs.edit.title")}</DialogTitle>
             <DialogDescription>{t("products.dialogs.edit.description")}</DialogDescription>
           </DialogHeader>
 
-          <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-2 gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="edit-material">{t("products.form.material")} *</Label>
               <Select value={formData.material_id} onValueChange={(value) => setFormData({ ...formData, material_id: value })}>
@@ -508,6 +613,50 @@ export default function ProductsPage() {
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                 placeholder={`${t("products.form.example")}: ${getSelectedMaterial()?.unit === "g" ? "100.5" : "10"}`}
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="edit-karat">{t("products.form.karat")}</Label>
+              <Input id="edit-karat" type="number" value={getKaratValue()} disabled placeholder="24" />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="edit-pure_gold">{t("products.form.pureGold")} *</Label>
+              <Input
+                id="edit-pure_gold"
+                type="number"
+                step="0.01"
+                value={formData.pure_gold}
+                onChange={(e) => setFormData({ ...formData, pure_gold: e.target.value })}
+                placeholder="0.00"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="edit-is_composite">{t("products.form.composite")}</Label>
+              <Select
+                value={formData.is_composite.toString()}
+                onValueChange={(value) => setFormData({ ...formData, is_composite: value === "true" })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t("products.form.selectComposite")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="false">{t("products.table.composite.no")}</SelectItem>
+                  <SelectItem value="true">{t("products.table.composite.yes")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="edit-source_description">{t("products.form.sourceDescription")}</Label>
+              <Input
+                id="edit-source_description"
+                type="text"
+                value={formData.source_description}
+                onChange={(e) => setFormData({ ...formData, source_description: e.target.value })}
+                placeholder={t("products.form.sourceDescriptionPlaceholder")}
               />
             </div>
           </div>

@@ -28,12 +28,12 @@ import {
 } from "@/src/lib/service/materialsApi";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 
-import { Search, Plus, Edit, Trash2, Loader2 } from "lucide-react";
+import { Search, Plus, Edit, Trash2, Loader2, CheckCircle, XCircle } from "lucide-react";
 import type Material from "@/src/types/material";
 import { unitColors, unitLabels } from "@/src/constants/units";
 import { useTranslation } from "react-i18next";
 
-type FormDataType = Omit<Material, "id" | "created_at" | "updated_at">;
+type FormDataType = Omit<Material, "id" | "created_at" | "updated_at" | "karat">;
 
 export default function MaterialsPage() {
   const { t } = useTranslation();
@@ -55,6 +55,7 @@ export default function MaterialsPage() {
     name: "",
     unit: "" as "g" | "pcs" | "ct" | "",
     purity: "",
+    mixes_with_gold: false,
   };
 
   const [formData, setFormData] = useState<FormDataType>(formInitialData);
@@ -108,6 +109,7 @@ export default function MaterialsPage() {
       name: material.name,
       unit: material.unit as "g" | "pcs" | "ct" | "",
       purity: material.purity,
+      mixes_with_gold: !!(material as any).mixes_with_gold,
     });
 
     setIsEditDialogOpen(true);
@@ -246,6 +248,16 @@ export default function MaterialsPage() {
                 />
               </div>
 
+              <div className="flex items-center gap-2">
+                <input
+                  id="mixes-with-gold"
+                  type="checkbox"
+                  checked={!!formData.mixes_with_gold}
+                  onChange={(e) => setFormData({ ...formData, mixes_with_gold: e.target.checked })}
+                />
+                <Label htmlFor="mixes-with-gold">{t("materials.form.mixes_with_gold")}</Label>
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="unit">{t("materials.form.unit")} *</Label>
                 <Select value={formData.unit} onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}>
@@ -301,9 +313,10 @@ export default function MaterialsPage() {
               <TableRow>
                 <TableHead>#</TableHead>
                 <TableHead>{t("materials.table.columns.name")}</TableHead>
-                <TableHead>{t("materials.table.columns.unit")}</TableHead>
-                <TableHead>{t("materials.table.columns.purity")}</TableHead>
-                <TableHead>{t("materials.table.columns.createdAt")}</TableHead>
+                <TableHead className="text-right">{t("materials.table.columns.unit")}</TableHead>
+                <TableHead className="text-right">{t("materials.table.columns.purity")}</TableHead>
+                <TableHead className="text-right">{t("materials.table.columns.mixes_with_gold")}</TableHead>
+                <TableHead className="text-right">{t("materials.table.columns.createdAt")}</TableHead>
                 <TableHead className="text-right">{t("materials.table.columns.actions")}</TableHead>
               </TableRow>
             </TableHeader>
@@ -312,13 +325,20 @@ export default function MaterialsPage() {
                 <TableRow key={material.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell className="font-medium">{material.name}</TableCell>
-                  <TableCell>
+                  <TableCell className="text-right">
                     <Badge className={unitColors[material.unit]}>
                       {unitLabels[material.unit]} ({material.unit})
                     </Badge>
                   </TableCell>
-                  <TableCell>{Number(material.purity).toFixed(1)}</TableCell>
-                  <TableCell>{new Date(material.created_at).toLocaleDateString("uz-UZ")}</TableCell>
+                  <TableCell className="text-right">{Number(material.purity).toFixed(1)}</TableCell>
+                  <TableCell className="text-right">
+                    {material.mixes_with_gold ? (
+                      <CheckCircle className="inline h-4 w-4 text-green-600" />
+                    ) : (
+                      <XCircle className="inline h-4 w-4 text-muted-foreground" />
+                    )}
+                  </TableCell>
+                  <TableCell className="text-right">{new Date(material.created_at).toLocaleDateString("uz-UZ")}</TableCell>
                   <TableCell className="flex justify-end space-x-2">
                     <Button variant="outline" size="sm" onClick={() => handleEditMaterial(material)}>
                       <Edit className="h-4 w-4 mr-1" /> {t("materials.actions.edit")}
@@ -361,6 +381,16 @@ export default function MaterialsPage() {
                 onChange={(e) => setFormData({ ...formData, purity: e.target.value })}
                 placeholder={t("materials.form.purityPlaceholder")}
               />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                id="edit-mixes-with-gold"
+                type="checkbox"
+                checked={!!formData.mixes_with_gold}
+                onChange={(e) => setFormData({ ...formData, mixes_with_gold: e.target.checked })}
+              />
+              <Label htmlFor="edit-mixes-with-gold">{t("materials.form.mixes_with_gold")}</Label>
             </div>
 
             <div className="grid gap-2">
