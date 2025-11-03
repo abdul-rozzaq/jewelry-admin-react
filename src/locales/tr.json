@@ -13,6 +13,7 @@
     "history": "Geçmiş",
     "users": "Kullanıcılar",
     "processes": "Süreçler",
+    "projects": "Projeler",
     "settings": "Ayarlar"
   },
   "Auth": {
@@ -270,8 +271,9 @@
       "title": "Malzemeler Listesi",
       "description": "Toplam {{count}} malzeme",
       "columns": {
-        "name": "Ad",
+        "name": "Adı",
         "unit": "Birim",
+        "purity": "Saflık",
         "mixes_with_gold": "Altınla karışır",
         "createdAt": "Oluşturulma Tarihi",
         "actions": "İşlemler"
@@ -798,60 +800,78 @@
   },
   "projects": {
     "title": "Projeler",
-    "actions": "İşlemler",
-    "add": "Yeni Proje Ekle",
-    "edit": "Düzenle",
-    "delete": "Sil",
-    "cancel": "İptal",
-    "save": "Kaydet",
-    "confirmDelete": "Bu projeyi silmek istediğinizden emin misiniz?",
-    "statusActive": "Aktif",
-    "statusInactive": "Aktif değil",
-    "messages": {
-      "created": "Proje başarıyla eklendi",
-      "updated": "Proje başarıyla güncellendi",
-      "deleted": "Proje başarıyla silindi"
-    },
-    "validation": {
-      "nameRequired": "Proje adı gerekli"
+    "subtitle": "Projelerinizi yönetin",
+    "actions": {
+      "create": "Proje Oluştur",
+      "edit": "Düzenle",
+      "delete": "Sil"
     },
     "common": {
       "success": "Başarılı",
       "error": "Hata",
       "loading": "Yükleniyor...",
-      "retry": "Tekrar Dene"
+      "retry": "Tekrar Dene",
+      "cancel": "İptal",
+      "create": "Oluştur",
+      "update": "Güncelle",
+      "no": "Hayır"
+    },
+    "messages": {
+      "created": "Proje başarıyla oluşturuldu",
+      "updated": "Proje başarıyla güncellendi",
+      "deleted": "Proje başarıyla silindi",
+      "createError": "Proje oluşturulamadı",
+      "updateError": "Proje güncellenemedi",
+      "deleteError": "Proje silinemedi"
+    },
+    "validation": {
+      "nameRequired": "Proje adı gerekli"
     },
     "table": {
+      "title": "Projeler",
+      "description": "Toplam {{count}} proje",
       "columns": {
-        "id": "ID",
         "name": "Adı",
         "description": "Açıklama",
         "isActive": "Aktif",
-        "createdAt": "Oluşturulma Tarihi"
+        "createdAt": "Oluşturulma Tarihi",
+        "actions": "İşlemler"
       }
     },
     "empty": {
       "title": "Proje yok",
       "noData": "Henüz proje eklenmedi",
-      "noResults": "Sonuç bulunamadı"
+      "noResults": "Sonuç bulunamadı",
+      "clearSearch": "Aramayı temizle"
     },
     "search": {
-      "placeholder": "Ara..."
+      "placeholder": "Projeleri ara..."
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Aktif değil"
+    },
+    "form": {
+      "name": "Adı",
+      "description": "Açıklama"
     },
     "dialogs": {
       "create": {
         "title": "Proje Oluştur",
-        "description": "Bir proje oluşturmak için tüm alanları doldurun"
+        "description": "Yeni bir proje oluşturmak için detayları doldurun"
       },
       "edit": {
         "title": "Projeyi Düzenle",
-        "description": "Proje detaylarını düzenleyin"
+        "description": "Proje bilgilerini güncelleyin"
       },
       "delete": {
         "title": "Projeyi Sil",
-        "description": "Proje silmeyi onaylayın",
+        "description": "Bu projeyi silmek istediğinizden emin misiniz?",
         "confirm": "Sil"
       }
+    },
+    "errors": {
+      "loadError": "Projeler yüklenemedi"
     }
   }
 }

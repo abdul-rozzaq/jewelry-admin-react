@@ -13,6 +13,7 @@
     "history": "History",
     "users": "Users",
     "processes": "Processes",
+    "projects": "Projects",
     "settings": "Settings"
   },
   "Auth": {
@@ -272,6 +273,7 @@
       "columns": {
         "name": "Name",
         "unit": "Unit",
+        "purity": "Purity",
         "mixes_with_gold": "Mixes with gold",
         "createdAt": "Created Date",
         "actions": "Actions"
@@ -798,60 +800,78 @@
   },
   "projects": {
     "title": "Projects",
-    "actions": "Actions",
-    "add": "Add New Project",
-    "edit": "Edit",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "save": "Save",
-    "confirmDelete": "Are you sure you want to delete this project?",
-    "statusActive": "Active",
-    "statusInactive": "Inactive",
-    "messages": {
-      "created": "Project added successfully",
-      "updated": "Project updated successfully",
-      "deleted": "Project deleted successfully"
-    },
-    "validation": {
-      "nameRequired": "Project name is required"
+    "subtitle": "Manage your projects",
+    "actions": {
+      "create": "Create Project",
+      "edit": "Edit",
+      "delete": "Delete"
     },
     "common": {
       "success": "Success",
       "error": "Error",
       "loading": "Loading...",
-      "retry": "Retry"
+      "retry": "Retry",
+      "cancel": "Cancel",
+      "create": "Create",
+      "update": "Update",
+      "no": "No"
+    },
+    "messages": {
+      "created": "Project created successfully",
+      "updated": "Project updated successfully",
+      "deleted": "Project deleted successfully",
+      "createError": "Failed to create project",
+      "updateError": "Failed to update project",
+      "deleteError": "Failed to delete project"
+    },
+    "validation": {
+      "nameRequired": "Project name is required"
     },
     "table": {
+      "title": "Projects",
+      "description": "Total of {{count}} projects",
       "columns": {
-        "id": "ID",
         "name": "Name",
         "description": "Description",
         "isActive": "Active",
-        "createdAt": "Created At"
+        "createdAt": "Created At",
+        "actions": "Actions"
       }
     },
     "empty": {
       "title": "No projects",
       "noData": "No projects added yet",
-      "noResults": "No results found"
+      "noResults": "No results found",
+      "clearSearch": "Clear search"
     },
     "search": {
-      "placeholder": "Search..."
+      "placeholder": "Search projects..."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "form": {
+      "name": "Name",
+      "description": "Description"
     },
     "dialogs": {
       "create": {
         "title": "Create Project",
-        "description": "Fill in all fields to create a project"
+        "description": "Fill in the details to create a new project"
       },
       "edit": {
         "title": "Edit Project",
-        "description": "Edit project details"
+        "description": "Update project information"
       },
       "delete": {
         "title": "Delete Project",
-        "description": "Confirm project deletion",
+        "description": "Are you sure you want to delete this project?",
         "confirm": "Delete"
       }
+    },
+    "errors": {
+      "loadError": "Failed to load projects"
     }
   }
 }
