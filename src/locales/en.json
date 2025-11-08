@@ -333,6 +333,15 @@
       "title": "Process Type and Project",
       "description": "Select a process type and optionally a project"
     },
+    "goldCalculation": {
+      "title": "Gold Calculation",
+      "description": "Gold content in input and output materials",
+      "input": "Input",
+      "output": "Output",
+      "loss": "Loss",
+      "excess": "Excess",
+      "efficiency": "Efficiency"
+    },
     "validation": {
       "fillAllFields": "Please fill in all fields"
     },
@@ -350,6 +359,8 @@
       "title": "Input Materials",
       "description": "Materials required for the process",
       "material": "Material",
+      "materialOrProduct": "Material or Product",
+      "product": "Product",
       "selectMaterial": "Select a material",
       "available": "Available",
       "quantity": "Quantity",

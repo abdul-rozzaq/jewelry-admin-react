@@ -333,6 +333,15 @@
       "title": "Jarayon turi va loyiha",
       "description": "Jarayon turini va (ixtiyoriy) loyihani tanlang"
     },
+    "goldCalculation": {
+      "title": "Oltin hisobi",
+      "description": "Kirish va chiqish materiallaridagi oltin miqdori",
+      "input": "Kirish",
+      "output": "Chiqish",
+      "loss": "Yo'qotish",
+      "excess": "Ortiqcha",
+      "efficiency": "Samaradorlik"
+    },
     "validation": {
       "fillAllFields": "Iltimos, barcha maydonlarni to‘ldiring"
     },

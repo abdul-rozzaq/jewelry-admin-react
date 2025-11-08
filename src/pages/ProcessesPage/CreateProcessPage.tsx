@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
@@ -40,6 +40,22 @@ export default function CreateProcessPage() {
   const { data: products = [] as Product[] } = useGetProductsQuery({ organization: currentUser?.organization?.id });
   const { data: materials = [] } = useGetMaterialsQuery({});
   const { data: projects = [] as Project[] } = useGetProjectsQuery({});
+
+  const productsMap = useMemo(() => {
+    const map: Record<number, Product> = {};
+    products.forEach((p: Product) => {
+      map[p.material.id] = p;
+    });
+    return map;
+  }, [products]);
+
+  const materialsMap = useMemo(() => {
+    const map: Record<number, Material> = {};
+    materials.forEach((m: Material) => {
+      map[m.id] = m;
+    });
+    return map;
+  }, [materials]);
 
   const [selectedType, setSelectedType] = useState<number | null>(null);
   const [inputs, setInputs] = useState<ProcessInputCreate[]>([{ material: null, quantity: null, product: null }]);
@@ -116,6 +132,42 @@ export default function CreateProcessPage() {
       setIsSubmitting(false);
     }
   };
+
+  const inputGoldQuantity = useMemo(() => {
+    return inputs.reduce((acc, input) => {
+      const product = input.product ? productsMap[input.product] : null;
+      const material: Material | null = product ? product.material : input.material ? materialsMap[input.material] : null;
+
+      if (material?.mixes_with_gold) {
+        const purityValue = material.purity ? parseFloat(material.purity) / 100 : 0;
+        return acc + (input.quantity ?? 0) * purityValue;
+      }
+
+      return acc;
+    }, 0);
+  }, [inputs, productsMap, materialsMap]);
+
+  const outputGoldQuantity = useMemo(() => {
+    return outputs.reduce((acc, val) => {
+      const material = val.material ? materialsMap[val.material] : null;
+
+      if (material?.mixes_with_gold) {
+        const purityValue = material.purity ? parseFloat(material.purity) / 100 : 0;
+        return acc + (val.quantity ?? 0) * purityValue;
+      }
+
+      return acc;
+    }, 0);
+  }, [outputs, materialsMap]);
+
+  const goldDifference = useMemo(() => {
+    return inputGoldQuantity - outputGoldQuantity;
+  }, [inputGoldQuantity, outputGoldQuantity]);
+
+  const efficiency = useMemo(() => {
+    if (inputGoldQuantity === 0) return 0;
+    return (outputGoldQuantity / inputGoldQuantity) * 100;
+  }, [inputGoldQuantity, outputGoldQuantity]);
 
   return (
     <div className="flex-1 space-y-6 p-6">
@@ -286,9 +338,9 @@ export default function CreateProcessPage() {
                         <SelectValue placeholder={t("createProcess.outputs.selectProduct")} />
                       </SelectTrigger>
                       <SelectContent>
-                        {materials.map((m) => (
+                        {materials.map((m: Material) => (
                           <SelectItem key={m.id} value={m.id.toString()}>
-                            {m.name} ({m.unit})
+                            {m.name} {m.unit} ({Number(m.purity).toFixed(1)})
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -317,6 +369,59 @@ export default function CreateProcessPage() {
             </CardContent>
           </Card>
         </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+              {t("createProcess.goldCalculation.title")}
+            </CardTitle>
+            <CardDescription>{t("createProcess.goldCalculation.description")}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-sm text-blue-600 font-medium mb-1">{t("createProcess.goldCalculation.input")}</div>
+                <div className="text-2xl font-bold text-blue-700">
+                  {inputGoldQuantity.toFixed(3)} <span className="text-sm font-normal">g</span>
+                </div>
+              </div>
+
+              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <div className="text-sm text-green-600 font-medium mb-1">{t("createProcess.goldCalculation.output")}</div>
+                <div className="text-2xl font-bold text-green-700">
+                  {outputGoldQuantity.toFixed(3)} <span className="text-sm font-normal">g</span>
+                </div>
+              </div>
+
+              <div className={`p-4 rounded-lg border ${goldDifference >= 0 ? "bg-red-50 border-red-200" : "bg-orange-50 border-orange-200"}`}>
+                <div className={`text-sm font-medium mb-1 ${goldDifference >= 0 ? "text-red-600" : "text-orange-600"}`}>
+                  {goldDifference >= 0 ? t("createProcess.goldCalculation.loss") : t("createProcess.goldCalculation.excess")}
+                </div>
+                <div className={`text-2xl font-bold ${goldDifference >= 0 ? "text-red-700" : "text-orange-700"}`}>
+                  {Math.abs(goldDifference).toFixed(3)} <span className="text-sm font-normal">g</span>
+                </div>
+              </div>
+            </div>
+
+            {inputGoldQuantity > 0 && outputGoldQuantity > 0 && (
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <div className="text-sm text-gray-600 mb-2">{t("createProcess.goldCalculation.efficiency")}</div>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-300"
+                      style={{
+                        width: `${Math.min(100, efficiency)}%`,
+                      }}
+                    ></div>
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{efficiency.toFixed(1)}%</span>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </form>
     </div>
   );

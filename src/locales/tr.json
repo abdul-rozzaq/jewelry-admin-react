@@ -333,6 +333,15 @@
       "title": "Süreç türü ve proje",
       "description": "Bir süreç türü ve (isteğe bağlı) proje seçin"
     },
+    "goldCalculation": {
+      "title": "Altın Hesaplaması",
+      "description": "Girdi ve çıktı malzemelerindeki altın içeriği",
+      "input": "Girdi",
+      "output": "Çıktı",
+      "loss": "Kayıp",
+      "excess": "Fazla",
+      "efficiency": "Verimlilik"
+    },
     "validation": {
       "fillAllFields": "Lütfen tüm alanları doldurun"
     },
@@ -350,6 +359,8 @@
       "title": "Girdi Malzemeleri",
       "description": "Süreç için gerekli malzemeler",
       "material": "Malzeme",
+      "materialOrProduct": "Malzeme veya Ürün",
+      "product": "Ürün",
       "selectMaterial": "Malzeme seç",
       "available": "Mevcut",
       "quantity": "Miktar",
