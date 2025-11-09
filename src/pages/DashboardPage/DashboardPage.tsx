@@ -77,7 +77,7 @@ export default function DashboardPage() {
             <Eye className="h-4 w-4 mr-0.5" />
             {t("dashboard.report")}
           </Button>
-          <Link to="/transfers/create">
+          <Link to="/transactions/create">
             <Button size="sm">
               <Plus className="h-4 w-4 mr-0.5" />
               {t("dashboard.newTransfer")}

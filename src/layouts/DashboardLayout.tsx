@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import { Button } from "@/src/components/ui/button";
 import { Avatar, AvatarFallback } from "@/src/components/ui/avatar";
@@ -11,7 +12,21 @@ import {
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet";
-import { Home, Factory, ArrowLeftRight, Bell, Settings, Users, Menu, LogOut, ShoppingBag, Package, Moon, Sun, Cog } from "lucide-react";
+import {
+  Home,
+  Factory,
+  ArrowLeftRight,
+  Bell,
+  Settings,
+  Users,
+  Menu,
+  LogOut,
+  ShoppingBag,
+  Package,
+  Moon,
+  Sun,
+  Cog,
+} from "lucide-react";
 import { Toaster } from "@/src/components/ui/toaster";
 import { cn } from "@/src/lib/utils";
 import { LanguageSwitcher } from "@/src/components/language-switcher";
@@ -199,7 +214,11 @@ export default function DashboardLayout() {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1">{<Outlet />}</main>
+        <main className="flex-1">
+          {/* <motion.div key={pathname} initial={{ y: 30 }} animate={{ y: 0 }} transition={{ duration: 0.3 }}> */}
+          {<Outlet />}
+          {/* </motion.div> */}
+        </main>
       </div>
 
       <Toaster />
