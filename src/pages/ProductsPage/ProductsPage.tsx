@@ -503,7 +503,7 @@ export default function ProductsPage() {
                   <TableHead>{t("products.table.columns.pureGold")}</TableHead>
                   <TableHead>{t("products.table.columns.purity")}</TableHead>
                   <TableHead>{t("products.table.columns.karat")}</TableHead>
-                  <TableHead>{t("products.table.columns.composite")}</TableHead>
+                  {/* <TableHead>{t("products.table.columns.composite")}</TableHead> */}
                   <TableHead>{t("products.table.columns.project")}</TableHead>
                   <TableHead>{t("products.table.columns.organization")}</TableHead>
                   <TableHead>{t("products.table.columns.createdAt")}</TableHead>
@@ -528,11 +528,11 @@ export default function ProductsPage() {
                     <TableCell>{item.purity}%</TableCell>
                     <TableCell>{item.karat}K</TableCell>
 
-                    <TableCell>
+                    {/* <TableCell>
                       <Badge variant={item.is_composite ? "default" : "secondary"}>
                         {item.is_composite ? t("products.table.composite.yes") : t("products.table.composite.no")}
                       </Badge>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>{item.project ? item.project.name : ""}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
