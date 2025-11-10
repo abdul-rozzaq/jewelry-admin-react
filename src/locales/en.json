@@ -316,6 +316,9 @@
         "organization": "Organization",
         "inputs": "Input Materials",
         "outputs": "Output Products",
+        "totalIn": "Total Input Gold",
+        "totalOut": "Total Output Gold",
+        "difference": "Difference",
         "status": "Status",
         "date": "Date",
         "actions": "Actions"

@@ -116,12 +116,43 @@ export default function CreateTransactionPage() {
     setItems(items.filter((_, i) => i !== index));
   };
 
-  const handleAddAllItems = () => setItems(products.map((e: Product) => ({ product: e.id.toString(), quantity: e.quantity.toString() })));
+  const handleQuantityChange = (index: number, value: string) => {
+    if (value === "" || /^[0-9]*\.?[0-9]*$/.test(value)) {
+      const updatedItems = [...items];
+      updatedItems[index].quantity = value;
+      setItems(updatedItems);
+    }
+  };
+
+  const handleAddAllItems = () =>
+    setItems(products.map((e: Product) => ({ product: e.id.toString(), quantity: e.quantity.toString() })));
 
   const handleSubmit = async () => {
     if (!receiver || items.length === 0) {
       setError(t("createTransfer.errors.receiverOrItemsRequired"));
       return;
+    }
+
+    for (const item of items) {
+      const inv = products.find((p) => String(p.id) === item.product);
+      const availableQty = parseQuantity(inv?.quantity);
+      const transferQty = Number.parseFloat(item.quantity);
+
+      if (!isValidQuantity(item.quantity)) {
+        setError(`'${inv?.material.name}' uchun miqdor noto'g'ri.`);
+        return;
+      }
+
+      if (transferQty > availableQty) {
+        setError(
+          t("createTransfer.errors.quantityExceedsAvailable", {
+            name: inv.material.name,
+            available: availableQty.toFixed(3),
+            unit: inv.material.unit || "dona",
+          })
+        );
+        return;
+      }
     }
 
     const payload = {
@@ -177,7 +208,9 @@ export default function CreateTransactionPage() {
   if (receivers.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center p-6 bg-gray-50">
-        <p className="text-red-500 text-sm bg-red-50 px-4 py-2 rounded-md border border-red-200">{t("createTransfer.noReceivers")}</p>
+        <p className="text-red-500 text-sm bg-red-50 px-4 py-2 rounded-md border border-red-200">
+          {t("createTransfer.noReceivers")}
+        </p>
       </div>
     );
   }
@@ -187,7 +220,9 @@ export default function CreateTransactionPage() {
       <div className="flex min-h-screen items-center justify-center p-6 bg-gray-50">
         <Card className="max-w-md w-full shadow-sm border border-gray-200">
           <CardHeader className="border-b border-gray-200">
-            <CardTitle className="text-center text-lg font-semibold text-gray-800">{t("createTransfer.noInventoriesTitle")}</CardTitle>
+            <CardTitle className="text-center text-lg font-semibold text-gray-800">
+              {t("createTransfer.noInventoriesTitle")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="pt-4 text-center text-gray-600">{t("createTransfer.noInventoriesMessage")}</CardContent>
         </Card>
@@ -315,7 +350,6 @@ export default function CreateTransactionPage() {
                 <tr className="bg-muted">
                   <th className="p-3 text-left">{t("createTransfer.table.headers.inventory")}</th>
                   <th className="p-3 text-left">{t("createTransfer.table.headers.quantity")}</th>
-                  <th className="p-3 text-left">{t("createTransfer.table.headers.unit")}</th>
                   <th className="p-3 text-left">{t("createTransfer.table.headers.available")}</th>
                   <th className="p-3 text-left">{t("createTransfer.table.headers.remaining")}</th>
                   <th className="p-3 text-left">{t("createTransfer.table.headers.actions")}</th>
@@ -329,16 +363,30 @@ export default function CreateTransactionPage() {
                   const remaining = availableQty - transferQty;
 
                   return (
-                    <tr key={i} className="border-t  hover:bg-muted">
-                      <td className="p-3">{inv?.material.name ?? "Noma'lum"}</td>
-                      <td className="p-3 font-medium">{it.quantity}</td>
-                      <td className="p-3">{inv?.material.unit ?? "-"}</td>
-                      <td className="p-3">{availableQty.toFixed(3)}</td>
-                      <td className="p-3">
+                    <tr key={i} className="border-t hover:bg-muted">
+                      <td className="p-2">{inv?.material.name ?? "Noma'lum"}</td>
+                      <td className="p-2 font-medium">
+                        <Input
+                          type="number"
+                          value={it.quantity}
+                          onChange={(e) => handleQuantityChange(i, e.target.value)}
+                          className="h-8 w-40"
+                          min="0.01"
+                          step="0.01"
+                        />
+                      </td>
+
+                      <td className="p-2">{availableQty.toFixed(3)}</td>
+                      <td className="p-2">
                         <span className={remaining >= 0 ? "text-green-600" : "text-red-600"}>{remaining.toFixed(3)}</span>
                       </td>
-                      <td className="p-3">
-                        <Button variant="ghost" size="icon" onClick={() => handleRemoveItem(i)} className="text-red-500 hover:text-red-700">
+                      <td className="p-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleRemoveItem(i)}
+                          className="text-red-500 hover:text-red-700"
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </td>

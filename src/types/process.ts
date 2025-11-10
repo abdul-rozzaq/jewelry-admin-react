@@ -52,4 +52,6 @@ export interface Process {
   finished_at: string | null;
   created_at: string;
   updated_at: string;
+  total_in: string;
+  total_out: string;
 }

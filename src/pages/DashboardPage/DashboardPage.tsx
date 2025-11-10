@@ -1,6 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Gem, Factory, TrendingUp, Clock, AlertTriangle, Plus, Eye, ArrowUpRight } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
@@ -40,6 +53,16 @@ export default function DashboardPage() {
     },
   ];
 
+  const weekdayNames = {
+    1: t("dashboard.weekdays.mon"),
+    2: t("dashboard.weekdays.tue"),
+    3: t("dashboard.weekdays.wed"),
+    4: t("dashboard.weekdays.thu"),
+    5: t("dashboard.weekdays.fri"),
+    6: t("dashboard.weekdays.sat"),
+    7: t("dashboard.weekdays.sun"),
+  };
+
   // Mock data for charts
   const materialData = [
     { name: t("dashboard.materials.gold"), amount: 2500, unit: "gr" },
@@ -48,15 +71,12 @@ export default function DashboardPage() {
     { name: t("dashboard.materials.pearl"), amount: 120, unit: "dona" },
   ];
 
-  const weeklyTransfers = [
-    { day: t("dashboard.weekdays.mon"), transfers: 12 },
-    { day: t("dashboard.weekdays.tue"), transfers: 19 },
-    { day: t("dashboard.weekdays.wed"), transfers: 15 },
-    { day: t("dashboard.weekdays.thu"), transfers: 22 },
-    { day: t("dashboard.weekdays.fri"), transfers: 28 },
-    { day: t("dashboard.weekdays.sat"), transfers: 18 },
-    { day: t("dashboard.weekdays.sun"), transfers: 14 },
-  ];
+  const weeklyTransfers = data
+    ? data.transactions.last_week.map((item) => ({
+        ...item,
+        weekday: weekdayNames[item.weekday],
+      }))
+    : [];
 
   const workshopStatus = [
     { name: t("dashboard.workshopStates.active"), value: 8, color: "#059669" },
@@ -87,7 +107,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t("dashboard.stats.totalMaterials")}</CardTitle>
@@ -112,6 +132,20 @@ export default function DashboardPage() {
               <Skeleton className="h-6 w-24" />
             ) : (
               <div className="text-2xl font-bold">{Number(data?.gold.total ?? 0).toLocaleString()} g</div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">{"Oylik yo'qotishlar"}</CardTitle>
+            <Factory className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            {isLoading ? (
+              <Skeleton className="h-6 w-24" />
+            ) : (
+              <div className="text-2xl font-bold">{Number(data?.loses.total ?? 0).toLocaleString()} g</div>
             )}
           </CardContent>
         </Card>
@@ -166,10 +200,10 @@ export default function DashboardPage() {
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={weeklyTransfers}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
+                <XAxis dataKey="weekday" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="transfers" stroke="var(--primary)" strokeWidth={2} />
+                <Line type="monotone" dataKey="count" stroke="var(--primary)" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
@@ -228,7 +262,9 @@ export default function DashboardPage() {
                     <p className="text-xs text-muted-foreground mt-1">{activity.time}</p>
                   </div>
                   <Badge
-                    variant={activity.status === "completed" ? "default" : activity.status === "pending" ? "secondary" : "destructive"}
+                    variant={
+                      activity.status === "completed" ? "default" : activity.status === "pending" ? "secondary" : "destructive"
+                    }
                     className="flex-shrink-0"
                   >
                     {activity.status === "completed"

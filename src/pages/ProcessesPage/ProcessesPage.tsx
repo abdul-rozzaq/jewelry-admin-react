@@ -120,7 +120,8 @@ export default function ProcessesPage() {
 
   const filteredProcesses = processes.filter((process: Process) => {
     const matchesSearch =
-      process.id.toString().includes(searchTerm.toLowerCase()) || process.organization.name.toLowerCase().includes(searchTerm.toLowerCase());
+      process.id.toString().includes(searchTerm.toLowerCase()) ||
+      process.organization.name.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus = statusFilter === "all" || process.status === statusFilter;
 
@@ -231,7 +232,9 @@ export default function ProcessesPage() {
       <Card>
         <CardHeader>
           <CardTitle>{t("processes.table.title")}</CardTitle>
-          <CardDescription>{isLoading ? t("processes.loading") : t("processes.table.description", { count: processes.length })}</CardDescription>
+          <CardDescription>
+            {isLoading ? t("processes.loading") : t("processes.table.description", { count: processes.length })}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -247,6 +250,9 @@ export default function ProcessesPage() {
                   <TableHead>{t("processes.table.columns.organization")}</TableHead>
                   <TableHead>{t("processes.table.columns.inputs")}</TableHead>
                   <TableHead>{t("processes.table.columns.outputs")}</TableHead>
+                  <TableHead>{t("processes.table.columns.totalIn")}</TableHead>
+                  <TableHead>{t("processes.table.columns.totalOut")}</TableHead>
+                  <TableHead>{t("processes.table.columns.difference")}</TableHead>
                   <TableHead>{t("processes.table.columns.status")}</TableHead>
                   <TableHead>{t("processes.table.columns.date")}</TableHead>
                   <TableHead>{t("processes.table.columns.actions")}</TableHead>
@@ -297,12 +303,34 @@ export default function ProcessesPage() {
                           <span className="text-gray-500 text-sm">{t("processes.noData")}</span>
                         )}
                       </TableCell>
+                      <TableCell>
+                        <Badge className="bg-blue-50 text-blue-700">{Number(process.total_in).toFixed(3)} g</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-50 text-green-700">{Number(process.total_out).toFixed(3)} g</Badge>
+                      </TableCell>
+                      <TableCell>
+                        {(() => {
+                          const diff = Number(process.total_in) - Number(process.total_out);
+                          const isLoss = diff >= 0;
+                          return (
+                            <Badge className={isLoss ? "bg-red-50 text-red-700" : "bg-orange-50 text-orange-700"}>
+                              {Math.abs(diff).toFixed(3)} g
+                            </Badge>
+                          );
+                        })()}
+                      </TableCell>
                       <TableCell>{getStatusBadge(process.status)}</TableCell>
                       <TableCell className="text-sm">{formatDate(process.created_at)}</TableCell>
                       <TableCell>
                         {process.status == "in process" && (
                           <div className="flex gap-2">
-                            <Button className="cursor-pointer" variant="ghost" size="sm" onClick={() => openCompleteModal(process)}>
+                            <Button
+                              className="cursor-pointer"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => openCompleteModal(process)}
+                            >
                               <SquareCheckBig className="h-4 w-4" />
                             </Button>
 
@@ -311,7 +339,12 @@ export default function ProcessesPage() {
                                 <Edit className="h-4 w-4" />
                               </Button>
                             </Link>
-                            <Button className="cursor-pointer" variant="destructive" size="sm" onClick={() => openDeleteModal(process)}>
+                            <Button
+                              className="cursor-pointer"
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => openDeleteModal(process)}
+                            >
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>
@@ -321,7 +354,7 @@ export default function ProcessesPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center py-8">
+                    <TableCell colSpan={10} className="text-center py-8">
                       <p className="text-gray-500">
                         {searchTerm || statusFilter !== "all" ? t("processes.empty.filtered") : t("processes.empty.noProcesses")}
                       </p>

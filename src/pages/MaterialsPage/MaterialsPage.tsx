@@ -55,7 +55,7 @@ export default function MaterialsPage() {
     name: "",
     unit: "" as "g" | "pcs" | "ct" | "",
     purity: "",
-    mixes_with_gold: false,
+    mixes_with_gold: true,
   };
 
   const [formData, setFormData] = useState<FormDataType>(formInitialData);

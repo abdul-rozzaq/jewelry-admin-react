@@ -4,7 +4,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/src/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/src/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -69,7 +77,6 @@ export default function ProductsPage() {
     quantity: "",
     material_id: "",
     project_id: "",
-    karat: "",
     is_composite: false,
     pure_gold: "",
     source_description: "",
@@ -80,7 +87,6 @@ export default function ProductsPage() {
       quantity: "",
       material_id: "",
       project_id: "",
-      karat: "",
       is_composite: false,
       pure_gold: "",
       source_description: "",
@@ -98,11 +104,6 @@ export default function ProductsPage() {
     if (!material) return t("products.form.quantity");
 
     return `${t("products.form.quantity")} (${unitLabels[material.unit]})`;
-  };
-
-  const getKaratValue = () => {
-    const material = getSelectedMaterial();
-    return material?.karat?.toString() || "";
   };
 
   const filteredProducts = products.filter((item: Product) => {
@@ -185,7 +186,6 @@ export default function ProductsPage() {
       quantity: product.quantity,
       material_id: product.material.id.toString(),
       project_id: product.project?.id?.toString() ?? "",
-      karat: product.material.karat.toString(),
       is_composite: product.is_composite,
       pure_gold: product.pure_gold,
       source_description: product.source_description || "",
@@ -314,12 +314,10 @@ export default function ProductsPage() {
                   <Select
                     value={formData.material_id}
                     onValueChange={(value) => {
-                      const selectedMaterial = materials.find((m: Material) => m.id.toString() === value);
                       setFormData({
                         ...formData,
                         material_id: value,
                         quantity: "",
-                        karat: selectedMaterial?.karat?.toString() || "",
                       });
                     }}
                   >
@@ -373,11 +371,6 @@ export default function ProductsPage() {
                     placeholder={`${t("products.form.example")}: ${getSelectedMaterial()?.unit === "g" ? "100.5" : "10"}`}
                     disabled={!formData.material_id}
                   />
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="karat">{t("products.form.karat")}</Label>
-                  <Input id="karat" type="number" value={getKaratValue()} disabled placeholder="24" />
                 </div>
 
                 <div className="grid gap-2">
@@ -441,7 +434,12 @@ export default function ProductsPage() {
       <div className="flex items-center space-x-2">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder={t("products.search.placeholder")} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-8" />
+          <Input
+            placeholder={t("products.search.placeholder")}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-8"
+          />
         </div>
 
         {isBank && (
@@ -486,7 +484,9 @@ export default function ProductsPage() {
             <div className="text-center py-12">
               <Package2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">{t("products.empty.title")}</h3>
-              <p className="text-muted-foreground mb-4">{searchTerm ? t("products.empty.noResults") : t("products.empty.noData")}</p>
+              <p className="text-muted-foreground mb-4">
+                {searchTerm ? t("products.empty.noResults") : t("products.empty.noData")}
+              </p>
               {searchTerm && (
                 <Button variant="outline" onClick={() => setSearchTerm("")}>
                   {t("products.empty.clearSearch")}
@@ -617,11 +617,6 @@ export default function ProductsPage() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="edit-karat">{t("products.form.karat")}</Label>
-              <Input id="edit-karat" type="number" value={getKaratValue()} disabled placeholder="24" />
-            </div>
-
-            <div className="grid gap-2">
               <Label htmlFor="edit-pure_gold">{t("products.form.pureGold")} *</Label>
               <Input
                 id="edit-pure_gold"
@@ -686,7 +681,10 @@ export default function ProductsPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("products.common.no")}</AlertDialogCancel>
-            <AlertDialogAction onClick={() => selectedProduct && handleDeleteProducts(selectedProduct.id)} className="bg-red-600 hover:bg-red-700">
+            <AlertDialogAction
+              onClick={() => selectedProduct && handleDeleteProducts(selectedProduct.id)}
+              className="bg-red-600 hover:bg-red-700"
+            >
               {t("products.dialogs.delete.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>

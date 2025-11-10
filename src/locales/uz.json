@@ -309,13 +309,16 @@
       "placeholder": "ID yoki tashkilot nomi bo‘yicha qidirish..."
     },
     "table": {
-      "title": "Jarayonlar ro‘yxati",
+      "title": "Jarayonlar ro'yxati",
       "description": "Jami {{count}} ta jarayon",
       "columns": {
         "id": "ID",
         "organization": "Tashkilot",
         "inputs": "Kirish materiallari",
         "outputs": "Chiqish mahsulotlari",
+        "totalIn": "Jami kirish oltin",
+        "totalOut": "Jami chiqish oltin",
+        "difference": "Farq",
         "status": "Holat",
         "date": "Sana",
         "actions": "Amallar"

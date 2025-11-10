@@ -316,6 +316,9 @@
         "organization": "Kuruluş",
         "inputs": "Girdi Malzemeleri",
         "outputs": "Çıktı Ürünleri",
+        "totalIn": "Toplam Giriş Altın",
+        "totalOut": "Toplam Çıkış Altın",
+        "difference": "Fark",
         "status": "Durum",
         "date": "Tarih",
         "actions": "İşlemler"
