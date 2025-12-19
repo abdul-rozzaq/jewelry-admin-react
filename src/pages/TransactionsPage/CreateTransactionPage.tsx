@@ -47,6 +47,7 @@ export default function CreateTransactionPage() {
 
   const [receiver, setReceiver] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
+  const [purpose, setPurpose] = useState<"debt" | "deficit" | "">("");
 
   const [items, setItems] = useState<{ product: string; quantity: string }[]>([]);
   const [currentItem, setCurrentItem] = useState({ product: "", quantity: "" });
@@ -114,6 +115,10 @@ export default function CreateTransactionPage() {
 
   const handleRemoveItem = (index: number) => {
     setItems(items.filter((_, i) => i !== index));
+  };
+
+  const togglePurpose = (val: "debt" | "deficit") => {
+    setPurpose((prev) => (prev === val ? "" : val));
   };
 
   const handleQuantityChange = (index: number, value: string) => {
@@ -252,35 +257,57 @@ export default function CreateTransactionPage() {
         <CardHeader className="border-b pb-3">
           <CardTitle className="text-base font-medium">{t("createTransfer.receiverAndProject")}</CardTitle>
         </CardHeader>
-        <CardContent className="pt-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Select value={receiver} onValueChange={setReceiver}>
-              <SelectTrigger className="w-full border">
-                <SelectValue placeholder={t("createTransfer.receiverPlaceholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                {receivers.map((r: Organization) => (
-                  <SelectItem key={r.id} value={String(r.id)}>
-                    {r.name} ({r.type})
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        <CardContent className="pt-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid gap-1.5">
+              <Label htmlFor="receiver" className="text-sm font-medium">
+                {t("createTransfer.receiverPlaceholder")}
+              </Label>
+              <Select value={receiver} onValueChange={setReceiver}>
+                <SelectTrigger id="receiver" className="w-full border h-9 text-sm">
+                  <SelectValue placeholder={t("createTransfer.receiverPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {receivers.map((r: Organization) => (
+                    <SelectItem key={r.id} value={String(r.id)} className="text-sm">
+                      {r.name} ({r.type})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-            <Select value={selectedProject} onValueChange={(e) => setSelectedProject(e != "none" ? e : "")}>
-              <SelectTrigger className="w-full border">
-                <SelectValue placeholder={t("createTransfer.projectPlaceholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={"none"}>Belgilanmagan</SelectItem>
-
-                {projects.map((p: Project) => (
-                  <SelectItem key={p.id} value={String(p.id)}>
-                    {p.name}
+            <div className="grid gap-1.5">
+              <Label htmlFor="project" className="text-sm font-medium">
+                {t("createTransfer.projectPlaceholder")}
+              </Label>
+              <Select value={selectedProject} onValueChange={(e) => setSelectedProject(e != "none" ? e : "")}>
+                <SelectTrigger id="project" className="w-full border h-9 text-sm">
+                  <SelectValue placeholder={t("createTransfer.projectPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={"none"} className="text-sm">
+                    Belgilanmagan
                   </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+
+                  {projects.map((p: Project) => (
+                    <SelectItem key={p.id} value={String(p.id)} className="text-sm">
+                      {p.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="mt-3 grid gap-1.5">
+            <Label htmlFor="purpose" className="text-sm font-medium">
+              Tranzaksiya maqsadi
+            </Label>
+            <div className="flex items-center gap-2 rounded-md border bg-muted/30 px-3 py-2">
+              <input id="purpose" type="checkbox" checked={purpose === "debt"} onChange={() => togglePurpose("debt")} />
+              <span className="text-sm">Qarzini to'lash yoki kamchilikni to'ldirish</span>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -297,7 +324,7 @@ export default function CreateTransactionPage() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="pt-4 space-y-6">
+        <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
             <div>
               <Label className="text-sm  mb-1 block">{t("createTransfer.inventoryLabel")}</Label>

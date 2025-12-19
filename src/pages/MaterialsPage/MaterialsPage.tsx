@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { motion } from "framer-motion";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
@@ -8,7 +8,15 @@ import { Badge } from "@/src/components/ui/badge";
 import { toast } from "@/src/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/src/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/src/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,7 +48,11 @@ export default function MaterialsPage() {
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: materials = [], isLoading: materialsLoading, error: materialsError } = useGetMaterialsQuery({ search: searchTerm });
+  const {
+    data: materials = [],
+    isLoading: materialsLoading,
+    error: materialsError,
+  } = useGetMaterialsQuery({ search: searchTerm });
 
   const [addMaterial] = useAddMaterialMutation();
   const [updateMaterial] = useUpdateMaterialMutation();
@@ -127,7 +139,11 @@ export default function MaterialsPage() {
       return;
     }
 
-    if (materials.some((material: Material) => material.id !== selectedMaterial.id && material.name.toLowerCase() === formData.name.toLowerCase())) {
+    if (
+      materials.some(
+        (material: Material) => material.id !== selectedMaterial.id && material.name.toLowerCase() === formData.name.toLowerCase()
+      )
+    ) {
       toast({
         title: t("materials.errors.title"),
         description: t("materials.errors.nameExists"),
@@ -260,7 +276,10 @@ export default function MaterialsPage() {
 
               <div className="grid gap-2">
                 <Label htmlFor="unit">{t("materials.form.unit")} *</Label>
-                <Select value={formData.unit} onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}>
+                <Select
+                  value={formData.unit}
+                  onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder={t("materials.form.unitPlaceholder")} />
                   </SelectTrigger>
@@ -322,7 +341,14 @@ export default function MaterialsPage() {
             </TableHeader>
             <TableBody>
               {materials.map((material: Material, index: number) => (
-                <TableRow key={material.id}>
+                <TableRow
+                  key={material.id}
+                  // animate={{ opacity: 1, y: 0 }}
+                  // initial={{ opacity: 0, y: 10 }}
+                  // transition={{ delay: index * 0.05 }}
+                  // data-slot="table-row"
+                  // className="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+                >
                   <TableCell>{index + 1}</TableCell>
                   <TableCell className="font-medium">{material.name}</TableCell>
                   <TableCell className="text-right">
@@ -395,7 +421,10 @@ export default function MaterialsPage() {
 
             <div className="grid gap-2">
               <Label htmlFor="edit-unit">{t("materials.form.unit")} *</Label>
-              <Select value={formData.unit} onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}>
+              <Select
+                value={formData.unit}
+                onValueChange={(value: "g" | "pcs" | "ct") => setFormData({ ...formData, unit: value })}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder={t("materials.form.unitPlaceholder")} />
                 </SelectTrigger>
@@ -429,11 +458,16 @@ export default function MaterialsPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("materials.dialogs.delete.title")}</AlertDialogTitle>
-            <AlertDialogDescription>{t("materials.dialogs.delete.description", { name: selectedMaterial?.name || "" })}</AlertDialogDescription>
+            <AlertDialogDescription>
+              {t("materials.dialogs.delete.description", { name: selectedMaterial?.name || "" })}
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("materials.dialogs.delete.cancel")}</AlertDialogCancel>
-            <AlertDialogAction onClick={() => selectedMaterial && handleDeleteMaterial(selectedMaterial.id)} className="bg-red-600 hover:bg-red-700">
+            <AlertDialogAction
+              onClick={() => selectedMaterial && handleDeleteMaterial(selectedMaterial.id)}
+              className="bg-red-600 hover:bg-red-700"
+            >
               {t("materials.dialogs.delete.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
