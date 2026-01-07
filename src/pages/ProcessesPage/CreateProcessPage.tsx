@@ -40,11 +40,11 @@ export default function CreateProcessPage() {
   const { data: products = [] as Product[] } = useGetProductsQuery({ organization: currentUser?.organization?.id });
   const { data: materials = [] } = useGetMaterialsQuery({});
   const { data: projects = [] as Project[] } = useGetProjectsQuery({});
-
+ 
   const productsMap = useMemo(() => {
     const map: Record<number, Product> = {};
     products.forEach((p: Product) => {
-      map[p.material.id] = p;
+      map[p.id] = p;
     });
     return map;
   }, [products]);
@@ -88,7 +88,7 @@ export default function CreateProcessPage() {
       setInputs(mappedInputs.length ? mappedInputs : [{ material: null, quantity: null, prooduct: null }]);
       setOutputs(mappedOutputs.length ? mappedOutputs : []);
     }
-  }, [selectedType, processTypes]);
+  }, [selectedType, processTypes, products]);
 
   const addInput = () => setInputs([...inputs, { material: null, quantity: null, product: null }]);
   const removeInput = (i: number) => setInputs(inputs.filter((_, idx) => idx !== i));
@@ -250,8 +250,8 @@ export default function CreateProcessPage() {
                   !input.product && !input.material
                     ? t("createProcess.inputs.materialOrProduct")
                     : input.product
-                    ? t("createProcess.inputs.product")
-                    : t("createProcess.inputs.material");
+                      ? t("createProcess.inputs.product")
+                      : t("createProcess.inputs.material");
 
                 return (
                   <div key={i} className="p-4 border rounded-lg space-y-3">
