@@ -203,6 +203,13 @@
       "error": "Hata",
       "retry": "Tekrar Dene",
       "no": "Hayır"
+    },
+    "reports": {
+      "downloadFullReport": "Tam Rapor İndir",
+      "downloadCountsReport": "Sayım Raporu İndir",
+      "fullReportDownloaded": "Tam organizasyon raporu başarıyla indirildi",
+      "countsReportDownloaded": "Ürün sayım matrisi raporu başarıyla indirildi",
+      "downloadError": "Rapor indirilirken bir hata oluştu"
     }
   },
   "materials": {

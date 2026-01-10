@@ -203,6 +203,13 @@
       "error": "Error",
       "retry": "Retry",
       "no": "No"
+    },
+    "reports": {
+      "downloadFullReport": "Download Full Report",
+      "downloadCountsReport": "Download Counts Report",
+      "fullReportDownloaded": "Full organization report downloaded successfully",
+      "countsReportDownloaded": "Products count matrix report downloaded successfully",
+      "downloadError": "An error occurred while downloading the report"
     }
   },
   "materials": {

@@ -203,6 +203,13 @@
       "error": "Xatolik",
       "retry": "Qayta urinib ko‘rish",
       "no": "Yo‘q"
+    },
+    "reports": {
+      "downloadFullReport": "To'liq Hisobotni Yuklab Olish",
+      "downloadCountsReport": "Sanoq Hisobotini Yuklab Olish",
+      "fullReportDownloaded": "To'liq tashkilot hisoboti muvaffaqiyatli yuklab olindi",
+      "countsReportDownloaded": "Mahsulot sanoq matritsasi hisoboti muvaffaqiyatli yuklab olindi",
+      "downloadError": "Hisobotni yuklab olishda xatolik yuz berdi"
     }
   },
   "materials": {

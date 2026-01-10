@@ -59,6 +59,22 @@ export const OrganizationsApi = createApi({
       }),
       invalidatesTags: ["Organization"],
     }),
+
+    downloadOrganizationReport: builder.mutation({
+      query: () => ({
+        url: `/organizations/report/`,
+        method: "POST",
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
+
+    downloadProductsCountMatrix: builder.mutation({
+      query: () => ({
+        url: `/organizations/products-count-matrix/`,
+        method: "POST",
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
   }),
 });
 
@@ -69,4 +85,6 @@ export const {
   useUpdateOrganizationMutation,
   useDeleteOrganizationMutation,
   useGetOrganizationTransactionsQuery,
+  useDownloadOrganizationReportMutation,
+  useDownloadProductsCountMatrixMutation,
 } = OrganizationsApi;
