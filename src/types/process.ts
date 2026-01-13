@@ -2,6 +2,7 @@ import Organization from "./organization";
 import Material from "./material";
 import Product from "./product";
 import Project from "./project";
+import { ProcessTypes } from "../features/processes/processes.constants";
 
 export interface ProcessTemplate {
   id: number;
@@ -21,8 +22,9 @@ export interface ProcessType {
     en: string;
     tr: string;
   };
-  type: string;
+  type: keyof typeof ProcessTypes;
   template: ProcessTemplate | null;
+  can_cause_loss: boolean;
 }
 
 export interface ProcessInput {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import {
   Card,
@@ -118,6 +118,16 @@ export default function ProductsPage() {
   const [isDownloadingFullReport, setIsDownloadingFullReport] = useState(false);
   const [isDownloadingCountsReport, setIsDownloadingCountsReport] = useState(false);
 
+  const materialsMap = useMemo(() => {
+    const map: Record<number, Material> = {};
+
+    materials.forEach((material: Material) => {
+      map[material.id] = material;
+    });
+
+    return map;
+  }, [materials]);
+
   const [formData, setFormData] = useState({
     quantity: "",
     material_id: "",
@@ -126,6 +136,11 @@ export default function ProductsPage() {
     pure_gold: "",
     source_description: "",
   });
+
+  const handleFormInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const resetForm = () =>
     setFormData({
@@ -456,10 +471,13 @@ export default function ProductsPage() {
                     <Select
                       value={formData.material_id}
                       onValueChange={(value) => {
+                        const material = materialsMap[Number(value)];
+
                         setFormData({
                           ...formData,
                           material_id: value,
                           quantity: "",
+                          pure_gold: "",
                         });
                       }}
                     >
@@ -511,23 +529,11 @@ export default function ProductsPage() {
                       type="number"
                       step="0.01"
                       value={formData.quantity}
-                      onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                      onChange={handleFormInputChange}
                       placeholder={`${t("products.form.example")}: ${
                         getSelectedMaterial()?.unit === "g" ? "100.5" : "10"
                       }`}
                       disabled={!formData.material_id}
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="pure_gold">{t("products.form.pureGold")} *</Label>
-                    <Input
-                      id="pure_gold"
-                      type="number"
-                      step="0.01"
-                      value={formData.pure_gold}
-                      onChange={(e) => setFormData({ ...formData, pure_gold: e.target.value })}
-                      placeholder="0.00"
                     />
                   </div>
 
@@ -549,6 +555,20 @@ export default function ProductsPage() {
                     </Select>
                   </div>
 
+                  {formData.is_composite && (
+                    <div className="grid gap-2">
+                      <Label htmlFor="pure_gold">{t("products.form.pureGold")} *</Label>
+                      <Input
+                        id="pure_gold"
+                        type="number"
+                        step="0.01"
+                        value={formData.pure_gold}
+                        onChange={handleFormInputChange}
+                        placeholder="0.00"
+                      />
+                    </div>
+                  )}
+
                   <div className="grid gap-2">
                     <Label htmlFor="source_description">
                       {t("products.form.sourceDescription")}
@@ -557,9 +577,7 @@ export default function ProductsPage() {
                       id="source_description"
                       type="text"
                       value={formData.source_description}
-                      onChange={(e) =>
-                        setFormData({ ...formData, source_description: e.target.value })
-                      }
+                      onChange={handleFormInputChange}
                       placeholder={t("products.form.sourceDescriptionPlaceholder")}
                     />
                   </div>
