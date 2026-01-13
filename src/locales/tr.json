@@ -100,6 +100,14 @@
       "active": "Aktif",
       "busy": "Meşgul",
       "stopped": "Durduruldu"
+    },
+    "quickApproval": {
+      "title": "Hızlı Onay Transferleri",
+      "description": "Onay bekleyen transferler",
+      "approve": "Onayla",
+      "items": "ürün",
+      "noPending": "Onay bekleyen transfer yok",
+      "viewAll": "Tümünü Görüntüle"
     }
   },
   "products": {

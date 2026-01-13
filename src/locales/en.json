@@ -100,6 +100,14 @@
       "active": "Active",
       "busy": "Busy",
       "stopped": "Stopped"
+    },
+    "quickApproval": {
+      "title": "Quick Approval Transfers",
+      "description": "Transfers awaiting approval",
+      "approve": "Approve",
+      "items": "items",
+      "noPending": "No transfers awaiting approval",
+      "viewAll": "View All"
     }
   },
   "products": {
