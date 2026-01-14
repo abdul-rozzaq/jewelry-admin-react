@@ -16,7 +16,7 @@ export const setLang = (newLang: string): void => {
   return localStorage.setItem(LANG_KEY, newLang);
 };
 
-const savedLang = getLang("en");
+const savedLang = getLang("tr");
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -25,7 +25,7 @@ i18n.use(initReactI18next).init({
     tr: { translation: tr },
   },
   lng: savedLang,
-  fallbackLng: "en",
+  fallbackLng: "tr",
   interpolation: { escapeValue: false },
 });
 
