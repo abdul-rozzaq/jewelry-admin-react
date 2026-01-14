@@ -361,48 +361,56 @@ export default function ProductsPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t("products.title")}</h1>
-          <p className="text-muted-foreground">{t("products.subtitle")}</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{t("products.title")}</h1>
+          <p className="text-muted-foreground text-sm md:text-base">{t("products.subtitle")}</p>
         </div>
 
         {isBank && (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-2">
             {/* Download Reports */}
-            <div className="flex items-center gap-2 mr-4">
-              <Button variant="outline" onClick={handleDownloadFullReport} disabled={isDownloadingFullReport} className="flex items-center gap-2">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-2">
+              <Button
+                variant="outline"
+                onClick={handleDownloadFullReport}
+                disabled={isDownloadingFullReport}
+                className="flex items-center gap-2 w-full md:w-auto"
+              >
                 {isDownloadingFullReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-                {t("products.reports.downloadFullReport")}
+                <span className="text-xs md:text-sm">{t("products.reports.downloadFullReport")}</span>
               </Button>
-              <Button variant="outline" onClick={handleDownloadCountsReport} disabled={isDownloadingCountsReport} className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={handleDownloadCountsReport}
+                disabled={isDownloadingCountsReport}
+                className="flex items-center gap-2 w-full md:w-auto"
+              >
                 {isDownloadingCountsReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileSpreadsheet className="h-4 w-4" />}
-                {t("products.reports.downloadCountsReport")}
+                <span className="text-xs md:text-sm">{t("products.reports.downloadCountsReport")}</span>
               </Button>
             </div>
 
             {/* Create Product Dialog */}
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <DialogTrigger asChild>
-                <Button>
+                <Button className="w-full md:w-auto">
                   <Plus className="h-4 w-4 mr-0.5" />
                   {t("products.actions.create")}
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[600px]">
+              <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>{t("products.dialogs.create.title")}</DialogTitle>
                   <DialogDescription>{t("products.dialogs.create.description")}</DialogDescription>
                 </DialogHeader>
 
-                <div className="grid grid-cols-2 gap-4 py-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                   <div className="grid gap-2">
                     <Label htmlFor="material">{t("products.form.material")} *</Label>
                     <Select
                       value={formData.material_id}
                       onValueChange={(value) => {
-                        const material = materialsMap[Number(value)];
-
                         setFormData({
                           ...formData,
                           material_id: value,
@@ -493,7 +501,7 @@ export default function ProductsPage() {
                     </div>
                   )}
 
-                  <div className="grid gap-2">
+                  <div className="grid gap-2 md:col-span-2">
                     <Label htmlFor="source_description">{t("products.form.sourceDescription")}</Label>
                     <Input
                       id="source_description"
@@ -505,17 +513,20 @@ export default function ProductsPage() {
                   </div>
                 </div>
 
-                <DialogFooter>
+                <DialogFooter className="flex gap-2 flex-col-reverse md:flex-row">
                   <Button
                     variant="outline"
                     onClick={() => {
                       setIsCreateDialogOpen(false);
                       resetForm();
                     }}
+                    className="w-full md:w-auto"
                   >
                     {t("products.common.cancel")}
                   </Button>
-                  <Button onClick={handleCreateProducts}>{t("products.common.create")}</Button>
+                  <Button onClick={handleCreateProducts} className="w-full md:w-auto">
+                    {t("products.common.create")}
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -524,16 +535,21 @@ export default function ProductsPage() {
       </div>
 
       {/* Search */}
-      <div className="flex items-center space-x-2">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex flex-col gap-2 md:flex-row md:items-center md:space-x-2">
+        <div className="relative flex-1">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder={t("products.search.placeholder")} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-8" />
+          <Input
+            placeholder={t("products.search.placeholder")}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-8 w-full"
+          />
         </div>
 
         {isBank && (
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:space-x-2 w-full md:w-auto">
             <Select value={organizationFilter?.toString() ?? ""} onValueChange={(value) => setOrganizationFilter(value)}>
-              <SelectTrigger className="w-[200px]">
+              <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder={t("products.filters.byOrganization")} />
               </SelectTrigger>
               <SelectContent>
@@ -546,7 +562,7 @@ export default function ProductsPage() {
               </SelectContent>
             </Select>
             <Select value={projectFilter ?? "all"} onValueChange={(value) => setProjectFilter(value)}>
-              <SelectTrigger className="w-[200px]">
+              <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder={t("products.filters.byProject")} />
               </SelectTrigger>
               <SelectContent>
@@ -565,10 +581,10 @@ export default function ProductsPage() {
       <Card>
         <CardHeader>
           <CardTitle>{t("products.table.title")}</CardTitle>
-          <CardDescription>{t("products.table.description", { count: products.length })}</CardDescription>
+          <CardDescription>{t("products.table.description", { count: filteredProducts.length })}</CardDescription>
         </CardHeader>
         <CardContent>
-          {products.length === 0 ? (
+          {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
               <Package2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">{t("products.empty.title")}</h3>
@@ -580,68 +596,33 @@ export default function ProductsPage() {
               )}
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("products.table.columns.id")}</TableHead>
-                  <TableHead>{t("products.table.columns.material")}</TableHead>
-                  <TableHead>{t("products.table.columns.quantity")}</TableHead>
-                  <TableHead>{t("products.table.columns.pureGold")}</TableHead>
-                  <TableHead>{t("products.table.columns.purity")}</TableHead>
-                  <TableHead>{t("products.table.columns.karat")}</TableHead>
-                  {/* <TableHead>{t("products.table.columns.composite")}</TableHead> */}
-                  <TableHead>{t("products.table.columns.project")}</TableHead>
-                  <TableHead>{t("products.table.columns.organization")}</TableHead>
-                  <TableHead>{t("products.table.columns.createdAt")}</TableHead>
-                  <TableHead className="text-right">{t("products.table.columns.actions")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredProducts.map((item: Product) => (
-                  <TableRow key={item.id}>
-                    <TableCell className="font-mono text-sm">INV-{item.id}</TableCell>
-                    <TableCell className="font-medium">{item.material.name}</TableCell>
-                    <TableCell>
-                      <Badge className={unitColors[item.material.unit]}>
-                        {item.quantity} {unitLabels[item.material.unit]}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={unitColors[item.material.unit]}>
-                        {item.pure_gold} {unitLabels[item.material.unit]}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{item.purity}%</TableCell>
-                    <TableCell>{item.karat}K</TableCell>
+            <div className="space-y-4">
+              {/* Desktop Table */}
+              <div className="hidden md:block overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t("products.table.columns.id")}</TableHead>
+                      <TableHead>{t("products.table.columns.material")}</TableHead>
+                      <TableHead>{t("products.table.columns.quantity")}</TableHead>
+                      <TableHead>{t("products.table.columns.pureGold")}</TableHead>
+                      <TableHead>{t("products.table.columns.purity")}</TableHead>
+                      <TableHead>{t("products.table.columns.karat")}</TableHead>
+                      <TableHead>{t("products.table.columns.project")}</TableHead>
+                      <TableHead>{t("products.table.columns.organization")}</TableHead>
+                      <TableHead>{t("products.table.columns.createdAt")}</TableHead>
+                      <TableHead className="text-right">{t("products.table.columns.actions")}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>{filteredProducts.map((item: Product) => buildProductRowForDesktop(item, handleEditProduct, confirmDelete, t))}</TableBody>
+                </Table>
+              </div>
 
-                    {/* <TableCell>
-                      <Badge variant={item.is_composite ? "default" : "secondary"}>
-                        {item.is_composite ? t("products.table.composite.yes") : t("products.table.composite.no")}
-                      </Badge>
-                    </TableCell> */}
-                    <TableCell>{item.project ? item.project.name : ""}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4 text-muted-foreground" />
-                        <span>{item.organization.name}</span>
-                        <Badge variant="outline" className="text-xs">
-                          {item.organization.type}
-                        </Badge>
-                      </div>
-                    </TableCell>
-                    <TableCell>{new Date(item.created_at).toLocaleDateString("uz-UZ")}</TableCell>
-                    <TableCell className="flex justify-end space-x-2">
-                      <Button variant="outline" size="sm" onClick={() => handleEditProduct(item)}>
-                        <Edit className="h-4 w-4 mr-1" /> {t("materials.actions.edit")}
-                      </Button>
-                      <Button variant="destructive" size="sm" onClick={() => confirmDelete(item)}>
-                        <Trash2 className="h-4 w-4 mr-1" /> {t("materials.actions.delete")}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+              {/* Mobile Cards */}
+              <div className="md:hidden space-y-3">
+                {filteredProducts.map((item: Product) => buildProductRowForMobile(item, handleEditProduct, confirmDelete, t))}
+              </div>
+            </div>
           )}
         </CardContent>
       </Card>
@@ -774,5 +755,125 @@ export default function ProductsPage() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
+  );
+}
+
+function buildProductRowForMobile(item: Product, handleEditProduct: (product: Product) => void, confirmDelete: (product: Product) => void, t: any) {
+
+  return (
+    <Card key={item.id} className="overflow-hidden">
+      <CardContent className="pt-4 pb-4">
+        <div className="space-y-3">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-xs text-muted-foreground">ID</p>
+              <p className="font-mono font-semibold">INV-{item.id}</p>
+            </div>
+            <Badge variant="outline" className="text-xs">
+              {item.organization.type}
+            </Badge>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.material")}</p>
+              <p className="font-medium text-sm">{item.material.name}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.quantity")}</p>
+              <Badge className={unitColors[item.material.unit]} variant="outline">
+                {item.quantity} {unitLabels[item.material.unit]}
+              </Badge>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.pureGold")}</p>
+              <Badge className={unitColors[item.material.unit]} variant="outline">
+                {item.pure_gold} {unitLabels[item.material.unit]}
+              </Badge>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.purity")}</p>
+              <p className="font-medium text-sm">{item.purity}%</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.karat")}</p>
+              <p className="font-medium text-sm">{item.karat}K</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.createdAt")}</p>
+              <p className="font-medium text-sm">{new Date(item.created_at).toLocaleDateString("uz-UZ")}</p>
+            </div>
+          </div>
+
+          {item.project && (
+            <div>
+              <p className="text-xs text-muted-foreground">{t("products.table.columns.project")}</p>
+              <p className="font-medium text-sm">{item.project.name}</p>
+            </div>
+          )}
+
+          <div>
+            <p className="text-xs text-muted-foreground">{t("products.table.columns.organization")}</p>
+            <div className="flex items-center gap-2 mt-1">
+              <Building2 className="h-4 w-4 text-muted-foreground" />
+              <span className="font-medium text-sm">{item.organization.name}</span>
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-2">
+            <Button variant="outline" size="sm" className="flex-1" onClick={() => handleEditProduct(item)}>
+              <Edit className="h-4 w-4 mr-1" /> {t("materials.actions.edit")}
+            </Button>
+            <Button variant="destructive" size="sm" className="flex-1" onClick={() => confirmDelete(item)}>
+              <Trash2 className="h-4 w-4 mr-1" /> {t("materials.actions.delete")}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function buildProductRowForDesktop(item: Product, handleEditProduct: (product: Product) => void, confirmDelete: (product: Product) => void, t: any) {
+
+  return (
+    <TableRow key={item.id}>
+      <TableCell className="font-mono text-sm">INV-{item.id}</TableCell>
+      <TableCell className="font-medium">{item.material.name}</TableCell>
+      <TableCell>
+        <Badge className={unitColors[item.material.unit]}>
+          {item.quantity} {unitLabels[item.material.unit]}
+        </Badge>
+      </TableCell>
+      <TableCell>
+        <Badge className={unitColors[item.material.unit]}>
+          {item.pure_gold} {unitLabels[item.material.unit]}
+        </Badge>
+      </TableCell>
+      <TableCell>{item.purity}%</TableCell>
+      <TableCell>{item.karat}K</TableCell>
+      <TableCell>{item.project ? item.project.name : ""}</TableCell>
+      <TableCell>
+        <div className="flex items-center gap-2">
+          <Building2 className="h-4 w-4 text-muted-foreground" />
+          <span>{item.organization.name}</span>
+        </div>
+      </TableCell>
+      <TableCell>{new Date(item.created_at).toLocaleDateString("uz-UZ")}</TableCell>
+      <TableCell className="flex justify-end space-x-2">
+        <Button variant="outline" size="sm" onClick={() => handleEditProduct(item)}>
+          <Edit className="h-4 w-4 mr-1" /> {t("materials.actions.edit")}
+        </Button>
+        <Button variant="destructive" size="sm" onClick={() => confirmDelete(item)}>
+          <Trash2 className="h-4 w-4 mr-1" /> {t("materials.actions.delete")}
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 }

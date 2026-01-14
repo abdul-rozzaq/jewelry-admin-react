@@ -10,36 +10,13 @@ import { Skeleton } from "@/src/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import QuickApprovalTransfers from "@/src/components/QuickApprovalTransfers";
+import { useGetTransactionsQuery } from "@/src/lib/service/transactionsApi";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
 
+  const { data: transactionsData, isLoading: transactionsLoading } = useGetTransactionsQuery({ status: "pending" });
   const { data, isLoading } = useGetStatsQuery();
-
-  // Recent activities with translations
-  const recentActivities = [
-    {
-      id: 1,
-      type: "transfer",
-      message: t("dashboard.activities.examples.transfer"),
-      time: t("dashboard.activities.times.5minAgo"),
-      status: "pending",
-    },
-    {
-      id: 2,
-      type: "completion",
-      message: t("dashboard.activities.examples.completion"),
-      time: t("dashboard.activities.times.15minAgo"),
-      status: "completed",
-    },
-    {
-      id: 3,
-      type: "alert",
-      message: t("dashboard.activities.examples.alert"),
-      time: t("dashboard.activities.times.1hAgo"),
-      status: "alert",
-    },
-  ];
 
   const weekdayNames = {
     1: t("dashboard.weekdays.mon"),
@@ -51,7 +28,6 @@ export default function DashboardPage() {
     7: t("dashboard.weekdays.sun"),
   };
 
-  // Mock data for charts
   const materialData = [
     { name: t("dashboard.materials.gold"), amount: 2500, unit: "gr" },
     { name: t("dashboard.materials.silver"), amount: 5200, unit: "gr" },
@@ -66,31 +42,31 @@ export default function DashboardPage() {
       }))
     : [];
 
-  const workshopStatus = [
-    { name: t("dashboard.workshopStates.active"), value: 8, color: "#059669" },
-    { name: t("dashboard.workshopStates.busy"), value: 3, color: "#f59e0b" },
-    { name: t("dashboard.workshopStates.stopped"), value: 2, color: "#dc2626" },
-  ];
-
   return (
     <div className="flex-1 space-y-6 p-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-balance">{t("dashboard.title")}</h1>
+          <h1 className="text-2xl font-bold text-balance sm:text-3xl">{t("dashboard.title")}</h1>
           <p className="text-muted-foreground">{t("dashboard.subtitle")}</p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
+        <div className="flex flex-col gap-2 sm:flex-row w-full sm:w-auto">
+          <Button variant="outline" size="sm" className="w-full sm:w-auto">
             <Eye className="h-4 w-4 mr-0.5" />
             {t("dashboard.report")}
           </Button>
-          <Link to="/transactions/create">
-            <Button size="sm">
+          <Link to="/transactions/create" className="w-full sm:w-auto">
+            <Button size="sm" className="w-full">
               <Plus className="h-4 w-4 mr-0.5" />
               {t("dashboard.newTransfer")}
             </Button>
           </Link>
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        <div className="md:col-span-3">
+          <QuickApprovalTransfers data={transactionsData} isLoading={transactionsLoading} />
         </div>
       </div>
 
@@ -103,7 +79,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-24 bg-muted" />
             ) : (
               <div className="text-2xl font-bold">{Number(data?.products.total ?? 0).toLocaleString()} g</div>
             )}
@@ -117,7 +93,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-24 bg-muted" />
             ) : (
               <div className="text-2xl font-bold">{Number(data?.gold.total ?? 0).toLocaleString()} g</div>
             )}
@@ -131,7 +107,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-24 bg-muted" />
             ) : (
               <div className="text-2xl font-bold">{Number(data?.loses.total ?? 0).toLocaleString()} g</div>
             )}
@@ -144,7 +120,7 @@ export default function DashboardPage() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-12" /> : <div className="text-2xl font-bold"> {data?.transactions.count} </div>}
+            {isLoading ? <Skeleton className="h-6 w-12 bg-muted" /> : <div className="text-2xl font-bold"> {data?.transactions.count} </div>}
           </CardContent>
         </Card> */}
 
@@ -153,7 +129,7 @@ export default function DashboardPage() {
             <CardTitle className="text-sm font-medium">{t("dashboard.stats.pending")}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>{isLoading ? <Skeleton className="h-6 w-10" /> : <div className="text-2xl font-bold">{ data?.organizations.count }</div>}</CardContent>
+          <CardContent>{isLoading ? <Skeleton className="h-6 w-10 bg-muted" /> : <div className="text-2xl font-bold">{ data?.organizations.count }</div>}</CardContent>
         </Card> */}
       </div>
 
@@ -199,12 +175,6 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom Section */}
-      <div className="grid gap-6 md:grid-cols-3">
-        {/* Quick Approval Transfers */}
-        <div className="md:col-span-3">
-          <QuickApprovalTransfers />
-        </div>
-      </div>
     </div>
   );
 }
