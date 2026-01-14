@@ -614,7 +614,9 @@ export default function ProductsPage() {
                       <TableHead className="text-right">{t("products.table.columns.actions")}</TableHead>
                     </TableRow>
                   </TableHeader>
-                  <TableBody>{filteredProducts.map((item: Product) => buildProductRowForDesktop(item, handleEditProduct, confirmDelete, t))}</TableBody>
+                  <TableBody>
+                    {filteredProducts.map((item: Product) => buildProductRowForDesktop(item, handleEditProduct, confirmDelete, t))}
+                  </TableBody>
                 </Table>
               </div>
 
@@ -759,7 +761,6 @@ export default function ProductsPage() {
 }
 
 function buildProductRowForMobile(item: Product, handleEditProduct: (product: Product) => void, confirmDelete: (product: Product) => void, t: any) {
-
   return (
     <Card key={item.id} className="overflow-hidden">
       <CardContent className="pt-4 pb-4">
@@ -841,7 +842,6 @@ function buildProductRowForMobile(item: Product, handleEditProduct: (product: Pr
 }
 
 function buildProductRowForDesktop(item: Product, handleEditProduct: (product: Product) => void, confirmDelete: (product: Product) => void, t: any) {
-
   return (
     <TableRow key={item.id}>
       <TableCell className="font-mono text-sm">INV-{item.id}</TableCell>
