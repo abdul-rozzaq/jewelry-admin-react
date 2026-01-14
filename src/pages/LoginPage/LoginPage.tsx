@@ -83,7 +83,7 @@ export default function LoginPage() {
                   value={formData.username}
                   onChange={handleChange}
                   className="pl-10 placeholder:text-gray-400"
-                  placeholder="abdurazzoq"
+                  placeholder="username"
                   disabled={isLoading}
                   required
                 />

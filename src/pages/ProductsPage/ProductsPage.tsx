@@ -1,30 +1,10 @@
 import { ChangeEvent, useMemo, useState } from "react";
 import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/src/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/src/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/src/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,18 +16,7 @@ import {
   AlertDialogTitle,
 } from "@/src/components/ui/alert-dialog";
 import { Badge } from "@/src/components/ui/badge";
-import {
-  Search,
-  Plus,
-  MoreHorizontal,
-  Edit,
-  Trash2,
-  Loader2,
-  Package2,
-  Building2,
-  Download,
-  FileSpreadsheet,
-} from "lucide-react";
+import { Search, Plus, MoreHorizontal, Edit, Trash2, Loader2, Package2, Building2, Download, FileSpreadsheet } from "lucide-react";
 import { toast } from "@/src/hooks/use-toast";
 import {
   useGetProductsQuery,
@@ -65,14 +34,7 @@ import {
 import { useGetProjectsQuery } from "@/src/lib/service/projectsApi";
 import { useDispatch } from "react-redux";
 import { unitColors, unitLabels } from "@/src/constants/units";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/src/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
 
 import type Material from "@/src/types/material";
 import type Product from "@/src/types/product";
@@ -90,19 +52,12 @@ export default function ProductsPage() {
   const organizationId = user?.organization?.id;
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [organizationFilter, setOrganizationFilter] = useState<string>(
-    organizationId?.toString() ?? "all"
-  );
+  const [organizationFilter, setOrganizationFilter] = useState<string>(organizationId?.toString() ?? "all");
   const [projectFilter, setProjectFilter] = useState<string>("all");
 
-  const {
-    data: products = [],
-    isLoading: productsLoading,
-    error: productsError,
-  } = useGetProductsQuery(undefined);
+  const { data: products = [], isLoading: productsLoading, error: productsError } = useGetProductsQuery(undefined);
   const { data: materials = [], isLoading: materialsLoading } = useGetMaterialsQuery(undefined);
-  const { data: organizations = [], isLoading: organizationsLoading } =
-    useGetOrganizationsQuery(undefined);
+  const { data: organizations = [], isLoading: organizationsLoading } = useGetOrganizationsQuery(undefined);
   const { data: projects = [], isLoading: projectsLoading } = useGetProjectsQuery(undefined);
 
   const [addProduct] = useAddProductMutation();
@@ -189,8 +144,7 @@ export default function ProductsPage() {
     const organizationName = item.organization?.name?.toLowerCase() ?? "";
     const idStr = item.id?.toString() ?? "";
 
-    const matchesSearch =
-      materialName.includes(search) || organizationName.includes(search) || idStr.includes(search);
+    const matchesSearch = materialName.includes(search) || organizationName.includes(search) || idStr.includes(search);
     if (!matchesSearch) return false;
 
     if (orgFilterNum != null && item.organization.id !== orgFilterNum) return false;
@@ -200,7 +154,7 @@ export default function ProductsPage() {
   });
 
   const handleCreateProducts = async () => {
-    if (!formData.quantity || !formData.material_id || !formData.pure_gold) {
+    if (!formData.quantity || !formData.material_id || (formData.is_composite && !formData.pure_gold)) {
       toast({
         title: t("products.common.error"),
         description: t("products.validation.allFieldsRequired"),
@@ -213,7 +167,7 @@ export default function ProductsPage() {
       quantity: formData.quantity,
       material_id: Number.parseInt(formData.material_id),
       is_composite: formData.is_composite,
-      pure_gold: formData.pure_gold,
+      pure_gold: formData.pure_gold || "0",
       source_description: formData.source_description || null,
     };
 
@@ -331,10 +285,7 @@ export default function ProductsPage() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `organization-report-${new Date().toISOString().split("T")[0]}.xlsx`
-      );
+      link.setAttribute("download", `organization-report-${new Date().toISOString().split("T")[0]}.xlsx`);
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -363,10 +314,7 @@ export default function ProductsPage() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `products-count-matrix-${new Date().toISOString().split("T")[0]}.xlsx`
-      );
+      link.setAttribute("download", `products-count-matrix-${new Date().toISOString().split("T")[0]}.xlsx`);
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -423,30 +371,12 @@ export default function ProductsPage() {
           <div className="flex items-center gap-2">
             {/* Download Reports */}
             <div className="flex items-center gap-2 mr-4">
-              <Button
-                variant="outline"
-                onClick={handleDownloadFullReport}
-                disabled={isDownloadingFullReport}
-                className="flex items-center gap-2"
-              >
-                {isDownloadingFullReport ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Download className="h-4 w-4" />
-                )}
+              <Button variant="outline" onClick={handleDownloadFullReport} disabled={isDownloadingFullReport} className="flex items-center gap-2">
+                {isDownloadingFullReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
                 {t("products.reports.downloadFullReport")}
               </Button>
-              <Button
-                variant="outline"
-                onClick={handleDownloadCountsReport}
-                disabled={isDownloadingCountsReport}
-                className="flex items-center gap-2"
-              >
-                {isDownloadingCountsReport ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <FileSpreadsheet className="h-4 w-4" />
-                )}
+              <Button variant="outline" onClick={handleDownloadCountsReport} disabled={isDownloadingCountsReport} className="flex items-center gap-2">
+                {isDownloadingCountsReport ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileSpreadsheet className="h-4 w-4" />}
                 {t("products.reports.downloadCountsReport")}
               </Button>
             </div>
@@ -504,9 +434,7 @@ export default function ProductsPage() {
                     <Label htmlFor="project">{t("products.form.project")}</Label>
                     <Select
                       value={formData.project_id || "none"}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, project_id: value === "none" ? "" : value })
-                      }
+                      onValueChange={(value) => setFormData({ ...formData, project_id: value === "none" ? "" : value })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder={t("products.form.selectProject")} />
@@ -530,9 +458,7 @@ export default function ProductsPage() {
                       step="0.01"
                       value={formData.quantity}
                       onChange={handleFormInputChange}
-                      placeholder={`${t("products.form.example")}: ${
-                        getSelectedMaterial()?.unit === "g" ? "100.5" : "10"
-                      }`}
+                      placeholder={`${t("products.form.example")}: ${getSelectedMaterial()?.unit === "g" ? "100.5" : "10"}`}
                       disabled={!formData.material_id}
                     />
                   </div>
@@ -541,9 +467,7 @@ export default function ProductsPage() {
                     <Label htmlFor="is_composite">{t("products.form.composite")}</Label>
                     <Select
                       value={formData.is_composite.toString()}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, is_composite: value === "true" })
-                      }
+                      onValueChange={(value) => setFormData({ ...formData, is_composite: value === "true" })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder={t("products.form.selectComposite")} />
@@ -570,9 +494,7 @@ export default function ProductsPage() {
                   )}
 
                   <div className="grid gap-2">
-                    <Label htmlFor="source_description">
-                      {t("products.form.sourceDescription")}
-                    </Label>
+                    <Label htmlFor="source_description">{t("products.form.sourceDescription")}</Label>
                     <Input
                       id="source_description"
                       type="text"
@@ -605,20 +527,12 @@ export default function ProductsPage() {
       <div className="flex items-center space-x-2">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder={t("products.search.placeholder")}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
-          />
+          <Input placeholder={t("products.search.placeholder")} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-8" />
         </div>
 
         {isBank && (
           <div className="flex items-center space-x-2">
-            <Select
-              value={organizationFilter?.toString() ?? ""}
-              onValueChange={(value) => setOrganizationFilter(value)}
-            >
+            <Select value={organizationFilter?.toString() ?? ""} onValueChange={(value) => setOrganizationFilter(value)}>
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder={t("products.filters.byOrganization")} />
               </SelectTrigger>
@@ -631,10 +545,7 @@ export default function ProductsPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select
-              value={projectFilter ?? "all"}
-              onValueChange={(value) => setProjectFilter(value)}
-            >
+            <Select value={projectFilter ?? "all"} onValueChange={(value) => setProjectFilter(value)}>
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder={t("products.filters.byProject")} />
               </SelectTrigger>
@@ -654,18 +565,14 @@ export default function ProductsPage() {
       <Card>
         <CardHeader>
           <CardTitle>{t("products.table.title")}</CardTitle>
-          <CardDescription>
-            {t("products.table.description", { count: products.length })}
-          </CardDescription>
+          <CardDescription>{t("products.table.description", { count: products.length })}</CardDescription>
         </CardHeader>
         <CardContent>
           {products.length === 0 ? (
             <div className="text-center py-12">
               <Package2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">{t("products.empty.title")}</h3>
-              <p className="text-muted-foreground mb-4">
-                {searchTerm ? t("products.empty.noResults") : t("products.empty.noData")}
-              </p>
+              <p className="text-muted-foreground mb-4">{searchTerm ? t("products.empty.noResults") : t("products.empty.noData")}</p>
               {searchTerm && (
                 <Button variant="outline" onClick={() => setSearchTerm("")}>
                   {t("products.empty.clearSearch")}
@@ -686,9 +593,7 @@ export default function ProductsPage() {
                   <TableHead>{t("products.table.columns.project")}</TableHead>
                   <TableHead>{t("products.table.columns.organization")}</TableHead>
                   <TableHead>{t("products.table.columns.createdAt")}</TableHead>
-                  <TableHead className="text-right">
-                    {t("products.table.columns.actions")}
-                  </TableHead>
+                  <TableHead className="text-right">{t("products.table.columns.actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -751,10 +656,7 @@ export default function ProductsPage() {
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="edit-material">{t("products.form.material")} *</Label>
-              <Select
-                value={formData.material_id}
-                onValueChange={(value) => setFormData({ ...formData, material_id: value })}
-              >
+              <Select value={formData.material_id} onValueChange={(value) => setFormData({ ...formData, material_id: value })}>
                 <SelectTrigger>
                   <SelectValue placeholder={t("products.form.selectMaterial")} />
                 </SelectTrigger>
@@ -772,9 +674,7 @@ export default function ProductsPage() {
               <Label htmlFor="edit-project">{t("products.form.project")}</Label>
               <Select
                 value={formData.project_id || "none"}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, project_id: value === "none" ? "" : value })
-                }
+                onValueChange={(value) => setFormData({ ...formData, project_id: value === "none" ? "" : value })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={t("products.form.selectProject")} />
@@ -798,9 +698,7 @@ export default function ProductsPage() {
                 step="0.01"
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                placeholder={`${t("products.form.example")}: ${
-                  getSelectedMaterial()?.unit === "g" ? "100.5" : "10"
-                }`}
+                placeholder={`${t("products.form.example")}: ${getSelectedMaterial()?.unit === "g" ? "100.5" : "10"}`}
               />
             </div>
 
@@ -820,9 +718,7 @@ export default function ProductsPage() {
               <Label htmlFor="edit-is_composite">{t("products.form.composite")}</Label>
               <Select
                 value={formData.is_composite.toString()}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, is_composite: value === "true" })
-                }
+                onValueChange={(value) => setFormData({ ...formData, is_composite: value === "true" })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={t("products.form.selectComposite")} />
@@ -835,9 +731,7 @@ export default function ProductsPage() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="edit-source_description">
-                {t("products.form.sourceDescription")}
-              </Label>
+              <Label htmlFor="edit-source_description">{t("products.form.sourceDescription")}</Label>
               <Input
                 id="edit-source_description"
                 type="text"
@@ -869,16 +763,11 @@ export default function ProductsPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t("products.dialogs.delete.title")}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t("products.dialogs.delete.description")}
-            </AlertDialogDescription>
+            <AlertDialogDescription>{t("products.dialogs.delete.description")}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>{t("products.common.no")}</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => selectedProduct && handleDeleteProducts(selectedProduct.id)}
-              className="bg-red-600 hover:bg-red-700"
-            >
+            <AlertDialogAction onClick={() => selectedProduct && handleDeleteProducts(selectedProduct.id)} className="bg-red-600 hover:bg-red-700">
               {t("products.dialogs.delete.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>

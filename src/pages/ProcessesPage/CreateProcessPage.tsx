@@ -2,10 +2,9 @@ import type React from "react";
 import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/src/components/ui/select";
-import { Trash2, Plus, ArrowLeft } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/components/ui/select";
+import { ArrowLeft } from "lucide-react";
 import { getCurrentUser } from "@/src/lib/auth";
 import { toast } from "@/src/hooks/use-toast";
 import { useTranslation } from "react-i18next";
@@ -114,7 +113,7 @@ export default function CreateProcessPage() {
 
     try {
       const payload = {
-        process_type: selectedType,
+        process_type: selectedType?.id,
         project: selectedProject,
         inputs: inputs.map((i) => ({
           product: i.product,
