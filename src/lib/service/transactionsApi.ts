@@ -29,6 +29,11 @@ export const TransactionsApi = createApi({
       providesTags: (result, error, id) => [{ type: "Transactions", id }],
     }),
 
+    getTransactionForDashboard: builder.query({
+      query: () => `/transactions/dashboard/`,
+      // providesTags: ["Transactions"],
+    }),
+
     addTransaction: builder.mutation({
       query: (data) => ({
         url: `/transactions/create/`,
@@ -52,9 +57,4 @@ export const TransactionsApi = createApi({
   }),
 });
 
-export const {
-  useGetTransactionsQuery,
-  useGetTransactionByIdQuery,
-  useAddTransactionMutation,
-  useAcceptTransactionMutation,
-} = TransactionsApi;
+export const { useGetTransactionsQuery, useGetTransactionByIdQuery, useAddTransactionMutation, useAcceptTransactionMutation, useGetTransactionForDashboardQuery } = TransactionsApi;

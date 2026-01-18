@@ -10,12 +10,12 @@ import { Skeleton } from "@/src/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import QuickApprovalTransfers from "@/src/components/QuickApprovalTransfers";
-import { useGetTransactionsQuery } from "@/src/lib/service/transactionsApi";
+import { useGetTransactionForDashboardQuery } from "@/src/lib/service/transactionsApi";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
 
-  const { data: transactionsData, isLoading: transactionsLoading } = useGetTransactionsQuery({ status: "pending" });
+  const { data: transactionsData, isLoading: transactionsLoading } = useGetTransactionForDashboardQuery({});
   const { data, isLoading } = useGetStatsQuery();
 
   const weekdayNames = {
@@ -113,24 +113,6 @@ export default function DashboardPage() {
             )}
           </CardContent>
         </Card>
-
-        {/* <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("dashboard.stats.todayTransfers")}</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            {isLoading ? <Skeleton className="h-6 w-12 bg-muted" /> : <div className="text-2xl font-bold"> {data?.transactions.count} </div>}
-          </CardContent>
-        </Card> */}
-
-        {/* <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("dashboard.stats.pending")}</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>{isLoading ? <Skeleton className="h-6 w-10 bg-muted" /> : <div className="text-2xl font-bold">{ data?.organizations.count }</div>}</CardContent>
-        </Card> */}
       </div>
 
       {/* Charts Section */}
