@@ -149,24 +149,24 @@ export default function CreateProcessPage() {
 
   return (
     <div className="flex-1 space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <Button variant="ghost" size="sm" asChild>
             <Link to="/processes">
               <ArrowLeft className="h-4 w-4 mr-0.5" />
-              {t("createProcess.actions.back")}
+              <span className="hidden sm:inline">{t("createProcess.actions.back")}</span>
             </Link>
           </Button>
           <div>
-            <h1 className="text-3xl font-bold">{t("createProcess.title")}</h1>
-            <p className="text-muted-foreground">{t("createProcess.subtitle")}</p>
+            <h1 className="text-2xl md:text-3xl font-bold">{t("createProcess.title")}</h1>
+            <p className="text-sm md:text-base text-muted-foreground">{t("createProcess.subtitle")}</p>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button type="button" variant="outline" asChild>
+        <div className="flex gap-2 w-full md:w-auto">
+          <Button type="button" variant="outline" asChild className="flex-1 md:flex-none">
             <Link to="/processes">{t("createProcess.actions.cancel")}</Link>
           </Button>
-          <Button type="submit" onClick={handleSubmit} disabled={!isFormValid() || isSubmitting}>
+          <Button type="submit" onClick={handleSubmit} disabled={!isFormValid() || isSubmitting} className="flex-1 md:flex-none">
             {isSubmitting ? t("createProcess.submit.creating") : t("createProcess.submit.create")}
           </Button>
         </div>
