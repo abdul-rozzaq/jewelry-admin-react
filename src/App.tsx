@@ -19,6 +19,7 @@ import EditProcessPage from "./pages/ProcessesPage/EditProcessPage";
 import { ThemeProvider } from "./context/ThemeContext";
 import TransactionDetailPage from "./pages/TransactionsPage/TransactionDetailPage";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
+import NotificationsPage from "./pages/NotificationsPage/NotificationsPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -53,6 +54,8 @@ function App() {
               </Route>
 
               <Route path="/users" element={<UsersPage />} />
+
+              <Route path="/notifications" element={<NotificationsPage />} />
 
               <Route path="/processes">
                 <Route index element={<ProcessesPage />} />

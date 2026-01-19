@@ -36,7 +36,6 @@ import type { User } from "@/src/types/user";
 import { useTranslation } from "react-i18next";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();

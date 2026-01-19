@@ -8,6 +8,7 @@ import { TransactionsApi } from "./service/transactionsApi";
 import { ProcessesApi } from "./service/processesApi";
 import { DashboardApi } from "./service/dashboardApi";
 import { ProjectsApi } from "./service/projectsApi";
+import { NotificationsApi } from "./service/notificationsApi";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     [ProcessesApi.reducerPath]: ProcessesApi.reducer,
     [DashboardApi.reducerPath]: DashboardApi.reducer,
     [ProjectsApi.reducerPath]: ProjectsApi.reducer,
+    [NotificationsApi.reducerPath]: NotificationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -31,7 +33,8 @@ const store = configureStore({
       TransactionsApi.middleware,
       ProcessesApi.middleware,
       DashboardApi.middleware,
-      ProjectsApi.middleware
+      ProjectsApi.middleware,
+      NotificationsApi.middleware,
     ),
 });
 

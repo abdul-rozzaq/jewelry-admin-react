@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import QuickApprovalTransfers from "@/src/components/QuickApprovalTransfers";
 import { useGetTransactionForDashboardQuery } from "@/src/lib/service/transactionsApi";
+import PushNotificationManager from "@/src/components/PushNotificationManager";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
