@@ -783,7 +783,7 @@ function buildProductRowForMobile(item: Product, handleEditProduct: (product: Pr
             <div>
               <p className="text-xs text-muted-foreground">{t("products.table.columns.quantity")}</p>
               <Badge className={unitColors[item.material.unit]} variant="outline">
-                {item.quantity} {unitLabels[item.material.unit]}
+                {toFixed(item.quantity)} {unitLabels[item.material.unit]}
               </Badge>
             </div>
           </div>
@@ -792,12 +792,12 @@ function buildProductRowForMobile(item: Product, handleEditProduct: (product: Pr
             <div>
               <p className="text-xs text-muted-foreground">{t("products.table.columns.pureGold")}</p>
               <Badge className={unitColors[item.material.unit]} variant="outline">
-                {item.pure_gold} {unitLabels[item.material.unit]}
+                {toFixed(item.pure_gold)} {unitLabels[item.material.unit]}
               </Badge>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">{t("products.table.columns.purity")}</p>
-              <p className="font-medium text-sm">{item.purity}%</p>
+              <p className="font-medium text-sm">{toFixed(item.purity)}%</p>
             </div>
           </div>
 
@@ -848,15 +848,17 @@ function buildProductRowForDesktop(item: Product, handleEditProduct: (product: P
       <TableCell className="font-medium">{item.material.name}</TableCell>
       <TableCell>
         <Badge className={unitColors[item.material.unit]}>
-          {item.quantity} {unitLabels[item.material.unit]}
+          {toFixed(item.quantity)} {unitLabels[item.material.unit]}
         </Badge>
       </TableCell>
       <TableCell>
-        <Badge className={unitColors[item.material.unit]}>
-          {item.pure_gold} {unitLabels[item.material.unit]}
-        </Badge>
+        {item.is_composite && (
+          <Badge className={unitColors[item.material.unit]}>
+            {toFixed(item.pure_gold)} {unitLabels[item.material.unit]}
+          </Badge>
+        )}
       </TableCell>
-      <TableCell>{item.purity}%</TableCell>
+      <TableCell>{toFixed(item.purity)}%</TableCell>
       <TableCell>{item.karat}K</TableCell>
       <TableCell>{item.project ? item.project.name : ""}</TableCell>
       <TableCell>
@@ -877,3 +879,7 @@ function buildProductRowForDesktop(item: Product, handleEditProduct: (product: P
     </TableRow>
   );
 }
+
+const toFixed = (num: string, digits: number = 3) => {
+  return (+num).toFixed(digits);
+};

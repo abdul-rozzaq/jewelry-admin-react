@@ -39,7 +39,8 @@ const NotificationsPage: React.FC = () => {
 
   const handleMarkAsRead = async (notificationId: number) => {
     try {
-      await markAsRead({ notificationId }).unwrap();
+      await markAsRead(notificationId).unwrap();
+
       toast({
         title: "Muvaffaqiyat",
         description: "Bildirishnoma o'qildi deb belgilandi",
@@ -108,35 +109,7 @@ const NotificationsPage: React.FC = () => {
               ))
             ) : notifications && notifications.length > 0 ? (
               notifications.map((notification: BackendNotification) => (
-                <div
-                  key={notification.id}
-                  className={`flex items-start gap-2 px-3 py-2 text-sm transition ${notification.status === "unread" ? "bg-blue-50" : "opacity-70"}`}
-                >
-                  <div className="mt-0.5 text-base">{getTypeIcon(notification.notification_type)}</div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1">
-                      <p className="font-medium truncate">{notification.title}</p>
-                      {notification.status === "unread" && <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />}
-                    </div>
-
-                    {notification.message && <p className="text-xs text-muted-foreground truncate">{notification.message}</p>}
-
-                    <span className="block mt-0.5 text-[11px] text-muted-foreground">{formatTime(notification.created_at)}</span>
-                  </div>
-
-                  {notification.status === "unread" && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-6 w-6"
-                      onClick={() => handleMarkAsRead(notification.id)}
-                      title="O'qildi deb belgilash"
-                    >
-                      <Check className="h-3 w-3" />
-                    </Button>
-                  )}
-                </div>
+                <NotificationItem key={notification.id} notification={notification} onMarkAsRead={handleMarkAsRead} />
               ))
             ) : (
               <div className="p-6 text-center text-sm text-muted-foreground">Bildirishnomalar yo'q</div>
@@ -206,6 +179,34 @@ const formatTime = (dateString: string) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+};
+
+const NotificationItem = ({ notification, onMarkAsRead }: { notification: BackendNotification; onMarkAsRead: (id: number) => void }) => {
+  return (
+    <div
+      key={notification.id}
+      className={`flex items-start gap-2 px-3 py-2 text-sm transition ${notification.status === "unread" ? "bg-blue-50 dark:bg-blue-950" : "opacity-70"}`}
+    >
+      <div className="mt-0.5 text-base">{getTypeIcon(notification.notification_type)}</div>
+
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1">
+          <p className="font-medium truncate text-base">{notification.title}</p>
+          {notification.status === "unread" && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
+        </div>
+
+        {notification.message && <p className="text-sm text-muted-foreground truncate">{notification.message}</p>}
+
+        <span className="block mt-0.5 text-xs text-muted-foreground">{formatTime(notification.created_at)}</span>
+      </div>
+
+      {notification.status === "unread" && (
+        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => onMarkAsRead(notification.id)} title="O'qildi deb belgilash">
+          <Check className="h-3 w-3" />
+        </Button>
+      )}
+    </div>
+  );
 };
 
 export default NotificationsPage;

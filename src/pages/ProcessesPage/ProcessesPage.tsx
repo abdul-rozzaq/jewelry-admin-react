@@ -88,8 +88,6 @@ export default function ProcessesPage() {
   };
 
   const getStatusBadge = (status: string) => {
-    console.log(status);
-
     switch (status) {
       case "completed":
         return (
@@ -106,11 +104,6 @@ export default function ProcessesPage() {
           </Badge>
         );
     }
-  };
-
-  // Helper function to get inventory item by id
-  const getInventoryById = (id: number) => {
-    return inventory.find((inv) => inv.id === id);
   };
 
   // Helper function to get material by id

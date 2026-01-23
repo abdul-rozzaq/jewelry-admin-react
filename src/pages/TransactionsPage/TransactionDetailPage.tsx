@@ -175,7 +175,7 @@ export default function TransactionDetailPage() {
             </div>
 
             {canConfirm && (
-              <Button onClick={() => setIsConfirmDialogOpen(true)} disabled={isAccepting} className="bg-green-600 hover:bg-green-700 md:w-auto">
+              <Button onClick={() => setIsConfirmDialogOpen(true)} disabled={isAccepting} className="bg-primary hover:bg-primary/90 md:w-auto">
                 {isAccepting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle className="w-4 h-4 mr-2" />}
                 {t("TransferDetail.actions.confirm")}
               </Button>
@@ -272,26 +272,26 @@ export default function TransactionDetailPage() {
         {isConfirmDialogOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div className="fixed inset-0 bg-black/50" onClick={() => !isAccepting && setIsConfirmDialogOpen(false)}></div>
-            <div className="relative bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+            <div className="relative bg-card rounded-lg shadow-lg max-w-md w-full p-6 border">
               {isAccepting ? (
                 <div className="text-center py-8">
-                  <Loader2 className="w-8 h-8 animate-spin text-green-600 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">{t("TransferDetail.dialogs.confirming.title")}</h3>
-                  <p className="text-gray-600">{t("TransferDetail.dialogs.confirming.description")}</p>
+                  <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">{t("TransferDetail.dialogs.confirming.title")}</h3>
+                  <p className="text-muted-foreground">{t("TransferDetail.dialogs.confirming.description")}</p>
                 </div>
               ) : (
                 <>
                   <div className="text-center mb-6">
-                    <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                    <h2 className="text-xl font-medium text-gray-900 mb-2">{t("TransferDetail.dialogs.confirmTransfer.title")}</h2>
-                    <p className="text-gray-600">{t("TransferDetail.dialogs.confirmTransfer.description")}</p>
+                    <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <h2 className="text-xl font-medium text-foreground mb-2">{t("TransferDetail.dialogs.confirmTransfer.title")}</h2>
+                    <p className="text-muted-foreground">{t("TransferDetail.dialogs.confirmTransfer.description")}</p>
                   </div>
 
                   <div className="flex gap-3">
                     <Button variant="outline" onClick={() => setIsConfirmDialogOpen(false)} className="flex-1">
                       {t("TransferDetail.actions.cancel")}
                     </Button>
-                    <Button onClick={handleConfirmTransfer} className="flex-1 bg-green-600 hover:bg-green-700">
+                    <Button onClick={handleConfirmTransfer} className="flex-1 bg-primary hover:bg-primary/90">
                       {t("TransferDetail.actions.confirm")}
                     </Button>
                   </div>
