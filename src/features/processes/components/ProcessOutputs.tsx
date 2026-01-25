@@ -43,7 +43,7 @@ export function ProcessOutputs({ outputs, selectedType, materials, onAddOutput, 
                 <SelectContent>
                   {materials.map((m: Material) => (
                     <SelectItem key={m.id} value={m.id.toString()}>
-                      {m.name} {m.unit} ({Number(m.purity).toFixed(1)})
+                      {m.name} {m.unit} - {parseFloat(m.purity) * 10}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -54,6 +54,7 @@ export function ProcessOutputs({ outputs, selectedType, materials, onAddOutput, 
                 type="number"
                 min="0"
                 step="0.001"
+                disabled={output.use_all_material}
                 placeholder={t("createProcess.outputs.quantity")}
                 value={output.quantity ?? ""}
                 onChange={(e) => onUpdateOutput(i, "quantity", parseFloat(e.target.value) ?? null)}

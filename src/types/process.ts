@@ -4,6 +4,12 @@ import Product from "./product";
 import Project from "./project";
 import { ProcessTypes } from "../features/processes/processes.constants";
 
+export interface ProcessTemplateItem {
+  id: number;
+  material: Material;
+  use_all_material: boolean;
+}
+
 export interface ProcessTemplate {
   id: number;
   name: {
@@ -11,8 +17,8 @@ export interface ProcessTemplate {
     en: string;
     tr: string;
   };
-  inputs: Material[];
-  outputs: Material[];
+  inputs: ProcessTemplateItem[];
+  outputs: ProcessTemplateItem[];
 }
 
 export interface ProcessType {

@@ -17,7 +17,7 @@ import { useGetProjectsQuery } from "@/src/lib/service/projectsApi";
 import type Product from "@/src/types/product";
 import type Project from "@/src/types/project";
 import { GoldCalculationCard } from "@/src/features/processes/components/GoldCalculationCard";
-import { ProcessType } from "@/src/types/process";
+import { ProcessTemplateItem, ProcessType } from "@/src/types/process";
 import { ProcessInputs } from "@/src/features/processes/components/ProcessInputs";
 import { ProcessOutputs } from "@/src/features/processes/components/ProcessOutputs";
 import { useProcessCalculations } from "@/src/features/processes/hooks/useProcessCalculations";
@@ -54,7 +54,7 @@ export default function CreateProcessPage() {
   }, [materials]);
 
   const [selectedType, setSelectedType] = useState<ProcessType | null>(null);
-  const [inputs, setInputs] = useState<ProcessInputCreate[]>([{ material: null, quantity: null, product: null }]);
+  const [inputs, setInputs] = useState<ProcessInputCreate[]>([{ material: null, quantity: null, product: null, use_all_material: false }]);
   const [outputs, setOutputs] = useState<ProcessOutputCreate[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
@@ -67,34 +67,36 @@ export default function CreateProcessPage() {
 
       const template = selectedType.template;
 
-      const mappedInputs = (template.inputs || []).map((inp: Material) => {
-        const product = productsMap[inp.id];
+      const mappedInputs = (template.inputs || [] as ProcessTemplateItem[]).map((inp: ProcessTemplateItem) => {
+        const product = productsMap[inp.material.id];
 
         return {
           product: product?.id ?? null,
-          material: product ? null : inp.id,
-          quantity: 0,
+          material: product ? null : inp.material.id,
+          quantity: inp.use_all_material && product ? product.quantity : null,
+          use_all_material: inp.use_all_material,
         };
       });
 
-      const mappedOutputs = (template.outputs || []).map((out: Material) => ({
-        material: out.id ?? null,
+      const mappedOutputs = (template.outputs || []  as ProcessTemplateItem[]).map((out: ProcessTemplateItem) => ({
+        material: out.material.id ?? null,
         quantity: 0,
+        use_all_material: out.use_all_material,
       }));
 
-      setInputs(mappedInputs.length ? mappedInputs : [{ material: null, quantity: null, product: null }]);
+      setInputs(mappedInputs.length ? mappedInputs : [{ material: null, quantity: null, product: null, use_all_material: false }]);
       setOutputs(mappedOutputs.length ? mappedOutputs : []);
     }
   }, [selectedType, processTypes, products]);
 
-  const addInput = () => setInputs([...inputs, { material: null, quantity: null, product: null }]);
+  const addInput = () => setInputs([...inputs, { material: null, quantity: null, product: null, use_all_material: false }]);
   const removeInput = (i: number) => setInputs(inputs.filter((_, idx) => idx !== i));
 
   const updateInput = (i: number, key: keyof ProcessInputCreate, val: any) => {
     setInputs((prev) => prev.map((item, idx) => (idx === i ? { ...item, [key]: val } : item)));
   };
-
-  const addOutput = () => setOutputs([...outputs, { material: null, quantity: null }]);
+  
+  const addOutput = () => setOutputs([...outputs, { material: null, quantity: null, use_all_material: false }]);
   const removeOutput = (i: number) => setOutputs(outputs.filter((_, idx) => idx !== i));
   const updateOutput = (i: number, key: keyof ProcessOutputCreate, val: any) => {
     setOutputs((prev) => prev.map((item, idx) => (idx === i ? { ...item, [key]: val } : item)));
@@ -256,9 +258,11 @@ export interface ProcessInputCreate {
   material: number | null;
   product: number | null;
   quantity: number | null;
+  use_all_material: boolean;
 }
 
 export interface ProcessOutputCreate {
   material: number | null;
   quantity: number | null;
+  use_all_material: boolean;
 }

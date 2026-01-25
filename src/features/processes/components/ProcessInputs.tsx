@@ -85,6 +85,7 @@ export function ProcessInputs({ inputs, selectedType, products, materials, onAdd
                   type="number"
                   min="0"
                   step="0.001"
+                  disabled={input.use_all_material}
                   placeholder={t("createProcess.inputs.quantity")}
                   value={input.quantity ?? ""}
                   onChange={(e) => onUpdateInput(i, "quantity", parseFloat(e.target.value) ?? null)}
