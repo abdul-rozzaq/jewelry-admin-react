@@ -19,7 +19,7 @@ const getStatusBadge = (status: string, t: any) => {
     case "accepted":
     case "confirmed":
       return (
-        <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+        <Badge variant="default">
           <CheckCircle className="h-3 w-3 mr-1" />
           {t("transfers.status.accepted")}
         </Badge>
@@ -27,7 +27,7 @@ const getStatusBadge = (status: string, t: any) => {
     case "pending":
     case "pending_sender":
       return (
-        <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
+        <Badge variant="secondary">
           <Clock className="h-3 w-3 mr-1" />
           {t("transfers.status.pending")}
         </Badge>

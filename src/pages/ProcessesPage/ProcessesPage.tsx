@@ -91,14 +91,14 @@ export default function ProcessesPage() {
     switch (status) {
       case "completed":
         return (
-          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+          <Badge variant="secondary">
             <CheckCircle className="h-3 w-3 mr-1" />
             {t("processes.status.completed")}
           </Badge>
         );
       case "in process":
         return (
-          <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+          <Badge variant="default">
             <Settings className="h-3 w-3 mr-1" />
             {t("processes.status.inProgress")}
           </Badge>
@@ -326,11 +326,15 @@ function buildProcessRowForMobile(
           <div className="grid grid-cols-2 gap-3">
             <div>
               <p className="text-xs sm:text-sm text-muted-foreground">{t("processes.table.columns.totalIn")}</p>
-              <Badge className="bg-blue-50 text-blue-700 text-xs">{Number(process.total_in).toFixed(3)} g</Badge>
+              <Badge variant="secondary" className="text-xs">
+                {Number(process.total_in).toFixed(3)} g
+              </Badge>
             </div>
             <div>
               <p className="text-xs sm:text-sm text-muted-foreground">{t("processes.table.columns.totalOut")}</p>
-              <Badge className="bg-green-50 text-green-700 text-xs">{Number(process.total_out).toFixed(3)} g</Badge>
+              <Badge variant="default" className="text-xs">
+                {Number(process.total_out).toFixed(3)} g
+              </Badge>
             </div>
           </div>
 
@@ -454,16 +458,16 @@ function buildProcessRowForDesktop(
         )}
       </TableCell>
       <TableCell>
-        <Badge className="bg-blue-50 text-blue-700">{Number(process.total_in).toFixed(3)} g</Badge>
+        <Badge variant="secondary">{Number(process.total_in).toFixed(3)} g</Badge>
       </TableCell>
       <TableCell>
-        <Badge className="bg-green-50 text-green-700">{Number(process.total_out).toFixed(3)} g</Badge>
+        <Badge variant="default">{Number(process.total_out).toFixed(3)} g</Badge>
       </TableCell>
       <TableCell>
         {(() => {
           const diff = Number(process.total_in) - Number(process.total_out);
           const isLoss = diff >= 0;
-          return <Badge className={isLoss ? "bg-red-50 text-red-700" : "bg-orange-50 text-orange-700"}>{Math.abs(diff).toFixed(3)} g</Badge>;
+          return <Badge variant={isLoss ? "destructive" : "outline"}>{Math.abs(diff).toFixed(3)} g</Badge>;
         })()}
       </TableCell>
       <TableCell>{getStatusBadge(process.status)}</TableCell>
